@@ -2438,6 +2438,386 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* ==========================================================================
+   8. Mobile layout and touch ergonomics
+   ========================================================================== */
+@media (max-width: 768px) {
+  .hud-wrapper {
+    padding: 0 12px 16px;
+  }
 
+  .hud-header.compact-hud-header {
+    gap: 12px;
+    margin-top: 8px;
+    margin-bottom: 14px;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .hud-header-top,
+  .header-utilities {
+    width: 100%;
+  }
+
+  .hud-header-top {
+    align-items: flex-start;
+  }
+
+  .header-utilities {
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .deliverables-hub {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .deliverable-btn {
+    min-height: 44px;
+    padding: 8px;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.25;
+  }
+
+  .header-telemetry-tools {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .clock-ticker,
+  .btn-audio-compact {
+    min-height: 44px;
+  }
+
+  .hud-nav {
+    justify-content: flex-start;
+    margin-inline: -12px;
+    width: calc(100% + 24px);
+    padding: 0 12px 8px;
+    scroll-padding-inline: 12px;
+    scrollbar-width: thin;
+  }
+
+  .nav-tab {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 10px 14px;
+    scroll-snap-align: start;
+  }
+
+  .hud-grid,
+  .briefing-hero,
+  .hardware-step-grid,
+  .telemetry-dashboard-layout {
+    gap: 16px;
+  }
+
+  .briefing-hero {
+    margin-bottom: 20px;
+  }
+
+  .hud-panel,
+  .hud-panel-light {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .lab-workflow-container,
+  .visual-guide-box {
+    padding: 18px;
+  }
+
+  .panel-header,
+  .workflow-header,
+  .visual-guide-header,
+  .flashcards-header-bar,
+  .autofill-panel,
+  .hud-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .panel-header {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .panel-title,
+  .workflow-title,
+  .visual-guide-title {
+    line-height: 1.35;
+  }
+
+  .workflow-grid,
+  .flashcard-grid,
+  .visual-legend-grid,
+  .layer-stack-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .space-suit-visualizer {
+    height: clamp(240px, 72vw, 340px);
+  }
+
+  .hud-input-group,
+  .sim-stats-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sim-stats-container > * {
+    grid-column: auto !important;
+  }
+
+  .timer-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .digital-hud-clock {
+    max-width: 100%;
+    font-size: clamp(2rem, 12vw, 2.8rem);
+    padding: 10px 16px;
+  }
+
+  .telemetry-export-bar,
+  .filter-btn-group {
+    width: 100%;
+  }
+
+  .telemetry-export-bar .btn-hud,
+  .filter-btn-group .btn-filter {
+    flex: 1 1 140px;
+    min-height: 44px;
+  }
+
+  .telemetry-table {
+    min-width: 680px;
+  }
+
+  .risk-matrix-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .hud-panel > div[style*="height: 320px"] {
+    height: 240px !important;
+  }
+
+  .math-equation,
+  .katex-display {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 12px;
+  }
+
+  .modal-card {
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+    padding: 22px 18px;
+    border-radius: 16px 16px 10px 10px;
+  }
+
+  .hud-notification {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+  }
+
+  .footer-link-group {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hud-wrapper {
+    padding-inline: 8px;
+  }
+
+  .hud-header.compact-hud-header {
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 9px;
+  }
+
+  .logo-container {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .logo-text h1 {
+    font-size: 1.1rem;
+  }
+
+  .logo-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .logo-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .logo-text span {
+    font-size: 0.56rem;
+  }
+
+  .header-status-pill {
+    margin-left: auto;
+    padding: 3px 7px;
+    font-size: 0.62rem;
+  }
+
+  .deliverables-hub {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 3px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .deliverable-btn {
+    flex: 0 0 auto;
+    min-height: 38px;
+    justify-content: center;
+    padding: 6px 10px;
+    font-size: 0.68rem;
+    white-space: nowrap;
+  }
+
+  .header-telemetry-tools {
+    align-items: center;
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .clock-ticker,
+  .btn-audio-compact {
+    flex: 1 1 0;
+    min-height: 38px;
+    justify-content: center;
+    padding-inline: 7px;
+    font-size: 0.64rem;
+  }
+
+  .hud-nav {
+    margin-inline: -10px;
+    width: calc(100% + 20px);
+    padding-inline: 10px;
+  }
+
+  .hud-panel,
+  .hud-panel-light,
+  .lab-workflow-container,
+  .visual-guide-box,
+  .quiz-card {
+    padding: 14px;
+  }
+
+  .hud-grid,
+  .briefing-hero,
+  .hardware-step-grid,
+  .telemetry-dashboard-layout,
+  .quiz-wrapper {
+    gap: 12px;
+  }
+
+  .panel-header {
+    padding-bottom: 9px;
+    margin-bottom: 12px;
+  }
+
+  .nav-tab {
+    min-height: 40px;
+    padding: 8px 11px;
+    font-size: 0.68rem;
+  }
+
+  .briefing-lead {
+    font-size: 1rem;
+  }
+
+  .briefing-text,
+  .quiz-question-text,
+  .quiz-option-label,
+  .hud-input,
+  .hud-select {
+    font-size: 1rem;
+  }
+
+  .step-card {
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .workflow-step-card {
+    min-width: 0;
+  }
+
+  .visual-schematic-svg {
+    min-height: 180px;
+  }
+
+  .flashcard {
+    height: 250px;
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    padding: 18px;
+  }
+
+  .quiz-option-label {
+    min-height: 48px;
+    padding: 12px;
+  }
+
+  .quiz-option-label input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+  }
+}
+
+@media (pointer: coarse) {
+  button,
+  select,
+  input[type="button"],
+  input[type="submit"],
+  .workflow-nav-btn,
+  .flashcard {
+    touch-action: manipulation;
+  }
+
+  .btn-hud,
+  .btn-filter,
+  .btn-close-modal {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 
