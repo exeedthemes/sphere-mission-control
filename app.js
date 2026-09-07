@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnLogTelemetry: document.getElementById('btn-log-telemetry'),
     btnAutofill: document.getElementById('btn-autofill'),
     btnClearTelemetry: document.getElementById('btn-clear-telemetry'),
+    btnPrintTelemetry: document.getElementById('btn-print-telemetry'),
     telemetryTbody: document.getElementById('telemetry-tbody'),
     emptyTableMsg: document.getElementById('empty-table-message'),
     telemetryModelBadge: document.getElementById('current-telemetry-model-badge'),
@@ -1175,6 +1176,135 @@ document.addEventListener('DOMContentLoaded', () => {
       logToConsole("SYS: Telemetry dataset exported as CSV file successfully.");
       showNotification("CSV Exported", "success");
     });
+  }
+
+  // Print a clean report document instead of printing the Mission Control UI.
+  function printTelemetryLogbook() {
+    playClickSound();
+
+    const model = state.modelConstants[state.selectedModel] || { name: 'Unselected', k: 0 };
+    const initialTemp = elements.simT0 ? parseFloat(elements.simT0.value) : 80;
+    const environmentTemp = elements.simTenv ? parseFloat(elements.simTenv.value) : 0;
+    const safeInitialTemp = Number.isFinite(initialTemp) ? initialTemp : 80;
+    const safeEnvironmentTemp = Number.isFinite(environmentTemp) ? environmentTemp : 0;
+    const reportDate = new Intl.DateTimeFormat(undefined, {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    }).format(new Date());
+
+    const rows = state.telemetryPoints.length > 0
+      ? state.telemetryPoints.map((point, index) => {
+          const predicted = calculateNewtonTemperature(point.time, model.k);
+          const difference = point.temp - predicted;
+          const differenceText = `${difference >= 0 ? '+' : ''}${difference.toFixed(2)}`;
+          return `<tr>
+            <td>${index + 1}</td>
+            <td>${point.time.toFixed(1)}</td>
+            <td>${point.temp.toFixed(2)}</td>
+            <td>${predicted.toFixed(2)}</td>
+            <td>${differenceText}</td>
+          </tr>`;
+        }).join('')
+      : '<tr><td colspan="5" class="empty">No telemetry measurements recorded.</td></tr>';
+
+    let chartMarkup = '';
+    const chartCanvas = document.getElementById('telemetryChart');
+    if (chartCanvas) {
+      try {
+        const chartImage = chartCanvas.toDataURL('image/png');
+        chartMarkup = `<section class="chart"><h2>Model vs Measurement</h2><img src="${chartImage}" alt="Telemetry comparison graph"></section>`;
+      } catch (error) {
+        console.warn('Telemetry chart could not be added to the printout:', error);
+      }
+    }
+
+    const printFrame = document.createElement('iframe');
+    printFrame.setAttribute('title', 'Telemetry logbook print document');
+    printFrame.setAttribute('aria-hidden', 'true');
+    Object.assign(printFrame.style, {
+      position: 'fixed',
+      right: '0',
+      bottom: '0',
+      width: '0',
+      height: '0',
+      border: '0',
+      visibility: 'hidden'
+    });
+    document.body.appendChild(printFrame);
+
+    const printDocument = printFrame.contentDocument;
+    printDocument.open();
+    printDocument.write(`<!doctype html>
+      <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <title>SPHERE Telemetry Logbook</title>
+        <style>
+          @page { size: A4 portrait; margin: 14mm; }
+          * { box-sizing: border-box; }
+          body { margin: 0; color: #0f172a; font-family: Arial, sans-serif; font-size: 10pt; }
+          header { border-bottom: 3px solid #0284c7; padding-bottom: 10px; margin-bottom: 14px; }
+          h1 { margin: 0 0 4px; color: #0369a1; font-size: 20pt; letter-spacing: .04em; }
+          .subtitle { color: #475569; font-size: 9pt; }
+          .meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+          .meta div { border: 1px solid #cbd5e1; border-radius: 5px; padding: 8px 10px; }
+          .meta strong { display: block; color: #64748b; font-size: 7.5pt; letter-spacing: .06em; text-transform: uppercase; }
+          .meta span { display: block; margin-top: 3px; font-weight: 700; }
+          h2 { margin: 0 0 7px; color: #0f172a; font-size: 11pt; text-transform: uppercase; letter-spacing: .04em; }
+          .chart { break-inside: avoid; margin-bottom: 14px; }
+          .chart img { display: block; width: 100%; max-height: 90mm; object-fit: contain; border: 1px solid #cbd5e1; }
+          table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+          thead { display: table-header-group; }
+          th { background: #e0f2fe; color: #075985; text-align: left; font-size: 7.5pt; }
+          th, td { border: 1px solid #cbd5e1; padding: 6px 7px; }
+          tbody tr:nth-child(even) { background: #f8fafc; }
+          tr { break-inside: avoid; }
+          .empty { padding: 18px; color: #64748b; text-align: center; font-style: italic; }
+          footer { margin-top: 10px; color: #64748b; font-size: 7.5pt; text-align: right; }
+          @media print { body { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+        </style>
+      </head>
+      <body>
+        <header>
+          <h1>SPHERE TELEMETRY LOGBOOK</h1>
+          <div class="subtitle">Thermal Lab · Model and Measurement Report</div>
+        </header>
+        <section class="meta">
+          <div><strong>Selected model</strong><span>${model.name}</span></div>
+          <div><strong>Cooling constant</strong><span>k = ${model.k.toFixed(3)}</span></div>
+          <div><strong>Initial temperature</strong><span>${safeInitialTemp.toFixed(1)} °C</span></div>
+          <div><strong>Environment temperature</strong><span>${safeEnvironmentTemp.toFixed(1)} °C</span></div>
+          <div><strong>Data points</strong><span>${state.telemetryPoints.length}</span></div>
+          <div><strong>Prediction accuracy</strong><span>${elements.telemetryCorrelationScore ? elements.telemetryCorrelationScore.textContent : 'N/A'}</span></div>
+        </section>
+        ${chartMarkup}
+        <section>
+          <h2>Measurement Table</h2>
+          <table>
+            <thead><tr><th>#</th><th>Time (min)</th><th>Measured (°C)</th><th>Predicted (°C)</th><th>Difference (ΔT)</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </section>
+        <footer>Generated ${reportDate}</footer>
+      </body>
+      </html>`);
+    printDocument.close();
+
+    const removePrintFrame = () => {
+      window.setTimeout(() => printFrame.remove(), 500);
+    };
+    printFrame.contentWindow.addEventListener('afterprint', removePrintFrame, { once: true });
+
+    // Give the chart image and print document a moment to finish rendering.
+    window.setTimeout(() => {
+      printFrame.contentWindow.focus();
+      printFrame.contentWindow.print();
+      window.setTimeout(removePrintFrame, 60000);
+    }, 250);
+  }
+
+  if (elements.btnPrintTelemetry) {
+    elements.btnPrintTelemetry.addEventListener('click', printTelemetryLogbook);
   }
 
   // Mock autofill generator with authentic thermodynamic noise

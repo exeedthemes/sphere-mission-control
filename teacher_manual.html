@@ -572,6 +572,29 @@
         color: #1e293b !important;
       }
 
+      /* Let the long answer key flow naturally while keeping each answer intact. */
+      #section-5,
+      #section-5 .answer-key-card {
+        break-inside: auto !important;
+        page-break-inside: auto !important;
+      }
+
+      #section-5 .answer-key-card {
+        padding: 12pt !important;
+        margin: 10pt 0 16pt !important;
+      }
+
+      #section-5 .solution-item {
+        padding: 10pt !important;
+        margin-bottom: 8pt !important;
+      }
+
+      #section-6 {
+        break-inside: auto;
+        page-break-inside: auto;
+        margin-bottom: 12pt !important;
+      }
+
       .doc-footer {
         break-inside: avoid;
         page-break-inside: avoid;
@@ -826,7 +849,7 @@
         <div class="solution-item">
           <div class="solution-title">Question 7: Spacesuit Design Trade-Offs</div>
           <div class="solution-body">
-            <strong>Sample Answer:</strong> You can't just add 50 layers because the spacesuit would become too heavy, bulky, and stiff. Astronauts wouldn't be able to bend their elbows or fingers during a 7-hour spacewalk. Also, human bodies generate lots of body heat when working hard—too much insulation would trap that heat and cause dangerous overheating without heavy water-cooling systems.
+            <strong>Sample Answer:</strong> You can't just add 50 layers because the spacesuit would become too heavy, bulky, and stiff. Astronauts wouldn't be able to bend their elbows or fingers during a 7-hour spacewalk. Also, human bodies generate lots of body heat when working hard - too much insulation would trap that heat and cause dangerous overheating without heavy water-cooling systems.
             <br><em style="color: var(--text-subtle);">Grading Tip: Accept answers discussing joint flexibility/mobility, suit weight/bulk, or body heat buildup.</em>
           </div>
         </div>
@@ -855,8 +878,8 @@
         <thead>
           <tr>
             <th>CRITERIA</th>
-            <th>EXCELLENT (90–100%)</th>
-            <th>GOOD (75–89%)</th>
+            <th>EXCELLENT (90-100%)</th>
+            <th>GOOD (75-89%)</th>
             <th>NEEDS WORK (&lt;75%)</th>
           </tr>
         </thead>
@@ -864,7 +887,7 @@
           <tr>
             <td><strong>Data Logging</strong></td>
             <td>All 15 minutes filled with accurate readings, absolute differences, and helpful notes.</td>
-            <td>Completed with only 1–2 missed minutes; minor calculation mistakes.</td>
+            <td>Completed with only 1-2 missed minutes; minor calculation mistakes.</td>
             <td>Multiple blank rows; missing calculations.</td>
           </tr>
           <tr>
@@ -875,7 +898,7 @@
           </tr>
           <tr>
             <td><strong>Analysis Questions</strong></td>
-            <td>Clear, thoughtful answers explaining conduction, convection, radiation, and MLI synergy (Q1–Q8).</td>
+            <td>Clear, thoughtful answers explaining conduction, convection, radiation, and MLI synergy (Q1-Q8).</td>
             <td>Good understanding of heat transfer with minor details missing.</td>
             <td>Confuses conduction with radiation; incomplete answers.</td>
           </tr>
