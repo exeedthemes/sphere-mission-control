@@ -10,6 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   
+  <!-- KaTeX for Beautiful Math Formula Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'annotation', 'annotation-xml', 'svg'], throwOnError: false});"></script>
+  
   <style>
     /* ==========================================================================
        SPHERE MISSION CONTROL: OFFICIAL PRACTICAL MANUAL STYLESHEET
@@ -17,10 +23,10 @@
        ========================================================================== */
 
     :root {
-      /* Base Theme Colors */
-      --bg-document: #f1f5f9;
+      /* Base Theme Colors - Pure White Modern Clean Document */
+      --bg-document: #ffffff;
       --bg-page: #ffffff;
-      --bg-subtle: #f8fafc;
+      --bg-subtle: #ffffff;
       --bg-card: #ffffff;
       
       /* High Contrast Brand Colors */
@@ -46,7 +52,7 @@
 
       /* Font Stacks */
       --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      --font-hud: 'Orbitron', 'Inter', system-ui, sans-serif;
+      --font-hud: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, Monaco, monospace;
     }
 
@@ -72,10 +78,10 @@
       max-width: 960px;
       margin: 0 auto;
       background: var(--bg-page);
-      border: 1px solid var(--border-color);
+      border: 1.5px solid var(--border-color);
       border-radius: 16px;
       padding: 45px 50px;
-      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
     }
 
     /* Section Block Wrapper */
@@ -156,8 +162,8 @@
     .doc-header {
       text-align: center;
       border-bottom: 2px solid var(--border-color);
-      padding-bottom: 30px;
-      margin-bottom: 35px;
+      padding-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     .header-badge {
@@ -172,7 +178,7 @@
       border-radius: 50px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .doc-title {
@@ -188,23 +194,12 @@
 
     .doc-subtitle {
       font-family: var(--font-sans);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: var(--primary-blue);
-      margin-top: 10px;
-      letter-spacing: 0.05em;
+      margin-top: 8px;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-    }
-
-    .doc-meta-strip {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-subtle);
-      margin-top: 15px;
     }
 
     /* Headings Hierarchy */
@@ -271,7 +266,45 @@
       font-weight: 800;
     }
 
-    /* Formula Card (High Contrast Light/Dark Border system) */
+    /* Hero Banner Grid */
+    .hero-banner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border: 2px solid #334155;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 25px 0 35px 0;
+      color: #f8fafc;
+    }
+
+    .hero-banner img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #00f2fe;
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+      flex-shrink: 0;
+    }
+
+    .hero-banner h3 {
+      color: #00f2fe;
+      font-family: var(--font-hud);
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    .hero-banner p {
+      color: #cbd5e1;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Formula Card */
     .formula-card {
       background: #ffffff;
       border: 2px solid var(--dark-navy);
@@ -287,18 +320,16 @@
       font-size: 0.85rem;
       font-weight: 800;
       color: var(--primary-dark);
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    .formula-math {
-      font-family: var(--font-mono);
-      font-size: 1.4rem;
-      font-weight: 700;
+    .formula-math-box {
+      font-size: 1.3rem;
       color: var(--dark-navy);
       background: var(--bg-subtle);
-      padding: 14px 24px;
+      padding: 16px 24px;
       border-radius: 8px;
       display: inline-block;
       margin: 8px 0;
@@ -471,7 +502,7 @@
       padding: 10px;
     }
 
-    /* EXPANDED FLASHCARD GRID (10 High-Contrast Flashcards) */
+    /* EXPANDED FLASHCARD GRID */
     .flashcard-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -627,7 +658,7 @@
         print-color-adjust: exact;
       }
 
-      .doc-nav, .no-print, .action-bar, .flashcard-grid, .doc-meta-strip {
+      .doc-nav, .no-print, .action-bar, .flashcard-grid, .hero-banner {
         display: none !important;
       }
 
@@ -640,15 +671,10 @@
         background: transparent !important;
       }
 
-      /* Natural flowing sections without forced blank pages */
       .doc-section {
         break-inside: avoid-page;
         page-break-inside: avoid;
         margin-bottom: 24pt !important;
-        padding-top: 0;
-      }
-
-      .doc-section:first-of-type {
         padding-top: 0;
       }
 
@@ -764,210 +790,409 @@
     <!-- STICKY NAVIGATION BAR -->
     <nav class="doc-nav no-print">
       <a href="index.html" class="nav-btn-back">
-        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> BACK TO MISSION CONTROL
+        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> MISSION CONTROL CONSOLE
       </a>
       <div class="nav-actions">
+        <a href="flashcards.html" target="_blank" class="nav-btn-pdf" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: #f59e0b;">
+          <i data-lucide="layers" style="width: 16px; height: 16px;"></i> FLASHCARDS (PDF)
+        </a>
         <a href="teacher_manual.html" class="nav-btn-alt">
-          <i data-lucide="graduation-cap" style="width: 16px; height: 16px;"></i> TEACHER MANUAL
+          <i data-lucide="graduation-cap" style="width: 16px; height: 16px;"></i> INSTRUCTOR GUIDE &amp; SOLUTIONS
         </a>
         <a href="student_task_sheet.html" target="_blank" class="nav-btn-pdf" style="background: rgba(2, 132, 199, 0.15); color: #0284c7; border-color: #0284c7;">
-          <i data-lucide="file-spreadsheet" style="width: 16px; height: 16px;"></i> PRINT 2-PAGE TASK SHEET
+          <i data-lucide="file-spreadsheet" style="width: 16px; height: 16px;"></i> 2-PAGE TASK SHEET
         </a>
         <a href="V2.1_SPHERE_ Mission Control - Student User Manual.pdf" target="_blank" class="nav-btn-pdf">
-          <i data-lucide="file-text" style="width: 16px; height: 16px;"></i> DOWNLOAD PDF (V2.1)
+          <i data-lucide="file-text" style="width: 16px; height: 16px;"></i> DOWNLOAD PDF
         </a>
       </div>
     </nav>
 
-    <!-- DOCUMENT HEADER -->
+    <!-- DOCUMENT HEADER (Clean, Human & Direct) -->
     <header class="doc-header">
-      <span class="header-badge">EUROPEAN UNION STEM LABORATORY INITIATIVE</span>
+      <span class="header-badge">PHYSICS &amp; AEROSPACE LABORATORY MANUAL</span>
       <h1 class="doc-title">SPHERE: MISSION CONTROL</h1>
-      <div class="doc-subtitle">STUDENT LABORATORY MANUAL &amp; TASK SHEET</div>
-      <div class="doc-meta-strip">
-        <span>REF: EU_SPHERE_STUDENT_V2.1</span>
-        <span>•</span>
-        <span>LEVEL: SECONDARY / STEM PHYSICS</span>
-      </div>
+      <div class="doc-subtitle">Student Laboratory Guide &amp; Experimental Task Sheet</div>
     </header>
 
-    <!-- IBSE FOCUS CALLOUT -->
+    <!-- HERO INTRODUCTION BANNER -->
+    <div class="hero-banner no-print">
+      <img src="images/astronaut.png" alt="Astronaut in Space">
+      <div>
+        <h3>WELCOME TO MISSION CONTROL, FLIGHT CREW!</h3>
+        <p>
+          Today you'll step into the shoes of thermal protection engineers. Your mission: keep an astronaut core safely warm against the freezing thermal void of space using smart multi-layer insulation and real-time sensor telemetry.
+        </p>
+      </div>
+    </div>
+
+    <!-- LAB OVERVIEW CALLOUT -->
     <div class="callout-box">
-      <strong>Inquiry-Based Science Education (IBSE) Framework:</strong>
-      This manual guides you through building a physical thermal spacesuit capsule, capturing real-time temperature telemetry, comparing physical experimental data against a live computer model (Digital Twin), and plotting results on a manual laboratory task sheet.
+      <strong>Your Mission Challenge:</strong>
+      Build a waterproof spacesuit capsule for a simulated astronaut ($100\text{ ml}$ of hot water at $80^\circ\text{C}$), submerge it in an ice bath ($0^\circ\text{C}$), and stream live temperature readings to your Mission Control dashboard. You'll compare your real experimental curve against a live computer model (Digital Twin) running Newton's Law of Cooling, and see how closely your hardware matches physics theory!
     </div>
 
     <!-- SECTION 1 -->
     <section class="doc-section" id="section-1">
-      <h2><i data-lucide="compass"></i> 1. INTRODUCTION &amp; EXPERIMENTAL OBJECTIVES</h2>
+      <h2><i data-lucide="compass"></i> 1. THE SPACE ENVIRONMENT &amp; MISSION OBJECTIVES</h2>
       <p>
-        Space is one of the most thermally hostile environments known to humanity. In Low Earth Orbit (LEO), spacecraft and extravehicular astronauts experience solar radiation heating exterior surfaces to over <strong>+121°C</strong> in direct sunlight, while dropping to <strong>-157°C</strong> when shielded in Earth's orbital shadow.
+        Space is one of the most extreme environments humans have ever ventured into. In Low Earth Orbit, spacecraft and astronauts orbiting Earth cycle between violent temperature extremes every $90\text{ minutes}$. In full sunlight, solar radiation bakes spacesuit exteriors up to <strong>$+121^\circ\text{C}$</strong>. When orbiting into Earth's shadow, ambient temperatures plunge to <strong>$-157^\circ\text{C}$</strong> as heat radiates away into deep space.
       </p>
       <p>
-        To keep astronauts alive, aerospace engineers design Multi-Layer Insulation (MLI) systems to regulate thermal energy transfer. In this experiment, your team will act as Mission Controllers. You will construct a physical spacesuit thermal envelope for a simulated astronaut (a 100ml core filled with hot water at 80°C) submerged in an ice-water chamber (0°C).
+        Without an atmosphere to carry heat away gently, spacesuits rely on specialized <strong>Multi-Layer Insulation (MLI)</strong>. These blankets combine reflective foils that bounce radiant heat back with fluffy spacer materials that stop direct heat conduction.
       </p>
       <p>
-        Using the <strong>SPHERE: Mission Control</strong> web dashboard, you will stream physical telemetry, compare live readings with Newton's Law of Cooling, and compute your crew's manual Correlation Score.
+        In this lab, your crew will test different insulation setups to discover how well materials fight heat loss. By logging real sensor telemetry and comparing it with a theoretical cooling curve, you will calculate your crew's <strong>Thermal Correlation Score</strong>.
       </p>
+
+      <!-- FIGURE 2 SVG: HEAT TRANSFER MODES VISUAL GUIDE -->
+      <div style="text-align: center; margin: 25px 0;">
+        <svg viewBox="0 0 740 210" style="background: #ffffff; border: 2px solid var(--dark-navy); border-radius: 12px; width: 100%; height: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+          <!-- Conduction Box -->
+          <rect x="20" y="20" width="220" height="150" rx="8" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+          <text x="130" y="45" fill="#0369a1" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">1. CONDUCTION</text>
+          <circle cx="65" cy="90" r="14" fill="#ef4444"/>
+          <circle cx="100" cy="90" r="14" fill="#f97316"/>
+          <circle cx="135" cy="90" r="14" fill="#fbbf24"/>
+          <circle cx="170" cy="90" r="14" fill="#0284c7"/>
+          <path d="M 65 118 L 170 118" stroke="#0369a1" stroke-width="2" stroke-dasharray="3,3"/>
+          <text x="130" y="140" fill="#334155" font-family="sans-serif" font-size="9.5" text-anchor="middle">Direct particle collisions</text>
+          <text x="130" y="155" fill="#0284c7" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Blocked by Cotton Fiber Gaps</text>
+
+          <!-- Convection Box -->
+          <rect x="260" y="20" width="220" height="150" rx="8" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+          <text x="370" y="45" fill="#065f46" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">2. CONVECTION</text>
+          <path d="M 345 75 C 390 75, 400 95, 380 110 C 360 120, 335 115, 340 95 C 343 82, 360 82, 370 90" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+          <polygon points="370,85 380,90 370,95" fill="#10b981"/>
+          <text x="370" y="140" fill="#334155" font-family="sans-serif" font-size="9.5" text-anchor="middle">Fluid circulation currents</text>
+          <text x="370" y="155" fill="#059669" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Blocked by Sealed Bubble Cells</text>
+
+          <!-- Radiation Box -->
+          <rect x="500" y="20" width="220" height="150" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="610" y="45" fill="#92400e" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">3. RADIATION</text>
+          <path d="M 525 80 Q 545 70, 565 80 T 605 80" fill="none" stroke="#f59e0b" stroke-width="2"/>
+          <path d="M 525 100 Q 545 90, 565 100 T 605 100" fill="none" stroke="#f59e0b" stroke-width="2"/>
+          <line x1="615" y1="70" x2="615" y2="110" stroke="#0f172a" stroke-width="3"/>
+          <path d="M 615 80 L 590 65" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <text x="610" y="140" fill="#334155" font-family="sans-serif" font-size="9.5" text-anchor="middle">Infrared light waves</text>
+          <text x="610" y="155" fill="#b45309" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Reflected by Shiny Mylar Foil</text>
+        </svg>
+        <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--text-subtle); margin-top: 8px;">
+          FIGURE 2: THREE MODES OF HEAT TRANSFER &amp; THERMAL INSULATION BARRIERS
+        </div>
+      </div>
     </section>
 
     <!-- SECTION 2 -->
     <section class="doc-section" id="section-2">
-      <h2><i data-lucide="wrench"></i> 2. HARDWARE ASSEMBLY GUIDE &amp; SCHEMATIC</h2>
+      <h2><i data-lucide="wrench"></i> 2. HARDWARE SETUP &amp; SCHEMATIC</h2>
       <p>
-        The laboratory apparatus uses standardized, accessible components to create a waterproof thermal capsule capable of sustained ice-water submersion:
+        Your team will assemble a rugged, waterproof capsule designed to keep sensors dry and securely submerged:
       </p>
 
       <table class="styled-table">
         <thead>
           <tr>
-            <th>COMPONENT</th>
-            <th>SPECIFICATION</th>
-            <th>PURPOSE IN EXPERIMENT</th>
+            <th>HARDWARE PART</th>
+            <th>DESCRIPTION</th>
+            <th>WHAT IT DOES IN OUR LAB</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>PET Core Jar</strong></td>
-            <td>100ml wide-mouth PET bottle</td>
-            <td>Simulates the core astronaut environment containing hot water.</td>
+            <td><strong>Core Jar</strong></td>
+            <td>100&nbsp;mL wide-mouth PET jar</td>
+            <td>Holds our hot water core ($80^\circ\text{C}$), representing the astronaut's internal body heat.</td>
           </tr>
           <tr>
             <td><strong>Cable Gland</strong></td>
-            <td>Industrial PG7 Nylon Gland</td>
-            <td>Mounted through the cap to create a 100% watertight wire entry.</td>
+            <td>PG7 waterproof nylon gland</td>
+            <td>Mounted through the jar cap to clamp the sensor wire and guarantee a 100% watertight seal.</td>
           </tr>
           <tr>
             <td><strong>Digital Sensor</strong></td>
-            <td>DS18B20 Waterproof Probe</td>
-            <td>Measures water core temperature continuously inside the capsule.</td>
+            <td>DS18B20 waterproof probe</td>
+            <td>Reads the internal water temperature with $\pm 0.5^\circ\text{C}$ accuracy and streams it live to your screen.</td>
           </tr>
           <tr>
-            <td><strong>Thermal Chamber</strong></td>
-            <td>Ice Water Bath (0°C)</td>
-            <td>Simulates the extreme cold thermal sink of deep space.</td>
+            <td><strong>Ice Bath Chamber</strong></td>
+            <td>Ice-water slurry ($0^\circ\text{C}$)</td>
+            <td>Acts as our extreme cold space environment sink.</td>
           </tr>
         </tbody>
       </table>
 
-      <h3>Assembly Instructions:</h3>
+      <h3>Quick Assembly Steps:</h3>
       <ol>
-        <li>Unscrew the dome cap of the PG7 gland and thread the DS18B20 temperature sensor probe through the gland body.</li>
-        <li>Insert the threaded PG7 gland through the 12.5mm pre-drilled hole in the PET jar cap and secure it firmly with the internal locknut.</li>
-        <li>Tighten the external PG7 dome nut until the neoprene rubber seal clamps snugly around the sensor cable. This prevents liquid intrusion during submersion.</li>
-        <li>Ensure the temperature sensor tip hangs suspended in the exact center of the 100ml jar without touching the container walls.</li>
+        <li><strong>Feed the Sensor:</strong> Unscrew the dome cap on the PG7 gland and slide the metal temperature probe through the gland body.</li>
+        <li><strong>Mount on Cap:</strong> Push the threaded gland through the hole in the jar cap, and tighten the locknut on the underside so it won't budge.</li>
+        <li><strong>Tighten the Seal:</strong> Hand-tighten the outer dome nut until the rubber ring clamps snugly around the cable. This stops any water from leaking in.</li>
+        <li><strong>Center the Probe:</strong> Make sure the metal sensor tip hangs right in the center of the jar without touching the bottom or sides.</li>
       </ol>
 
-      <!-- FIGURE 1 SVG SCHEMATIC (High Contrast) -->
+      <!-- FIGURE 1 SVG SCHEMATIC (Pixel-Perfect Alignment & Correct Hardware Naming) -->
       <div style="text-align: center; margin: 30px 0;">
-        <svg viewBox="0 0 650 300" style="background: #ffffff; border: 2px solid var(--dark-navy); border-radius: 12px; max-width: 100%; height: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
-          <!-- Background Tint for Ice Bath -->
-          <rect x="20" y="20" width="610" height="260" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2" />
-          <text x="35" y="45" fill="#0369a1" font-family="var(--font-hud)" font-size="11" font-weight="800" letter-spacing="1">ENVIRONMENT CHAMBER: ICE BATH (T_env = 0°C)</text>
+        <svg viewBox="0 0 880 370" style="background: #ffffff; border: 2px solid var(--dark-navy); border-radius: 12px; width: 100%; height: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.06); display: block; margin: 0 auto;">
+          <!-- Outer Ice Bath Basin (Cold Space Sink) -->
+          <rect x="20" y="15" width="840" height="340" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.8"/>
+          <text x="35" y="38" fill="#0369a1" font-family="sans-serif" font-size="11" font-weight="bold" letter-spacing="0.5">EXTERNAL ENVIRONMENT: 0.0°C ICE BATH SINK (T_env = 0.0°C)</text>
 
-          <!-- Container Jar Cap -->
-          <rect x="265" y="70" width="120" height="18" rx="4" fill="#0f172a" stroke="#334155" stroke-width="2" />
-          <line x1="255" y1="88" x2="395" y2="88" stroke="#0f172a" stroke-width="3" />
+          <!-- Outer Thermal Protection System (TPS Wrap) -->
+          <rect x="355" y="98" width="170" height="200" rx="12" fill="#fffbeb" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,3"/>
 
-          <!-- Container Jar Body -->
-          <path d="M 270 88 L 270 230 C 270 242, 278 248, 290 248 L 360 248 C 372 248, 380 242, 380 230 L 380 88 Z" fill="#ffffff" stroke="#0284c7" stroke-width="3" />
-          
-          <!-- Water Core -->
-          <path d="M 274 110 L 274 228 C 274 236, 280 242, 290 242 L 360 242 C 370 242, 376 236, 376 228 L 376 110 Z" fill="rgba(2, 132, 199, 0.2)" />
-          <text x="325" y="165" fill="#0369a1" font-family="var(--font-hud)" font-size="10" font-weight="800" text-anchor="middle">100ml CORE (80°C)</text>
+          <!-- PET Jar Chamber Body -->
+          <rect x="370" y="105" width="140" height="190" rx="8" fill="#ffffff" stroke="#0284c7" stroke-width="2.5"/>
 
-          <!-- PG7 Gland -->
-          <rect x="313" y="45" width="24" height="25" rx="2" fill="#0f172a" stroke="#d97706" stroke-width="2" />
-          <circle cx="325" cy="57" r="5" fill="#ef4444" />
+          <!-- Hot Water Core Fill (100 mL at 80.0°C) -->
+          <rect x="378" y="135" width="124" height="152" rx="5" fill="rgba(239, 68, 68, 0.12)" stroke="#fca5a5" stroke-width="1.2"/>
+          <line x1="378" y1="135" x2="502" y2="135" stroke="#ef4444" stroke-width="1.5"/>
+          <text x="440" y="162" fill="#dc2626" font-family="sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle">HOT WATER CORE</text>
+          <text x="440" y="176" fill="#ef4444" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">100 mL (T_0 = 80.0°C)</text>
 
-          <!-- Sensor Wire & Bulb -->
-          <path d="M 325 25 L 325 45 M 325 60 L 325 185" fill="none" stroke="#d97706" stroke-width="2.5" />
-          <rect x="320" y="185" width="10" height="18" rx="3" fill="#d97706" stroke="#ffffff" stroke-width="1" />
+          <!-- Airtight Threaded Jar Lid -->
+          <rect x="364" y="85" width="152" height="22" rx="4" fill="#0f172a" stroke="#334155" stroke-width="2"/>
 
-          <!-- Arrow Callouts -->
-          <line x1="140" y1="57" x2="305" y2="57" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="4,4" />
-          <circle cx="305" cy="57" r="3" fill="#0284c7" />
-          <text x="25" y="55" fill="#0f172a" font-family="var(--font-sans)" font-size="11" font-weight="800">PG7 Waterproof Gland</text>
-          <text x="25" y="68" fill="#334155" font-family="var(--font-sans)" font-size="9.5" font-weight="600">Seals cable entry under pressure</text>
+          <!-- PG7 Waterproof Cable Gland -->
+          <rect x="425" y="52" width="30" height="34" rx="4" fill="#0f172a" stroke="#d97706" stroke-width="2"/>
+          <circle cx="440" cy="68" r="5" fill="#10b981"/>
 
-          <line x1="140" y1="200" x2="265" y2="200" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="4,4" />
-          <circle cx="265" cy="200" r="3" fill="#0284c7" />
-          <text x="25" y="198" fill="#0f172a" font-family="var(--font-sans)" font-size="11" font-weight="800">PET Capsule Outer Wall</text>
-          <text x="25" y="211" fill="#334155" font-family="var(--font-sans)" font-size="9.5" font-weight="600">100ml PET Food Jar</text>
+          <!-- Sensor Lead Wire -->
+          <path d="M 440 15 L 440 52" stroke="#d97706" stroke-width="3" fill="none"/>
+          <path d="M 440 85 L 440 220" stroke="#d97706" stroke-width="3" fill="none"/>
 
-          <line x1="510" y1="100" x2="330" y2="100" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="4,4" />
-          <circle cx="330" cy="100" r="3" fill="#d97706" />
-          <text x="520" y="98" fill="#0f172a" font-family="var(--font-sans)" font-size="11" font-weight="800">DS18B20 Sensor Wire</text>
-          <text x="520" y="111" fill="#334155" font-family="var(--font-sans)" font-size="9.5" font-weight="600">Digital 1-Wire interface</text>
+          <!-- DS18B20 Stainless Sensor Probe Tip -->
+          <rect x="432" y="220" width="16" height="32" rx="3" fill="#475569" stroke="#0f172a" stroke-width="2"/>
+          <circle cx="440" cy="236" r="3" fill="#10b981"/>
 
-          <line x1="510" y1="194" x2="335" y2="194" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="4,4" />
-          <circle cx="335" cy="194" r="3" fill="#d97706" />
-          <text x="520" y="192" fill="#0f172a" font-family="var(--font-sans)" font-size="11" font-weight="800">Centered Probe Tip</text>
-          <text x="520" y="205" fill="#334155" font-family="var(--font-sans)" font-size="9.5" font-weight="600">Suspended core measurement</text>
+          <!-- ================= LEFT CALLOUTS (text-anchor="end") ================= -->
+          <!-- 1. PG7 Cable Gland -->
+          <text x="250" y="64" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="end">PG7 Cable Gland</text>
+          <text x="250" y="78" fill="#475569" font-family="sans-serif" font-size="9" text-anchor="end">Watertight rubber compression seal</text>
+          <line x1="260" y1="68" x2="425" y2="68" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <circle cx="425" cy="68" r="3.5" fill="#0284c7"/>
+
+          <!-- 2. Threaded Jar Lid -->
+          <text x="250" y="124" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="end">Threaded Capsule Lid</text>
+          <text x="250" y="138" fill="#475569" font-family="sans-serif" font-size="9" text-anchor="end">Airtight mechanical closure</text>
+          <line x1="260" y1="96" x2="364" y2="96" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <circle cx="364" cy="96" r="3.5" fill="#0f172a"/>
+
+          <!-- 3. Thermal Insulation Wrap (TPS) -->
+          <text x="250" y="194" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="end">Thermal Insulation Wrap (TPS)</text>
+          <text x="250" y="208" fill="#475569" font-family="sans-serif" font-size="9" text-anchor="end">Cotton + Bubble + Mylar barrier</text>
+          <line x1="260" y1="198" x2="355" y2="198" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <circle cx="355" cy="198" r="3.5" fill="#f59e0b"/>
+
+          <!-- 4. Hot Core Liquid -->
+          <text x="250" y="264" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="end">Hot Water Core (100 mL)</text>
+          <text x="250" y="278" fill="#475569" font-family="sans-serif" font-size="9" text-anchor="end">Initial thermal mass at 80.0°C</text>
+          <line x1="260" y1="268" x2="378" y2="268" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <circle cx="378" cy="268" r="3.5" fill="#ef4444"/>
+
+          <!-- ================= RIGHT CALLOUTS (text-anchor="start") ================= -->
+          <!-- 1. Sensor Telemetry Cable -->
+          <text x="630" y="44" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="start">DS18B20 Telemetry Cable</text>
+          <text x="630" y="58" fill="#475569" font-family="sans-serif" font-size="9" text-anchor="start">Digital data stream to PC / Arduino</text>
+          <line x1="440" y1="36" x2="620" y2="36" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <circle cx="440" cy="36" r="3.5" fill="#d97706"/>
+
+          <!-- 2. PET Capsule Outer Shell -->
+          <text x="630" y="124" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="start">PET Capsule Shell</text>
+          <text x="630" y="138" fill="#475569" font-family="sans-serif" font-size="9" text-anchor="start">100 mL transparent test chamber</text>
+          <line x1="510" y1="128" x2="620" y2="128" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <circle cx="510" cy="128" r="3.5" fill="#0284c7"/>
+
+          <!-- 3. Centered Probe Sensor Tip -->
+          <text x="630" y="234" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="start">Centered DS18B20 Probe</text>
+          <text x="630" y="248" fill="#475569" font-family="sans-serif" font-size="9" text-anchor="start">Suspended in liquid (±0.5°C accuracy)</text>
+          <line x1="448" y1="236" x2="620" y2="236" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <circle cx="448" cy="236" r="3.5" fill="#10b981"/>
+
+          <!-- 4. Ice Bath Cold Sink -->
+          <text x="630" y="304" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="start">Ice Bath Space Sink</text>
+          <text x="630" y="318" fill="#475569" font-family="sans-serif" font-size="9" text-anchor="start">Simulated 0.0°C deep space boundary</text>
+          <line x1="530" y1="308" x2="620" y2="308" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <circle cx="530" cy="308" r="3.5" fill="#0284c7"/>
         </svg>
         <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--text-subtle); margin-top: 8px;">
-          FIGURE 1: MECHANICAL ASSEMBLY DIAGRAM &amp; THERMAL PROBE SEEDING
+          FIGURE 1: EXPERIMENTAL HARDWARE ASSEMBLY &amp; SENSOR ALIGNMENT
         </div>
       </div>
     </section>
 
     <!-- SECTION 3 -->
     <section class="doc-section" id="section-3">
-      <h2><i data-lucide="layers"></i> 3. THERMAL PROTECTION SYSTEM (TPS) CONFIGURATIONS</h2>
+      <h2><i data-lucide="layers"></i> 3. THE 4 INSULATION CONFIGURATIONS</h2>
       <p>
-        Your engineering team will test one of four thermal protection configurations. Each system isolates different modes of heat transfer:
+        Each crew will test one of four insulation setups to see how different materials tackle heat loss:
       </p>
 
       <div class="insulation-grid">
         <div class="insulation-card">
           <h4>A. BARE CONTROL <span class="k-tag">k = 0.150</span></h4>
-          <p>Uninsulated PET jar directly exposed to liquid. Tests baseline conductive &amp; convective dissipation.</p>
+          <p>Plain uninsulated jar. Shows how rapidly heat escapes through direct conduction and water currents.</p>
         </div>
         <div class="insulation-card">
-          <h4>B. COTTON WRAP <span class="k-tag">k = 0.080</span></h4>
-          <p>Single fabric barrier. Traps stationary air pockets to reduce conductive heat transfer.</p>
+          <h4>B. COTTON SLEEVE <span class="k-tag">k = 0.080</span></h4>
+          <p>Fabric wrap. Traps still air pockets within fibers to slow down conductive heat transfer.</p>
         </div>
         <div class="insulation-card">
           <h4>C. MYLAR FOIL <span class="k-tag">k = 0.040</span></h4>
-          <p>Reflective metallic film. Reflects radiant thermal electromagnetic energy back to core.</p>
+          <p>Shiny emergency blanket. Reflects radiant thermal infrared waves back toward the hot water.</p>
         </div>
         <div class="insulation-card">
           <h4>D. FULL MLI <span class="k-tag">k = 0.015</span></h4>
-          <p>Multi-layer system combining Cotton + Bubble Wrap + Mylar for complete conduction/convection/radiation defense.</p>
+          <p>Multi-layer system combining Cotton + Bubble Wrap + Mylar to block conduction, convection, and radiation all at once!</p>
+        </div>
+      </div>
+
+      <!-- FIGURE 3 SVG: MLI LAYER STACK ANATOMY -->
+      <div style="text-align: center; margin: 25px 0;">
+        <svg viewBox="0 0 740 160" style="background: #ffffff; border: 2px solid var(--dark-navy); border-radius: 12px; width: 100%; height: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+          <rect x="20" y="20" width="700" height="120" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+          
+          <!-- Core Water Layer -->
+          <rect x="40" y="40" width="120" height="80" rx="4" fill="#0284c7"/>
+          <text x="100" y="75" fill="#ffffff" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">HOT CORE</text>
+          <text x="100" y="92" fill="#e0f2fe" font-family="sans-serif" font-size="9" text-anchor="middle">100mL (80°C)</text>
+
+          <!-- PET Jar Shell -->
+          <rect x="175" y="40" width="80" height="80" rx="4" fill="#334155"/>
+          <text x="215" y="75" fill="#ffffff" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">PET WALL</text>
+          <text x="215" y="92" fill="#cbd5e1" font-family="sans-serif" font-size="8.5" text-anchor="middle">Vessel Shell</text>
+
+          <!-- Cotton Layer -->
+          <rect x="270" y="40" width="120" height="80" rx="4" fill="#64748b"/>
+          <text x="330" y="75" fill="#ffffff" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">1. COTTON</text>
+          <text x="330" y="92" fill="#e2e8f0" font-family="sans-serif" font-size="8.5" text-anchor="middle">Blocks Conduction</text>
+
+          <!-- Bubble Wrap Layer -->
+          <rect x="405" y="40" width="130" height="80" rx="4" fill="#10b981"/>
+          <text x="470" y="75" fill="#ffffff" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">2. BUBBLE WRAP</text>
+          <text x="470" y="92" fill="#d1fae5" font-family="sans-serif" font-size="8.5" text-anchor="middle">Blocks Convection</text>
+
+          <!-- Mylar Outer Layer -->
+          <rect x="550" y="40" width="150" height="80" rx="4" fill="#f59e0b"/>
+          <text x="625" y="75" fill="#ffffff" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">3. MYLAR FOIL</text>
+          <text x="625" y="92" fill="#fef3c7" font-family="sans-serif" font-size="8.5" text-anchor="middle">Reflects Radiation</text>
+        </svg>
+        <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--text-subtle); margin-top: 8px;">
+          FIGURE 3: MULTI-LAYER INSULATION (MLI) COMPOSITE LAYER STACK
         </div>
       </div>
     </section>
 
     <!-- SECTION 4 -->
     <section class="doc-section" id="section-4">
-      <h2><i data-lucide="line-chart"></i> 4. MATHEMATICAL MODELING &amp; NEWTON'S LAW OF COOLING</h2>
+      <h2><i data-lucide="line-chart"></i> 4. THE PHYSICS: NEWTON'S LAW OF COOLING</h2>
       <p>
-        Heat naturally flows from regions of higher temperature to lower temperature. The rate of cooling is proportional to the temperature differential between the object and its environment:
+        Heat always flows from warmer objects to cooler surroundings. Over 300 years ago, Sir Isaac Newton discovered that the rate at which an object cools is proportional to the temperature difference between the object and its environment.
       </p>
 
       <div class="formula-card">
-        <div class="formula-title">NEWTON'S LAW OF COOLING (EXPONENTIAL DECAY MODEL)</div>
-        <div class="formula-math">T(t) = T_env + (T_0 - T_env) · e^(-k · t)</div>
-        <div style="font-size: 0.88rem; color: var(--text-muted); font-weight: 600; margin-top: 10px;">
-          Where: 
-          <strong style="color:var(--primary-dark)">T(t)</strong> = Predicted Temp (°C) at minute <em>t</em> &nbsp;|&nbsp; 
-          <strong style="color:var(--primary-dark)">T_env</strong> = Ice Bath Temp (0°C) &nbsp;|&nbsp; 
-          <strong style="color:var(--primary-dark)">T_0</strong> = Initial Core Temp (80°C) &nbsp;|&nbsp; 
-          <strong style="color:var(--accent-amber-dark)">k</strong> = Cooling Rate Constant (1/min)
+        <div class="formula-title">Newton's Law of Cooling (Exponential Decay Model)</div>
+        <div class="formula-math-box">
+          $$T(t) = T_{\text{env}} + (T_0 - T_{\text{env}}) \cdot e^{-k \cdot t}$$
+        </div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600; margin-top: 12px; line-height: 1.6;">
+          Where:<br>
+          <strong style="color:var(--primary-dark)">$T(t)$</strong> = Predicted core temperature (°C) at minute $t$<br>
+          <strong style="color:var(--primary-dark)">$T_{\text{env}}$</strong> = Ice bath temperature ($0.0^\circ\text{C}$)<br>
+          <strong style="color:var(--primary-dark)">$T_0$</strong> = Starting core temperature ($80.0^\circ\text{C}$)<br>
+          <strong style="color:var(--accent-amber-dark)">$k$</strong> = Cooling rate constant ($\text{min}^{-1}$)
+        </div>
+      </div>
+
+      <p>
+        <strong>What does $k$ mean?</strong> The cooling constant $k$ measures how easily heat escapes. A <em>smaller</em> $k$ value means superior insulation, a slower temperature drop, and a flatter cooling curve!
+      </p>
+
+      <!-- FIGURE 4 SVG: COOLING CURVE ANATOMY -->
+      <div style="text-align: center; margin: 25px 0;">
+        <svg viewBox="0 0 740 220" style="background: #ffffff; border: 2px solid var(--dark-navy); border-radius: 12px; width: 100%; height: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+          <!-- Axes -->
+          <line x1="80" y1="30" x2="80" y2="180" stroke="#0f172a" stroke-width="2"/>
+          <line x1="80" y1="180" x2="680" y2="180" stroke="#0f172a" stroke-width="2"/>
+          <text x="70" y="35" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="end" fill="#0f172a">T₀ (80°C)</text>
+          <text x="70" y="183" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="end" fill="#0284c7">T_env (0°C)</text>
+          <text x="380" y="205" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#0f172a">Elapsed Time (t)</text>
+          
+          <!-- Bare Curve (Fast Decay) -->
+          <path d="M 80 35 Q 160 160, 650 178" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+          <text x="210" y="145" font-family="sans-serif" font-size="10" font-weight="bold" fill="#ef4444">Bare (k=0.150)</text>
+
+          <!-- MLI Curve (Slow Decay) -->
+          <path d="M 80 35 Q 280 60, 650 110" fill="none" stroke="#10b981" stroke-width="2.5"/>
+          <text x="560" y="95" font-family="sans-serif" font-size="10" font-weight="bold" fill="#10b981">Full MLI (k=0.015)</text>
+
+          <line x1="80" y1="180" x2="680" y2="180" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <text x="640" y="172" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0284c7">Asymptote: 0°C</text>
+        </svg>
+        <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--text-subtle); margin-top: 8px;">
+          FIGURE 4: EXPONENTIAL DECAY PROFILES ACROSS HIGH VS LOW COOLING CONSTANTS (k)
         </div>
       </div>
     </section>
 
     <!-- SECTION 5 -->
     <section class="doc-section" id="section-5">
-      <h2><i data-lucide="play-circle"></i> 5. STEP-BY-STEP MISSION CONTROL WORKFLOW</h2>
+      <h2><i data-lucide="play-circle"></i> 5. STEP-BY-STEP LAB WORKFLOW</h2>
+      
+      <!-- FIGURE 5 SVG: 6-STAGE WORKFLOW FLOWCHART -->
+      <div style="text-align: center; margin: 20px 0 30px 0;">
+        <svg viewBox="0 0 740 100" style="background: #ffffff; border: 2px solid var(--dark-navy); border-radius: 10px; width: 100%; height: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+          <!-- Step 1 -->
+          <rect x="15" y="20" width="105" height="60" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+          <text x="67" y="42" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#0369a1">1. QUIZ</text>
+          <text x="67" y="58" font-family="sans-serif" font-size="7.5" text-anchor="middle" fill="#334155">Pass Pre-Flight</text>
+
+          <path d="M 122 50 L 136 50" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Step 2 -->
+          <rect x="138" y="20" width="105" height="60" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+          <text x="190" y="42" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#0369a1">2. MODEL</text>
+          <text x="190" y="58" font-family="sans-serif" font-size="7.5" text-anchor="middle" fill="#334155">Run Simulator</text>
+
+          <path d="M 245 50 L 259 50" stroke="#0284c7" stroke-width="2"/>
+
+          <!-- Step 3 -->
+          <rect x="261" y="20" width="105" height="60" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+          <text x="313" y="42" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#0369a1">3. ASSEMBLE</text>
+          <text x="313" y="58" font-family="sans-serif" font-size="7.5" text-anchor="middle" fill="#334155">100mL 80°C Core</text>
+
+          <path d="M 368 50 L 382 50" stroke="#0284c7" stroke-width="2"/>
+
+          <!-- Step 4 -->
+          <rect x="384" y="20" width="105" height="60" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+          <text x="436" y="42" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#0369a1">4. SUBMERGE</text>
+          <text x="436" y="58" font-family="sans-serif" font-size="7.5" text-anchor="middle" fill="#334155">0°C Ice Bath</text>
+
+          <path d="M 491 50 L 505 50" stroke="#0284c7" stroke-width="2"/>
+
+          <!-- Step 5 -->
+          <rect x="507" y="20" width="105" height="60" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+          <text x="559" y="42" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#0369a1">5. LOG DATA</text>
+          <text x="559" y="58" font-family="sans-serif" font-size="7.5" text-anchor="middle" fill="#334155">15x 1-min checks</text>
+
+          <path d="M 614 50 L 628 50" stroke="#0284c7" stroke-width="2"/>
+
+          <!-- Step 6 -->
+          <rect x="630" y="20" width="95" height="60" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+          <text x="677" y="42" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#065f46">6. SCORE</text>
+          <text x="677" y="58" font-family="sans-serif" font-size="7.5" text-anchor="middle" fill="#334155">Compute MAE</text>
+        </svg>
+        <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--text-subtle); margin-top: 6px;">
+          FIGURE 5: 6-STAGE EXPERIMENTAL PROTOCOL WORKFLOW
+        </div>
+      </div>
+
       <ol>
-        <li><strong>Pre-Flight Certification:</strong> Access Mission Control on the desktop terminal and complete the Pre-Flight Safety Quiz to initialize telemetry access.</li>
-        <li><strong>Run Simulation Prediction:</strong> Go to the <strong>Simulator</strong> tab. Select your assigned insulation configuration, set initial parameters (<i>T</i><sub>0</sub> = 80°C, <i>T</i><sub>env</sub> = 0°C), and click <strong>RUN SIMULATION PREDICTION</strong>.</li>
-        <li><strong>Prepare Physical Water Core:</strong> Measure 100ml of hot water at 80°C, pour it into the PET jar, screw the PG7 cap tightly, and verify the waterproof seal.</li>
-        <li><strong>Submerge &amp; Start Timer:</strong> Place the capsule into the 0°C ice water bath and click <strong>START LIVE TIMER</strong> in the <strong>Live Telemetry</strong> tab.</li>
-        <li><strong>Log Measurements Every 60 Seconds:</strong> Record the thermometer reading into your Task Sheet and the Mission Control digital entry log at every minute mark up to 15 minutes.</li>
-        <li><strong>Compute Correlation Score:</strong> Compare your paper graph curve against the Digital Twin overlay!</li>
+        <li><strong>Pass the Safety Quiz:</strong> Open the Mission Control web app on your computer and complete the Pre-Flight Quiz to unlock live telemetry tools.</li>
+        <li><strong>Generate Model Prediction:</strong> Go to the <strong>Simulator</strong> tab, choose your team's assigned insulation configuration, verify starting conditions ($T_0 = 80^\circ\text{C}$, $T_{\text{env}} = 0^\circ\text{C}$), and click <strong>RUN SIMULATION PREDICTION</strong>.</li>
+        <li><strong>Fill the Water Core:</strong> Carefully measure $100\text{ ml}$ of hot water at $80^\circ\text{C}$, pour it into your jar, screw the cap on tightly, and verify the seal is leak-free.</li>
+        <li><strong>Submerge &amp; Start Clock:</strong> Lower the capsule into your $0^\circ\text{C}$ ice bath and immediately click <strong>START LIVE TIMER</strong> in the <strong>Live Telemetry</strong> tab.</li>
+        <li><strong>Log Temperature Every Minute:</strong> Every $60\text{ seconds}$ for $15\text{ minutes}$, write down the observed temperature in your Task Sheet and enter it into Mission Control.</li>
+        <li><strong>Compare &amp; Score:</strong> Draw your real data points onto the graph grid, sketch your curve against the theoretical model line, and calculate your team's final Correlation Score!</li>
       </ol>
     </section>
 
@@ -975,7 +1200,7 @@
     <section class="doc-section" id="section-6">
       <div style="text-align: center; margin-bottom: 20px;" class="no-print">
         <a href="student_task_sheet.html" target="_blank" class="btn-action btn-primary" style="text-decoration:none; background: #0284c7; font-size: 0.95rem; padding: 16px 32px;">
-          <i data-lucide="printer" style="width: 20px; height: 20px;"></i> OPEN &amp; PRINT DEDICATED 2-PAGE WORKBOOK (PDF READY)
+          <i data-lucide="printer" style="width: 20px; height: 20px;"></i> OPEN &amp; PRINT 2-PAGE TASK SHEET (PDF READY)
         </a>
       </div>
       <div class="worksheet-card" id="task-sheet">
@@ -987,11 +1212,11 @@
         <!-- Crew Metadata Form -->
         <div class="meta-fill-grid">
           <div class="meta-fill-item">
-            <label>CREW MEMBERS / NAMES:</label>
+            <label>FLIGHT CREW MEMBERS / NAMES:</label>
             <div class="meta-fill-line"></div>
           </div>
           <div class="meta-fill-item">
-            <label>CREW CALLSIGN / TEAM ID:</label>
+            <label>MISSION CALLSIGN / TEAM ID:</label>
             <div class="meta-fill-line"></div>
           </div>
           <div class="meta-fill-item">
@@ -1001,7 +1226,7 @@
           <div class="meta-fill-item">
             <label>TESTED INSULATION CONFIGURATION:</label>
             <div style="font-size: 0.88rem; font-weight: bold; color: var(--primary-dark); padding-top: 4px;">
-              [ ] A: Bare &nbsp;&nbsp; [ ] B: Cotton &nbsp;&nbsp; [ ] C: Mylar &nbsp;&nbsp; [ ] D: MLI
+              [ ] A: Bare &nbsp;&nbsp; [ ] B: Cotton &nbsp;&nbsp; [ ] C: Mylar &nbsp;&nbsp; [ ] D: Full MLI
             </div>
           </div>
         </div>
@@ -1010,36 +1235,36 @@
         <table class="styled-table">
           <thead>
             <tr>
-              <th>TIME (MIN)</th>
-              <th>PHYSICAL TEMP (°C)</th>
-              <th>PREDICTED TEMP (°C)</th>
-              <th>ABS DIFFERENCE |ΔT|</th>
-              <th>OBSERVER FIELD NOTES</th>
+              <th>TIME ($\text{min}$)</th>
+              <th>MEASURED TEMP ($^\circ\text{C}$)</th>
+              <th>PREDICTED TEMP ($^\circ\text{C}$)</th>
+              <th>ABS DIFFERENCE $|\Delta T|$ ($^\circ\text{C}$)</th>
+              <th>OBSERVER NOTES</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><strong>0 min</strong></td><td>80.0°C</td><td>80.0°C</td><td>0.0°C</td><td>Capsule submerged in 0°C ice bath</td></tr>
-            <tr><td><strong>1 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>2 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>3 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>4 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>5 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>6 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>7 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>8 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>9 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>10 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>11 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>12 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>13 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>14 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>15 min</strong></td><td></td><td></td><td></td><td>Final measurement checkpoint</td></tr>
+            <tr><td><strong>$0\text{ min}$</strong></td><td>$80.0^\circ\text{C}$</td><td>$80.0^\circ\text{C}$</td><td>$0.0^\circ\text{C}$</td><td>Capsule submerged in $0^\circ\text{C}$ ice bath</td></tr>
+            <tr><td><strong>$1\text{ min}$</strong></td><td></td><td></td><td></td><td>Initial cooling rate check</td></tr>
+            <tr><td><strong>$2\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$3\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$4\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$5\text{ min}$</strong></td><td></td><td></td><td></td><td>Mid-point check; check ice bath</td></tr>
+            <tr><td><strong>$6\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$7\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$8\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$9\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$10\text{ min}$</strong></td><td></td><td></td><td></td><td>Check curve flattening</td></tr>
+            <tr><td><strong>$11\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$12\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$13\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$14\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$15\text{ min}$</strong></td><td></td><td></td><td></td><td>Final measurement checkpoint</td></tr>
           </tbody>
         </table>
 
-        <h3>Part B. Printable Coordinate Graph Grid</h3>
+        <h3>Part B. Coordinate Graph Grid</h3>
         <p style="font-size: 0.88rem; color: var(--text-muted);">
-          Plot physical measurements as points <strong style="color: var(--primary-dark);">(•)</strong> and connect with a solid line. Draw theoretical predicted temperatures as a dashed curve <strong style="color: var(--accent-amber-dark);">(---)</strong>.
+          Plot your measured physical readings as solid dots <strong style="color: var(--primary-dark);">(•)</strong> and connect them with a smooth line. Draw the theoretical model line as a dashed curve <strong style="color: var(--accent-amber-dark);">(---)</strong>.
         </p>
 
         <!-- SVG GRAPH GRID TEMPLATE -->
@@ -1084,94 +1309,99 @@
           </svg>
         </div>
 
-        <h3>Part C. Manual Thermal Correlation Score Calculation</h3>
-        <div style="background: var(--bg-subtle); padding: 18px; border-radius: 8px; border: 1px solid var(--border-color);">
+        <h3>Part C. Thermal Correlation Score Calculation</h3>
+        <div style="background: #ffffff; padding: 18px; border-radius: 8px; border: 1.5px solid var(--primary-blue);">
           <p style="font-weight: bold; margin-bottom: 8px; color: var(--dark-navy);">Calculation Steps:</p>
           <ol style="font-size: 0.9rem; margin-bottom: 12px; color: var(--text-body);">
-            <li>Sum the absolute differences in Column 4: <strong>Sum |ΔT| = ______________ °C</strong></li>
-            <li>Calculate Average Error: <strong>Avg Error = Sum / 15 = ______________ °C</strong></li>
-            <li>Compute Correlation Score: <strong>Score = 100 - (Avg Error × 5) = ______________ %</strong></li>
+            <li><strong>Sum of Differences:</strong> Add up all $15$ numbers in the $|\Delta T|$ column: <strong>$\text{Sum} = \sum |\Delta T| =$ ______________ $^\circ\text{C}$</strong></li>
+            <li><strong>Average Error:</strong> Divide your sum by $15$: <strong>$\text{Avg Error} = \text{MAE} = \frac{\text{Sum}}{15} =$ ______________ $^\circ\text{C}$</strong></li>
+            <li><strong>Correlation Score:</strong> Calculate your score: <strong>$\text{Score} = \max(0, 100\% - [\text{MAE} \times 5\%]) =$ ______________ $\%$</strong></li>
           </ol>
           <div style="font-family: var(--font-hud); font-size: 0.85rem; font-weight: 800; color: var(--primary-dark);">
-            FINAL CREW PERFORMANCE RATING: [ ] A+ (95%+) &nbsp; [ ] A (90%+) &nbsp; [ ] B (80%+) &nbsp; [ ] C (70%+) &nbsp; [ ] RE-CALIBRATE (&lt;70%)
+            CREW MISSION RATING: [ ] A+ ($\ge 95\%$) &nbsp; [ ] A ($90\text{--}94\%$) &nbsp; [ ] B ($80\text{--}89\%$) &nbsp; [ ] C ($70\text{--}79\%$) &nbsp; [ ] RE-TEST ($&lt;70\%$)
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 7: EXPANDED QUESTION SHEET (Q1 - Q8) -->
+    <!-- SECTION 7: LAB ANALYSIS QUESTIONS (Q1 - Q8) -->
     <section class="doc-section" id="section-7">
       <h2><i data-lucide="help-circle"></i> 7. LAB ANALYSIS &amp; REFLECTION QUESTIONS</h2>
       
       <div class="question-block">
-        <div class="question-title">Question 1: Thermal Radiation vs Conduction</div>
+        <div class="question-title">Question 1: Why doesn't shiny Mylar foil work by itself in cold water?</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          Mylar is designed to reflect infrared radiation in space. Why does Mylar alone perform poorly when placed directly in an ice-water bath without an inner cotton or bubble layer?
+          Mylar is famous for reflecting heat radiation in space. Why did Mylar alone perform poorly when dipped directly into the ice water bath ($0^\circ\text{C}$) without cotton or bubble wrap underneath?
         </p>
         <div class="answer-space"></div>
       </div>
 
       <div class="question-block">
-        <div class="question-title">Question 2: Physical Meaning of Cooling Constant (k)</div>
+        <div class="question-title">Question 2: What does the cooling constant ($k$) tell us?</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          In Newton's Law of Cooling, does a smaller <em>k</em> value represent a better thermal insulator or a worse thermal insulator? Explain using the mathematical exponential formula.
+          In Newton's Law $T(t) = T_{\text{env}} + (T_0 - T_{\text{env}}) \cdot e^{-kt}$, does a <em>smaller</em> $k$ value mean a better insulator or a worse insulator? Explain using the formula.
         </p>
         <div class="answer-space"></div>
       </div>
 
       <div class="question-block">
-        <div class="question-title">Question 3: Multi-Layer Insulation (MLI) Synergy</div>
+        <div class="question-title">Question 3: How does Multi-Layer Insulation (MLI) work together?</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          Explain how combining Cotton + Bubble Wrap + Mylar in Configuration D creates a synergistic effect that outperforms any individual insulating material.
+          Explain how combining Cotton + Bubble Wrap + Mylar in Configuration D creates a team effect that works far better than any single layer alone.
         </p>
         <div class="answer-space"></div>
       </div>
 
       <div class="question-block">
-        <div class="question-title">Question 4: Physical vs Digital Twin Discrepancy</div>
+        <div class="question-title">Question 4: Where could experimental errors come from?</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          Identify two potential sources of experimental error that could cause your physical sensor readings to deviate from the computer model prediction.
+          List two physical reasons why your real sensor readings might differ from the smooth curve predicted by the computer model.
         </p>
         <div class="answer-space"></div>
       </div>
 
       <div class="question-block">
-        <div class="question-title">Question 5: Environmental Boundary Adjustments</div>
+        <div class="question-title">Question 5: What happens if your ice bath warms up?</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          If your classroom ice bath warms up from 0°C to 5°C during the experiment, how should you adjust the simulation inputs in Mission Control to preserve model validity?
+          If your classroom ice bath warms from $0.0^\circ\text{C}$ to $4.0^\circ\text{C}$ while testing, what should you change in the Mission Control simulator so the prediction stays accurate?
         </p>
         <div class="answer-space"></div>
       </div>
 
       <div class="question-block">
-        <div class="question-title">Question 6: Water Volume &amp; Heat Capacity Scaling</div>
+        <div class="question-title">Question 6: What if we double the water volume?</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          If the water volume inside the PET capsule was increased from 100ml to 200ml, how would the total heat capacity (<i>Q = m · c · ΔT</i>) affect the cooling rate? Would <i>k</i> increase or decrease?
+          If we doubled the water inside the jar from $100\text{ ml}$ to $200\text{ ml}$, would it cool down faster or slower? Would $k$ increase or decrease?
         </p>
         <div class="answer-space"></div>
       </div>
 
       <div class="question-block">
-        <div class="question-title">QUESTION 07: SPACESUIT ENGINEERING TRADE-OFFS</div>
+        <div class="question-title">Question 7: Spacesuit Design Trade-Offs</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          In real space missions (such as spacewalk Extravehicular Activities), why can't engineers simply add 50 layers of insulation to achieve a near-zero <i>k</i> value? What mechanical trade-offs occur?
+          If adding insulation layers keeps astronauts warmer, why don't space engineers just wrap a spacesuit in $50\text{ layers}$ of MLI? What problems would that cause for an astronaut on a spacewalk?
         </p>
         <div class="answer-space"></div>
       </div>
 
       <div class="question-block">
-        <div class="question-title">Question 8: Correlation Score Optimization</div>
+        <div class="question-title">Question 8: How can you improve your Correlation Score?</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          Describe how your crew can refine your measurement techniques or hardware sealing to improve your Thermal Correlation Score from 75% to 95%+.
+          Describe two practical things your crew could do to improve your Correlation Score from $75\%$ to over $95\%$ on a second run.
         </p>
         <div class="answer-space"></div>
       </div>
     </section>
 
-    <!-- EXPANDED INTERACTIVE REVISION FLASHCARDS (10 Flashcards) -->
+    <!-- INTERACTIVE REVISION FLASHCARDS (10 Flashcards) -->
     <section class="doc-section no-print" id="study-hub">
-      <h2><i data-lucide="sparkles"></i> INTERACTIVE STUDY HUB &amp; REVISION CARDS</h2>
-      <p style="font-size: 0.9rem;">Click on any card to flip and reveal core thermodynamic concepts:</p>
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+        <h2 style="margin: 0;"><i data-lucide="sparkles"></i> INTERACTIVE STUDY HUB &amp; REVISION CARDS</h2>
+        <a href="flashcards.html" target="_blank" class="nav-btn-pdf" style="background: #0284c7; color: #ffffff; border-color: #0284c7; text-decoration: none; padding: 6px 14px; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 6px;">
+          <i data-lucide="printer" style="width: 14px; height: 14px;"></i> OPEN &amp; PRINT FLASHCARD DECK (PDF)
+        </a>
+      </div>
+      <p style="font-size: 0.9rem;">Click any card below to flip and test your knowledge, or open the printable 16-card cutout deck:</p>
       
       <div class="flashcard-grid">
         <!-- 1 -->
@@ -1182,7 +1412,7 @@
               <h4>1. CONDUCTION</h4>
             </div>
             <div class="flashcard-back">
-              <p>Direct kinetic energy transfer through colliding molecules in solid or liquid contact.</p>
+              <p>Heat passing through direct contact as vibrating molecules bump into each other.</p>
             </div>
           </div>
         </div>
@@ -1195,7 +1425,7 @@
               <h4>2. CONVECTION</h4>
             </div>
             <div class="flashcard-back">
-              <p>Heat transfer via fluid motion (liquid or gas) driven by density &amp; temp differentials.</p>
+              <p>Heat carried by moving fluids (liquids or gases) as warm areas rise and cool areas sink.</p>
             </div>
           </div>
         </div>
@@ -1208,7 +1438,7 @@
               <h4>3. RADIATION</h4>
             </div>
             <div class="flashcard-back">
-              <p>Electromagnetic thermal emission occurring without needing any physical medium.</p>
+              <p>Heat traveling as infrared light waves that can travel right through the vacuum of space.</p>
             </div>
           </div>
         </div>
@@ -1221,7 +1451,7 @@
               <h4>4. MLI SYSTEM</h4>
             </div>
             <div class="flashcard-back">
-              <p>Multi-Layer Insulation shielding conduction, convection, and radiation simultaneously.</p>
+              <p>Multi-Layer Insulation blankets that stop conduction, convection, and radiation together.</p>
             </div>
           </div>
         </div>
@@ -1234,7 +1464,7 @@
               <h4>5. NEWTON'S LAW</h4>
             </div>
             <div class="flashcard-back">
-              <p>Exponential decay equation T(t) = T_env + (T_0 - T_env)e^(-kt) predicting temp over time.</p>
+              <p>The cooling rule: hot things cool down fast at first, then slow down as they approach room temp.</p>
             </div>
           </div>
         </div>
@@ -1244,10 +1474,10 @@
           <div class="flashcard-inner">
             <div class="flashcard-front">
               <i data-lucide="gauge" style="width:26px; height:26px;"></i>
-              <h4>6. DECAY RATE (k)</h4>
+              <h4>6. COOLING CONSTANT (k)</h4>
             </div>
             <div class="flashcard-back">
-              <p>Cooling constant (1/min). Smaller k values signify superior thermal insulation performance!</p>
+              <p>How fast an object loses heat. The smaller the k value, the better the insulator!</p>
             </div>
           </div>
         </div>
@@ -1260,7 +1490,7 @@
               <h4>7. DIGITAL TWIN</h4>
             </div>
             <div class="flashcard-back">
-              <p>Virtual real-time computer simulation synchronized with physical live telemetry data.</p>
+              <p>A live computer model running math simulations alongside real hardware sensor data.</p>
             </div>
           </div>
         </div>
@@ -1273,7 +1503,7 @@
               <h4>8. THERMAL SINK</h4>
             </div>
             <div class="flashcard-back">
-              <p>An environment (0°C ice bath) absorbing heat energy without changing its own temperature.</p>
+              <p>A large surrounding environment (like our 0°C ice bath) that absorbs heat without warming up.</p>
             </div>
           </div>
         </div>
@@ -1286,7 +1516,7 @@
               <h4>9. HEAT CAPACITY</h4>
             </div>
             <div class="flashcard-back">
-              <p>Total heat energy stored in liquid core: Q = m · c · ΔT. Greater mass cools down slower!</p>
+              <p>How much thermal energy a body can store. More water mass means slower cooling!</p>
             </div>
           </div>
         </div>
@@ -1299,7 +1529,7 @@
               <h4>10. EQUILIBRIUM</h4>
             </div>
             <div class="flashcard-back">
-              <p>Thermal state reached when capsule temperature cools down to match ambient T_env (0°C).</p>
+              <p>The final balanced state reached when the hot core cools down to match the surrounding 0°C bath.</p>
             </div>
           </div>
         </div>
@@ -1318,7 +1548,7 @@
 
     <!-- FOOTER -->
     <footer class="doc-footer">
-      SPHERE: MISSION CONTROL // STUDENT DIGITAL TWIN MANUAL &amp; WORKSHEET // © 2026 PROJECT SPHERE INITIATIVE
+      SPHERE: MISSION CONTROL &bull; STUDENT PRACTICAL GUIDE &amp; WORKSHEET &bull; &copy; 2026 PROJECT SPHERE INITIATIVE
     </footer>
 
   </div>

@@ -337,36 +337,62 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   // 3. Tab Routing / Views Manipulation
   // ==========================================================================
+  function switchTab(target) {
+    if (!target) return;
+    
+    // Update Tab state
+    elements.tabs.forEach(t => {
+      if (t.getAttribute('data-target') === target) {
+        t.classList.add('active');
+      } else {
+        t.classList.remove('active');
+      }
+    });
+    
+    // Toggle views visibility
+    elements.sections.forEach(sec => {
+      if (sec.id === target) {
+        sec.classList.add('active');
+      } else {
+        sec.classList.remove('active');
+      }
+    });
+    
+    logToConsole(`SYS: Navigating to terminal panel: [${target.toUpperCase()}]`);
+    
+    // Refresh Chart sizing if loaded in background
+    if (target === 'simulator' && simulationChartInstance) {
+      simulationChartInstance.resize();
+    }
+    if (target === 'telemetry' && telemetryChartInstance) {
+      telemetryChartInstance.resize();
+    }
+    
+    // Reset icons
+    lucide.createIcons();
+    
+    // Refresh math rendering
+    refreshMath();
+
+    // Smooth scroll to top of view
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   elements.tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       playClickSound();
       const target = tab.getAttribute('data-target');
-      
-      // Update Tab state
-      elements.tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      
-      // Toggle views visibility
-      elements.sections.forEach(sec => {
-        if (sec.id === target) {
-          sec.classList.add('active');
-        } else {
-          sec.classList.remove('active');
-        }
-      });
-      
-      logToConsole(`SYS: Navigating to terminal panel: [${target.toUpperCase()}]`);
-      
-      // Refresh Chart sizing if loaded in background
-      if (target === 'simulator' && simulationChartInstance) {
-        simulationChartInstance.resize();
-      }
-      if (target === 'telemetry' && telemetryChartInstance) {
-        telemetryChartInstance.resize();
-      }
-      
-      // Reset icons
-      lucide.createIcons();
+      switchTab(target);
+    });
+  });
+
+  // Attach workflow pipeline buttons
+  document.querySelectorAll('.workflow-nav-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      playClickSound();
+      const target = btn.getAttribute('data-target');
+      switchTab(target);
     });
   });
 
@@ -508,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
               display: true,
               text: 'TIME (MINUTES)',
               color: '#94a3b8',
-              font: { family: 'Orbitron', size: 10 }
+              font: { family: 'Inter', size: 11, weight: '600' }
             },
             grid: { color: 'rgba(255, 255, 255, 0.05)' },
             ticks: { color: '#64748b', font: { family: 'Roboto Mono' } }
@@ -520,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
               display: true,
               text: 'TEMPERATURE (°C)',
               color: '#94a3b8',
-              font: { family: 'Orbitron', size: 10 }
+              font: { family: 'Inter', size: 11, weight: '600' }
             },
             grid: { color: 'rgba(255, 255, 255, 0.05)' },
             ticks: { color: '#64748b', font: { family: 'Roboto Mono' } }
@@ -537,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
             backgroundColor: '#101830',
             borderColor: 'rgba(0, 242, 254, 0.3)',
             borderWidth: 1,
-            titleFont: { family: 'Orbitron' },
+            titleFont: { family: 'Inter', weight: 'bold' },
             bodyFont: { family: 'Roboto Mono' },
             callbacks: {
               label: function(context) {
@@ -675,9 +701,9 @@ document.addEventListener('DOMContentLoaded', () => {
           {
             label: 'Newton Prediction Model (Dashed)',
             data: state.predictionCurve,
-            borderColor: 'rgba(0, 242, 254, 0.45)',
+            borderColor: '#0284c7',
             borderDash: [6, 6],
-            borderWidth: 2,
+            borderWidth: 2.5,
             pointRadius: 0, // Hide points for clear aesthetic
             tension: 0.25,
             fill: false
@@ -685,13 +711,13 @@ document.addEventListener('DOMContentLoaded', () => {
           {
             label: 'Physical Telemetry (Actual)',
             data: [], // populated dynamically
-            borderColor: '#ff9f43',
-            backgroundColor: 'rgba(255, 159, 67, 0.1)',
+            borderColor: '#ea580c',
+            backgroundColor: 'rgba(234, 88, 12, 0.12)',
             borderWidth: 3,
             pointRadius: 6,
             pointHoverRadius: 8,
-            pointBackgroundColor: '#ff9f43',
-            pointBorderColor: '#fff',
+            pointBackgroundColor: '#ea580c',
+            pointBorderColor: '#ffffff',
             pointBorderWidth: 2,
             tension: 0.1,
             fill: false
@@ -709,11 +735,11 @@ document.addEventListener('DOMContentLoaded', () => {
             title: {
               display: true,
               text: 'TIME (MINUTES)',
-              color: '#94a3b8',
-              font: { family: 'Orbitron', size: 10 }
+              color: '#334155',
+              font: { family: 'Inter', size: 11, weight: '700' }
             },
-            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#64748b', font: { family: 'Roboto Mono' } }
+            grid: { color: 'rgba(0, 0, 0, 0.07)' },
+            ticks: { color: '#475569', font: { family: 'Roboto Mono', weight: '600' } }
           },
           y: {
             min: 0,
@@ -721,25 +747,29 @@ document.addEventListener('DOMContentLoaded', () => {
             title: {
               display: true,
               text: 'TEMPERATURE (°C)',
-              color: '#94a3b8',
-              font: { family: 'Orbitron', size: 10 }
+              color: '#334155',
+              font: { family: 'Inter', size: 11, weight: '700' }
             },
-            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#64748b', font: { family: 'Roboto Mono' } }
+            grid: { color: 'rgba(0, 0, 0, 0.07)' },
+            ticks: { color: '#475569', font: { family: 'Roboto Mono', weight: '600' } }
           }
         },
         plugins: {
           legend: {
             labels: {
-              color: '#e2e8f0',
-              font: { family: 'Inter', size: 11 }
+              color: '#0f172a',
+              font: { family: 'Inter', size: 12, weight: '700' },
+              padding: 16,
+              usePointStyle: false,
+              boxWidth: 28,
+              boxHeight: 12
             }
           },
           tooltip: {
-            backgroundColor: '#101830',
-            borderColor: 'rgba(255, 159, 67, 0.4)',
+            backgroundColor: '#0f172a',
+            borderColor: '#cbd5e1',
             borderWidth: 1,
-            titleFont: { family: 'Orbitron' },
+            titleFont: { family: 'Inter', weight: 'bold' },
             bodyFont: { family: 'Roboto Mono' }
           }
         }
@@ -773,7 +803,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Assign prediction label dynamically based on active constant model
     const material = state.modelConstants[state.selectedModel];
     telemetryChartInstance.data.datasets[0].label = `${material.name} (Predicted)`;
-    telemetryChartInstance.data.datasets[0].borderColor = `${material.color}80`;
+    telemetryChartInstance.data.datasets[0].borderColor = material.color;
     
     telemetryChartInstance.data.datasets[1].data = sortedPhysical;
     
@@ -1069,11 +1099,49 @@ document.addEventListener('DOMContentLoaded', () => {
       updateTelemetryTable();
       updateTelemetryChart();
       saveToLocalStorage();
-      logToConsole("WARN: Entire physical telemetry log wiped by manual directive.", "warn");
-      showNotification("Logs Wiped", "error");
       playWarningSound();
     }
   });
+
+  // Export Telemetry as CSV file
+  const btnExportCsv = document.getElementById('btn-export-csv');
+  if (btnExportCsv) {
+    btnExportCsv.addEventListener('click', () => {
+      playClickSound();
+      if (!state.telemetryPoints || state.telemetryPoints.length === 0) {
+        showNotification("No Data To Export", "error");
+        alert("No telemetry data available to export. Please log some measurements or use sample data first.");
+        return;
+      }
+
+      const model = state.modelConstants[state.selectedModel] || { name: 'Unselected', k: 0 };
+      const tenvInput = elements.simTenv ? parseFloat(elements.simTenv.value) : 0.0;
+      const t0Input = elements.simT0 ? parseFloat(elements.simT0.value) : 80.0;
+      
+      let csvContent = "data:text/csv;charset=utf-8,";
+      csvContent += "SPHERE: Mission Control - Telemetry Logbook Export\n";
+      csvContent += `Selected Model,${model.name},k-Constant,${model.k.toFixed(3)}\n`;
+      csvContent += `Initial Temp (T0),${t0Input}°C,Environment Temp (T_env),${tenvInput}°C\n\n`;
+      csvContent += "Index,Time (min),Measured Temp (C),Predicted Temp (C),Difference (Delta T C)\n";
+
+      state.telemetryPoints.forEach((pt, idx) => {
+        const pred = calculateNewtonTemperature(pt.time, model.k);
+        const diff = (pt.temp - pred).toFixed(2);
+        csvContent += `${idx + 1},${pt.time.toFixed(1)},${pt.temp.toFixed(2)},${pred.toFixed(2)},${diff}\n`;
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `sphere_telemetry_${state.selectedModel}_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      logToConsole("SYS: Telemetry dataset exported as CSV file successfully.");
+      showNotification("CSV Exported", "success");
+    });
+  }
 
   // Mock autofill generator with authentic thermodynamic noise
   elements.btnAutofill.addEventListener('click', () => {
@@ -1372,9 +1440,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const den = t0 - tenv;
 
       if (den <= 0 || num <= 0 || time <= 0) {
-        if (calcStep1) calcStep1.textContent = '1. Invalid parameters (Check temperatures and time)';
-        if (calcStep2) calcStep2.textContent = '2. Natural Log = N/A';
-        if (calcStep3) calcStep3.textContent = '3. DERIVED k-VALUE = N/A';
+        if (calcStep1) calcStep1.innerHTML = '1. Invalid parameters (Check temperatures and time)';
+        if (calcStep2) calcStep2.innerHTML = '2. Natural Log = N/A';
+        if (calcStep3) calcStep3.innerHTML = '3. DERIVED k-VALUE = N/A';
         return;
       }
 
@@ -1382,9 +1450,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const lnRatio = Math.log(ratio);
       const kVal = -lnRatio / time;
 
-      if (calcStep1) calcStep1.textContent = `1. Temp Ratio = (${tt.toFixed(1)} - ${tenv.toFixed(1)}) / (${t0.toFixed(1)} - ${tenv.toFixed(1)}) = ${ratio.toFixed(4)}`;
-      if (calcStep2) calcStep2.textContent = `2. Natural Log ln(${ratio.toFixed(4)}) = ${lnRatio.toFixed(4)}`;
-      if (calcStep3) calcStep3.textContent = `3. DERIVED k-VALUE = ${kVal.toFixed(3)} min⁻¹`;
+      if (calcStep1) calcStep1.innerHTML = `$$\\text{Temp Ratio} = \\frac{${tt.toFixed(1)} - ${tenv.toFixed(1)}}{${t0.toFixed(1)} - ${tenv.toFixed(1)}} = ${ratio.toFixed(4)}$$`;
+      if (calcStep2) calcStep2.innerHTML = `$$\\ln(${ratio.toFixed(4)}) = ${lnRatio.toFixed(4)}$$`;
+      if (calcStep3) calcStep3.innerHTML = `$$k = -\\frac{${lnRatio.toFixed(4)}}{${time}} = ${kVal.toFixed(3)}\\text{ min}^{-1}$$`;
 
       // Match insulation grade
       let material = "CUSTOM INSULATION SHIELD";
@@ -1392,28 +1460,31 @@ document.addEventListener('DOMContentLoaded', () => {
       let badgeColor = "#0369a1";
 
       if (kVal <= 0.025) {
-        material = "FULL MLI SPACESUIT (k ≈ 0.015 min⁻¹)";
+        material = "FULL MLI SPACESUIT ($k \\approx 0.015\\text{ min}^{-1}$)";
         badgeBg = "#dcfce7";
         badgeColor = "#15803d";
       } else if (kVal <= 0.060) {
-        material = "MYLAR RADIATION SHIELD (k ≈ 0.040 min⁻¹)";
+        material = "MYLAR RADIATION SHIELD ($k \\approx 0.040\\text{ min}^{-1}$)";
         badgeBg = "#fef3c7";
         badgeColor = "#b45309";
       } else if (kVal <= 0.110) {
-        material = "COTTON CONDUCTION SHIELD (k ≈ 0.080 min⁻¹)";
+        material = "COTTON CONDUCTION SHIELD ($k \\approx 0.080\\text{ min}^{-1}$)";
         badgeBg = "#e0f2fe";
         badgeColor = "#0369a1";
       } else {
-        material = "BARE UNINSULATED CORE (k ≈ 0.150 min⁻¹)";
+        material = "BARE UNINSULATED CORE ($k \\approx 0.150\\text{ min}^{-1}$)";
         badgeBg = "#fee2e2";
         badgeColor = "#b91c1c";
       }
 
       if (calcMatchBadge) {
-        calcMatchBadge.textContent = `MATCHING MATERIAL: ${material}`;
+        calcMatchBadge.innerHTML = `MATCHING MATERIAL: ${material}`;
         calcMatchBadge.style.background = badgeBg;
         calcMatchBadge.style.color = badgeColor;
       }
+
+      const calcOutputBox = document.getElementById('calc-output-box');
+      if (calcOutputBox) refreshMath(calcOutputBox);
     }
 
     [calcT0, calcTenv, calcTt, calcTime].forEach(input => {
@@ -1518,10 +1589,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (q5Selected && q5Selected.value === answerKey.q5) {
         correctCount++;
         q5Feedback.className = 'quiz-feedback correct';
-        q5Feedback.innerHTML = '✓ CORRECT! Adjusting T_env to 4.5°C recalibrates the Digital Twin mathematical model.';
+        q5Feedback.innerHTML = '✓ CORRECT! Adjusting $T_{\\text{env}}$ to 4.5°C recalibrates the Digital Twin mathematical model.';
       } else {
         q5Feedback.className = 'quiz-feedback incorrect';
-        q5Feedback.innerHTML = '✗ INCORRECT! Correct answer is B: Update T_env parameter in the simulator.';
+        q5Feedback.innerHTML = '✗ INCORRECT! Correct answer is B: Update $T_{\\text{env}}$ parameter in the simulator.';
       }
 
       // Q6 Check
@@ -1530,10 +1601,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (q6Selected && q6Selected.value === answerKey.q6) {
         correctCount++;
         q6Feedback.className = 'quiz-feedback correct';
-        q6Feedback.innerHTML = '✓ CORRECT! Thermal Conductivity (k) governs the conduction heat flux density across solid layers.';
+        q6Feedback.innerHTML = '✓ CORRECT! Thermal Conductivity ($k$) governs the conduction heat flux density across solid layers.';
       } else {
         q6Feedback.className = 'quiz-feedback incorrect';
-        q6Feedback.innerHTML = '✗ INCORRECT! Correct answer is A: Thermal Conductivity Coefficient (k).';
+        q6Feedback.innerHTML = '✗ INCORRECT! Correct answer is A: Thermal Conductivity Coefficient ($k$).';
       }
 
       // Q7 Check
@@ -1554,7 +1625,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (q8Selected && q8Selected.value === answerKey.q8) {
         correctCount++;
         q8Feedback.className = 'quiz-feedback correct';
-        q8Feedback.innerHTML = '✓ CORRECT! Ethanol holds less heat per gram, causing temperature to plunge much faster.';
+        q8Feedback.innerHTML = '✓ CORRECT! Ethanol holds less heat per gram ($c = 2440\\text{ J/kg}\\cdot^\\circ\\text{C}$), causing temperature to plunge much faster.';
       } else {
         q8Feedback.className = 'quiz-feedback incorrect';
         q8Feedback.innerHTML = '✗ INCORRECT! Correct answer is A: Lower heat capacity means faster temperature drop.';
@@ -1566,10 +1637,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (q9Selected && q9Selected.value === answerKey.q9) {
         correctCount++;
         q9Feedback.className = 'quiz-feedback correct';
-        q9Feedback.innerHTML = '✓ CORRECT! Over time, the capsule approaches environmental equilibrium (T_env).';
+        q9Feedback.innerHTML = '✓ CORRECT! Over time, the capsule approaches environmental equilibrium ($T_{\\text{env}}$).';
       } else {
         q9Feedback.className = 'quiz-feedback incorrect';
-        q9Feedback.innerHTML = '✗ INCORRECT! Correct answer is B: The temperature approaches T_env asymptotically.';
+        q9Feedback.innerHTML = '✗ INCORRECT! Correct answer is B: The temperature approaches $T_{\\text{env}}$ asymptotically.';
       }
 
       // Q10 Check
@@ -1607,6 +1678,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       scoreBanner.classList.add('show');
       showNotification(`EVALUATION GRADED: ${percentage}% (GRADE: ${grade})`, percentage >= 80 ? 'success' : 'error');
+      refreshMath();
     });
 
     if (btnResetQuiz) {
@@ -1624,10 +1696,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function refreshMath(targetEl) {
+    if (typeof renderMathInElement === 'function') {
+      try {
+        renderMathInElement(targetEl || document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "annotation", "annotation-xml", "svg"],
+          throwOnError: false
+        });
+      } catch (err) {
+        console.warn("KaTeX render error:", err);
+      }
+    }
+  }
+
   // Boot chart setups & new hubs
   initTelemetryChart();
   initFlashcardsHub();
   initQuizEngine();
+  
+  // Refresh math rendering
+  setTimeout(refreshMath, 150);
   
   // Load cached settings
   loadFromLocalStorage();

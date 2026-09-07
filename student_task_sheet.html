@@ -10,6 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   
+  <!-- KaTeX for Beautiful Math Formula Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'annotation', 'annotation-xml', 'svg'], throwOnError: false});"></script>
+  
   <style>
     /* ==========================================================================
        SPHERE MISSION CONTROL: 2-PAGE STUDENT TASK SHEET & GRAPH WORKBOOK
@@ -17,9 +23,9 @@
        ========================================================================== */
 
     :root {
-      --bg-document: #f1f5f9;
+      --bg-document: #ffffff;
       --bg-page: #ffffff;
-      --bg-subtle: #f8fafc;
+      --bg-subtle: #ffffff;
       
       --primary-blue: #0284c7;
       --primary-dark: #0369a1;
@@ -39,7 +45,7 @@
       --border-dark: #94a3b8;
 
       --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-      --font-hud: 'Orbitron', 'Inter', sans-serif;
+      --font-hud: 'Inter', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
@@ -328,12 +334,14 @@
 
     .calc-formula {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: var(--primary-dark);
       background: var(--primary-bg);
-      padding: 2px 6px;
+      padding: 2px 8px;
       border-radius: 4px;
       border: 1px solid var(--primary-border);
+      display: inline-block;
+      margin-left: 6px;
     }
 
     .calc-line {
@@ -479,7 +487,7 @@
       }
 
       .meta-grid {
-        background: #f8fafc !important;
+        background: #ffffff !important;
         border: 1pt solid #cbd5e1 !important;
         padding: 8pt 12pt !important;
         margin-bottom: 10pt !important;
@@ -521,7 +529,7 @@
       }
 
       .q-answer-space {
-        background: #f8fafc !important;
+        background: #ffffff !important;
         border: 1pt dashed #94a3b8 !important;
         height: 48pt !important;
       }
@@ -538,18 +546,24 @@
 
     <!-- STICKY NAVIGATION BAR (Screen Only) -->
     <nav class="doc-nav no-print">
-      <a href="student_manual.html" class="nav-btn-back">
-        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> STUDENT MANUAL
+      <a href="index.html" class="nav-btn-back">
+        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> MISSION CONTROL CONSOLE
       </a>
-      <div style="font-family: var(--font-hud); font-size: 0.85rem; color: #ffffff; font-weight: 800;">
-        PRINTABLE TASK SHEET &amp; GRAPH WORKBOOK (2 PAGES)
+      <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #ffffff; font-weight: 700;">
+        PRINTABLE 2-PAGE TASK SHEET &amp; GRAPH WORKBOOK
       </div>
       <div class="nav-actions">
+        <a href="flashcards.html" class="nav-btn-alt" style="color: #fbbf24;">
+          <i data-lucide="layers" style="width: 16px; height: 16px;"></i> FLASHCARDS
+        </a>
+        <a href="student_manual.html" class="nav-btn-alt" style="color: #7dd3fc;">
+          <i data-lucide="book-open" style="width: 16px; height: 16px;"></i> STUDENT MANUAL
+        </a>
         <a href="teacher_manual.html" class="nav-btn-alt">
-          <i data-lucide="graduation-cap" style="width: 16px; height: 16px;"></i> TEACHER MANUAL
+          <i data-lucide="graduation-cap" style="width: 16px; height: 16px;"></i> INSTRUCTOR GUIDE
         </a>
         <button onclick="window.print()" class="nav-btn-print">
-          <i data-lucide="printer" style="width: 16px; height: 16px;"></i> PRINT / SAVE PDF
+          <i data-lucide="printer" style="width: 16px; height: 16px;"></i> PRINT / EXPORT PDF
         </button>
       </div>
     </nav>
@@ -562,87 +576,84 @@
         <!-- Page 1 Header -->
         <header class="page-header">
           <div>
-            <span class="brand-badge">EUROPEAN UNION STEM INITIATIVE</span>
+            <span class="brand-badge">FLIGHT DATA LOG &bull; THERMAL MISSION</span>
             <h1 class="sheet-title">SPHERE: MISSION CONTROL</h1>
-            <div class="sheet-sub">STUDENT LABORATORY TASK SHEET &amp; WORKBOOK</div>
+            <div class="sheet-sub">STUDENT LABORATORY TASK SHEET &amp; EXPERIMENTAL REGISTER</div>
           </div>
           <div style="text-align: right;">
             <span class="page-number-tag">PAGE 1 OF 2</span>
-            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-subtle); margin-top: 4px; font-weight: 700;">
-              REF: EU_SPHERE_TS_V2.1
-            </div>
           </div>
         </header>
 
         <!-- Crew Metadata Grid -->
         <div class="meta-grid">
           <div class="meta-field">
-            <label>CREW MEMBERS / NAMES:</label>
+            <label>FLIGHT CREW MEMBERS / RESEARCHERS:</label>
             <div class="meta-line"></div>
           </div>
           <div class="meta-field">
-            <label>CREW CALLSIGN / TEAM ID:</label>
+            <label>MISSION CALLSIGN / TEAM DESIGNATION:</label>
             <div class="meta-line"></div>
           </div>
           <div class="meta-field">
-            <label>DATE / CLASS PERIOD:</label>
+            <label>DATE / LABORATORY PERIOD:</label>
             <div class="meta-line"></div>
           </div>
           <div class="meta-field">
-            <label>TESTED INSULATION CONFIGURATION:</label>
+            <label>ASSIGNED TPS CONFIGURATION:</label>
             <div class="config-options">
               <span>[ ] A: Bare</span>
               <span>[ ] B: Cotton</span>
               <span>[ ] C: Mylar</span>
-              <span>[ ] D: MLI</span>
+              <span>[ ] D: MLI Composite</span>
             </div>
           </div>
         </div>
 
         <!-- Part A: Telemetry Logging Table -->
         <div class="section-head">
-          <span>PART A. LIVE TELEMETRY DATA LOGGING TABLE (0 TO 15 MIN)</span>
+          <span>PART A. LIVE TELEMETRY DATA REGISTER ($0$ TO $15\text{ MIN}$)</span>
           <span class="tag">60s INTERVALS</span>
         </div>
 
         <table class="logging-table">
           <thead>
             <tr>
-              <th style="width: 12%;">TIME</th>
-              <th style="width: 20%;">PHYSICAL TEMP (°C)</th>
-              <th style="width: 20%;">PREDICTED TEMP (°C)</th>
-              <th style="width: 18%;">ABS DIFF |ΔT| (°C)</th>
-              <th style="width: 30%;">OBSERVER FIELD NOTES</th>
+              <th style="width: 12%;">ELAPSED TIME</th>
+              <th style="width: 20%;">OBSERVED TEMP ($T_{\text{obs}}$)</th>
+              <th style="width: 20%;">MODEL TEMP ($T_{\text{model}}$)</th>
+              <th style="width: 18%;">RESIDUAL $|\Delta T|$ ($^\circ\text{C}$)</th>
+              <th style="width: 30%;">OBSERVER FIELD NOTES &amp; BOUNDARY STATUS</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><strong>0 min</strong></td><td>80.0°C</td><td>80.0°C</td><td>0.0°C</td><td>Capsule submerged in 0°C ice bath</td></tr>
-            <tr><td><strong>1 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>2 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>3 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>4 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>5 min</strong></td><td></td><td></td><td></td><td>Check thermal equilibrium status</td></tr>
-            <tr><td><strong>6 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>7 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>8 min</strong></td><td></td><td></td><td></td><td>Mid-point verification mark</td></tr>
-            <tr><td><strong>9 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>10 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>11 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>12 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>13 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>14 min</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>15 min</strong></td><td></td><td></td><td></td><td>Final measurement checkpoint</td></tr>
+            <tr><td><strong>$0\text{ min}$</strong></td><td>$80.0^\circ\text{C}$</td><td>$80.0^\circ\text{C}$</td><td>$0.0^\circ\text{C}$</td><td>Capsule submerged; ice bath boundary verified.</td></tr>
+            <tr><td><strong>$1\text{ min}$</strong></td><td></td><td></td><td></td><td>Initial boundary transient response.</td></tr>
+            <tr><td><strong>$2\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$3\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$4\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$5\text{ min}$</strong></td><td></td><td></td><td></td><td>Mid-phase checkpoint; verify ice slurry volume.</td></tr>
+            <tr><td><strong>$6\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$7\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$8\text{ min}$</strong></td><td></td><td></td><td></td><td>Transient decay stabilization mark.</td></tr>
+            <tr><td><strong>$9\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$10\text{ min}$</strong></td><td></td><td></td><td></td><td>Late-phase exponential tracking.</td></tr>
+            <tr><td><strong>$11\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$12\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$13\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$14\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td><strong>$15\text{ min}$</strong></td><td></td><td></td><td></td><td>Terminal checkpoint; assess steady-state error.</td></tr>
           </tbody>
         </table>
 
         <!-- Part B: Coordinate Graph Grid -->
         <div class="section-head">
           <span>PART B. THERMAL COOLING CURVE GRAPH GRID</span>
-          <span class="tag">PHYSICAL (•) VS PREDICTED (---)</span>
+          <span class="tag">EMPIRICAL (•) VS THEORETICAL (---)</span>
         </div>
         
         <div class="graph-instructions">
-          Plot physical temperature readings as solid points <strong style="color:var(--primary-dark);">(•)</strong> and join them. Plot theoretical model predictions as a dashed curve <strong style="color:var(--accent-amber-dark);">(---)</strong>.
+          Plot observed temperatures as discrete solid circular points <strong style="color:var(--primary-dark);">(•)</strong> and connect with a solid curve. Plot theoretical Digital Twin predictions as a dashed curve <strong style="color:var(--accent-amber-dark);">(---)</strong>.
         </div>
 
         <div class="graph-container">
@@ -689,9 +700,9 @@
 
       <!-- Page 1 Footer -->
       <footer class="page-footer">
-        <span>SPHERE: MISSION CONTROL // STUDENT TASK SHEET</span>
-        <span>FORM REF: EU_SPHERE_TS_P1</span>
-        <span>CONFIDENTIAL - CLASSROOM USE ONLY</span>
+        <span>SPHERE: MISSION CONTROL &bull; STUDENT TASK SHEET</span>
+        <span>PART A &amp; PART B: TELEMETRY LOG &amp; COOLING GRAPH</span>
+        <span>CLASSROOM LABORATORY WORKBOOK</span>
       </footer>
     </div>
 
@@ -704,61 +715,58 @@
         <!-- Page 2 Header -->
         <header class="page-header">
           <div>
-            <span class="brand-badge">EUROPEAN UNION STEM INITIATIVE</span>
+            <span class="brand-badge">THERMAL CORRELATION &bull; FLIGHT DEBRIEF</span>
             <h1 class="sheet-title">SPHERE: MISSION CONTROL</h1>
             <div class="sheet-sub">THERMAL CORRELATION &amp; ANALYSIS WORKBOOK</div>
           </div>
           <div style="text-align: right;">
             <span class="page-number-tag">PAGE 2 OF 2</span>
-            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-subtle); margin-top: 4px; font-weight: 700;">
-              REF: EU_SPHERE_TS_V2.1
-            </div>
           </div>
         </header>
 
         <!-- Part C: Calculations -->
         <div class="section-head">
-          <span>PART C. MANUAL THERMAL CORRELATION SCORE CALCULATION</span>
-          <span class="tag">PERFORMANCE EVALUATION</span>
+          <span>PART C. QUANTITATIVE RESIDUAL &amp; CORRELATION ANALYSIS</span>
+          <span class="tag">STATISTICAL EVALUATION</span>
         </div>
 
         <div class="calc-box">
           <div class="calc-row">
-            <span><strong>1. Sum of Absolute Differences:</strong> <span class="calc-formula">Sum |ΔT| = Σ |T_phys - T_pred|</span></span>
-            <span><strong>Sum |ΔT| = </strong> <span class="calc-line"></span> °C</span>
+            <span><strong>1. Sum of Absolute Residuals:</strong> <span class="calc-formula">$\sum |\Delta T| = \sum |T_{\text{obs}} - T_{\text{model}}|$</span></span>
+            <span><strong>$\sum |\Delta T| =$ </strong> <span class="calc-line"></span> $^\circ\text{C}$</span>
           </div>
           <div class="calc-row">
-            <span><strong>2. Average Experimental Error:</strong> <span class="calc-formula">Avg Error = Sum |ΔT| / 15</span></span>
-            <span><strong>Avg Error = </strong> <span class="calc-line"></span> °C</span>
+            <span><strong>2. Mean Absolute Error (MAE):</strong> <span class="calc-formula">$\text{MAE} = \frac{1}{15} \sum |\Delta T|$</span></span>
+            <span><strong>$\text{MAE} =$ </strong> <span class="calc-line"></span> $^\circ\text{C}$</span>
           </div>
           <div class="calc-row">
-            <span><strong>3. Digital Twin Correlation Score:</strong> <span class="calc-formula">Score = 100 - (Avg Error × 5)</span></span>
-            <span><strong>Score = </strong> <span class="calc-line"></span> %</span>
+            <span><strong>3. Digital Twin Correlation Score:</strong> <span class="calc-formula">$\text{Score} = \max\left(0, 100\% - [\text{MAE} \times 5\%]\right)$</span></span>
+            <span><strong>$\text{Score} =$ </strong> <span class="calc-line"></span> $\%$</span>
           </div>
 
           <div class="rating-strip">
-            <span>FINAL CREW RATING:</span>
-            <span>[ ] A+ (&ge;95%)</span>
-            <span>[ ] A (90-94%)</span>
-            <span>[ ] B (80-89%)</span>
-            <span>[ ] C (70-79%)</span>
-            <span>[ ] RE-CALIBRATE (&lt;70%)</span>
+            <span>OFFICIAL PERFORMANCE RATING:</span>
+            <span>[ ] A+ ($\ge 95.0\%$)</span>
+            <span>[ ] A ($90.0\text{--}94.9\%$)</span>
+            <span>[ ] B ($80.0\text{--}89.9\%$)</span>
+            <span>[ ] C ($70.0\text{--}79.9\%$)</span>
+            <span>[ ] RE-CALIBRATE ($<70.0\%$)</span>
           </div>
         </div>
 
         <!-- Part D: Questions Grid (Q1 - Q6) -->
         <div class="section-head">
-          <span>PART D. POST-FLIGHT ANALYSIS &amp; REFLECTION QUESTIONS</span>
-          <span class="tag">6 KEY CONCEPT QUESTIONS</span>
+          <span>PART D. POST-FLIGHT SCIENTIFIC INQUIRIES &amp; ANALYSIS</span>
+          <span class="tag">6 CORE CONCEPTS</span>
         </div>
 
         <div class="questions-grid">
           <!-- Q1 -->
           <div class="q-card">
             <div>
-              <div class="q-title">Q1: Thermal Radiation vs Conduction</div>
+              <div class="q-title">Inquiry 1: Radiant Barriers vs. Direct Conduction</div>
               <div class="q-desc">
-                Mylar reflects IR radiation in space. Why does Mylar alone perform poorly when submerged in an ice bath without cotton or bubble wrap?
+                Mylar reflects radiant heat like a mirror in space. Why does Mylar alone perform poorly when placed directly in ice water without an insulating air or fiber spacer?
               </div>
             </div>
             <div class="q-answer-space"></div>
@@ -767,9 +775,9 @@
           <!-- Q2 -->
           <div class="q-card">
             <div>
-              <div class="q-title">Q2: Physical Meaning of Decay Rate Constant (k)</div>
+              <div class="q-title">Inquiry 2: Understanding the Decay Constant ($k$)</div>
               <div class="q-desc">
-                In Newton's Law T(t) = T_env + (T_0 - T_env)·e^(-kt), does a smaller k value indicate better or worse insulation? Explain using the formula.
+                In Newton's Law $T(t) = T_{\text{env}} + (T_0 - T_{\text{env}})e^{-kt}$, does a smaller $k$ value mean better or worse insulation? Explain how $k$ controls the cooling speed.
               </div>
             </div>
             <div class="q-answer-space"></div>
@@ -778,9 +786,9 @@
           <!-- Q3 -->
           <div class="q-card">
             <div>
-              <div class="q-title">Q3: Multi-Layer Insulation (MLI) Synergy</div>
+              <div class="q-title">Inquiry 3: Why Multi-Layer Insulation (MLI) Works</div>
               <div class="q-desc">
-                Explain how combining Cotton + Bubble Wrap + Mylar in Configuration D creates a synergistic defense against conduction, convection, and radiation.
+                Why does combining Cotton, Bubble Wrap, and Mylar (Config D) protect the capsule so much better than any single material on its own? Explain how it stops conduction, convection, and radiation.
               </div>
             </div>
             <div class="q-answer-space"></div>
@@ -789,9 +797,9 @@
           <!-- Q4 -->
           <div class="q-card">
             <div>
-              <div class="q-title">Q4: Sources of Experimental Error</div>
+              <div class="q-title">Inquiry 4: Real-World Experimental Factors</div>
               <div class="q-desc">
-                Identify two physical sources of error (e.g. sensor positioning, water leakage, cap sealing) that could cause readings to diverge from the model.
+                What physical factors in the lab might cause your sensor readings to drift away from the computer simulation? Name at least two specific factors (e.g. sensor depth, stirring, seal leaks).
               </div>
             </div>
             <div class="q-answer-space"></div>
@@ -800,9 +808,9 @@
           <!-- Q5 -->
           <div class="q-card">
             <div>
-              <div class="q-title">Q5: Environmental Boundary Shift</div>
+              <div class="q-title">Inquiry 5: Ice Bath Temperature Drift</div>
               <div class="q-desc">
-                If your ice bath warms from 0°C to 4°C during the lab run, how should you adjust the simulation parameters in Mission Control to keep model validity?
+                If the ice bath warms up from $0.0^\circ\text{C}$ to $4.5^\circ\text{C}$ during your 15-minute run, how should you update the environment temperature $T_{\text{env}}$ in Mission Control so the model stays accurate?
               </div>
             </div>
             <div class="q-answer-space tall"></div>
@@ -811,9 +819,9 @@
           <!-- Q6 -->
           <div class="q-card">
             <div>
-              <div class="q-title">Q6: Heat Capacity &amp; Volume Scaling</div>
+              <div class="q-title">Inquiry 6: Effect of Capsule Water Volume</div>
               <div class="q-desc">
-                If the core water volume is increased from 100ml to 200ml, how does total heat capacity (Q = m · c · ΔT) affect the cooling rate k?
+                If you doubled the water volume from $100\text{ mL}$ to $200\text{ mL}$, how would that extra thermal mass ($Q = mc_p\Delta T$) change the cooling rate and the value of $k$?
               </div>
             </div>
             <div class="q-answer-space tall"></div>
@@ -825,16 +833,16 @@
       <div>
         <div style="background: var(--bg-subtle); border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 6px; margin-bottom: 8px;">
           <div class="sign-box">
-            <span><strong>CREW LEAD SIGNATURE:</strong> <span class="sign-line"></span></span>
-            <span><strong>TEACHER VALIDATION:</strong> <span class="sign-line"></span></span>
-            <span><strong>FINAL GRADE:</strong> ________ / 100</span>
+            <span><strong>CREW COMMANDER SIGNATURE:</strong> <span class="sign-line"></span></span>
+            <span><strong>INSTRUCTOR VALIDATION:</strong> <span class="sign-line"></span></span>
+            <span><strong>EVALUATION SCORE:</strong> ________ / 100</span>
           </div>
         </div>
 
         <footer class="page-footer">
-          <span>SPHERE: MISSION CONTROL // STUDENT TASK SHEET</span>
-          <span>FORM REF: EU_SPHERE_TS_P2</span>
-          <span>END OF WORKBOOK (PAGE 2 OF 2)</span>
+          <span>SPHERE: MISSION CONTROL &bull; STUDENT TASK SHEET</span>
+          <span>PART C &amp; PART D: ANALYSIS &amp; REFLECTION</span>
+          <span>END OF EXPERIMENTAL WORKBOOK (PAGE 2 OF 2)</span>
         </footer>
       </div>
     </div>

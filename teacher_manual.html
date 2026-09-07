@@ -10,6 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   
+  <!-- KaTeX for Beautiful Math Formula Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'annotation', 'annotation-xml', 'svg'], throwOnError: false});"></script>
+  
   <style>
     /* ==========================================================================
        SPHERE MISSION CONTROL: OFFICIAL TEACHER MANUAL STYLESHEET
@@ -17,10 +23,10 @@
        ========================================================================== */
 
     :root {
-      /* Base Theme Colors */
-      --bg-document: #f1f5f9;
+      /* Base Theme Colors - Pure White Clean Instructor Manual */
+      --bg-document: #ffffff;
       --bg-page: #ffffff;
-      --bg-subtle: #f8fafc;
+      --bg-subtle: #ffffff;
       --bg-card: #ffffff;
       
       /* Instructor Amber / Navy Accents */
@@ -43,7 +49,7 @@
 
       /* Font Stacks */
       --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      --font-hud: 'Orbitron', 'Inter', system-ui, sans-serif;
+      --font-hud: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, Monaco, monospace;
     }
 
@@ -153,8 +159,8 @@
     .doc-header {
       text-align: center;
       border-bottom: 2px solid var(--border-color);
-      padding-bottom: 30px;
-      margin-bottom: 35px;
+      padding-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     .header-badge {
@@ -169,7 +175,7 @@
       border-radius: 50px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .doc-title {
@@ -185,23 +191,12 @@
 
     .doc-subtitle {
       font-family: var(--font-sans);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: var(--primary-amber);
-      margin-top: 10px;
-      letter-spacing: 0.05em;
+      margin-top: 8px;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-    }
-
-    .doc-meta-strip {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-subtle);
-      margin-top: 15px;
     }
 
     /* Headings Hierarchy */
@@ -266,6 +261,44 @@
     .callout-box strong {
       color: var(--primary-amber-dark);
       font-weight: 800;
+    }
+
+    /* Hero Banner Grid */
+    .hero-banner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border: 2px solid #334155;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 25px 0 35px 0;
+      color: #f8fafc;
+    }
+
+    .hero-banner img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #fbbf24;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
+      flex-shrink: 0;
+    }
+
+    .hero-banner h3 {
+      color: #fbbf24;
+      font-family: var(--font-hud);
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    .hero-banner p {
+      color: #cbd5e1;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin: 0;
     }
 
     /* Styled Tables */
@@ -415,7 +448,7 @@
         print-color-adjust: exact;
       }
 
-      .doc-nav, .no-print, .action-bar, .doc-meta-strip {
+      .doc-nav, .no-print, .action-bar {
         display: none !important;
       }
 
@@ -428,15 +461,10 @@
         background: transparent !important;
       }
 
-      /* Natural flowing sections without forced blank pages */
       .doc-section {
         break-inside: avoid-page;
         page-break-inside: avoid;
         margin-bottom: 24pt !important;
-        padding-top: 0;
-      }
-
-      .doc-section:first-of-type {
         padding-top: 0;
       }
 
@@ -496,7 +524,7 @@
         page-break-inside: avoid;
         border: 1pt solid #cbd5e1 !important;
         border-left: 4pt solid #0284c7 !important;
-        background: #f8fafc !important;
+        background: #ffffff !important;
         margin-bottom: 12pt !important;
         padding: 12pt !important;
       }
@@ -541,89 +569,99 @@
     <!-- STICKY NAVIGATION BAR -->
     <nav class="doc-nav no-print">
       <a href="index.html" class="nav-btn-back">
-        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> BACK TO MISSION CONTROL
+        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> MISSION CONTROL CONSOLE
       </a>
       <div class="nav-actions">
+        <a href="flashcards.html" target="_blank" class="nav-btn-pdf" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: #f59e0b;">
+          <i data-lucide="layers" style="width: 16px; height: 16px;"></i> FLASHCARDS (PDF)
+        </a>
         <a href="student_manual.html" class="nav-btn-alt">
           <i data-lucide="book-open" style="width: 16px; height: 16px;"></i> STUDENT MANUAL
         </a>
+        <a href="student_task_sheet.html" target="_blank" class="nav-btn-alt" style="color: #0284c7;">
+          <i data-lucide="file-spreadsheet" style="width: 16px; height: 16px;"></i> 2-PAGE TASK SHEET
+        </a>
         <a href="V2.1_SPHERE_ Mission Control - Teacher Manual.pdf" target="_blank" class="nav-btn-pdf">
-          <i data-lucide="file-text" style="width: 16px; height: 16px;"></i> DOWNLOAD PDF (V2.1)
+          <i data-lucide="file-text" style="width: 16px; height: 16px;"></i> DOWNLOAD PDF
         </a>
       </div>
     </nav>
 
-    <!-- DOCUMENT HEADER -->
+    <!-- DOCUMENT HEADER (Clean, Human & Direct) -->
     <header class="doc-header">
-      <span class="header-badge">EUROPEAN UNION STEM LABORATORY INITIATIVE</span>
+      <span class="header-badge">INSTRUCTOR GUIDE &amp; ANSWER KEY</span>
       <h1 class="doc-title">SPHERE: MISSION CONTROL</h1>
-      <div class="doc-subtitle">TEACHER MANUAL &amp; SOLUTIONS KEY</div>
-      <div class="doc-meta-strip">
-        <span>REF: EU_SPHERE_TEACHER_V2.1</span>
-        <span>•</span>
-        <span>INSTRUCTOR GUIDE</span>
-        <span>•</span>
-        <span>IBSE CURRICULUM</span>
-      </div>
+      <div class="doc-subtitle">Teacher Guide, Lesson Plan &amp; Solutions Key</div>
     </header>
+
+    <!-- HERO INTRODUCTION BANNER -->
+    <div class="hero-banner no-print">
+      <img src="images/astronaut.png" alt="Astronaut in Space">
+      <div>
+        <h3>MISSION CONTROL: INSTRUCTOR HEADQUARTERS</h3>
+        <p>
+          Empower your students to think like aerospace engineers. This guide provides full lesson scaffolding, setup protocols, theoretical cooling models, and a complete answer key for the SPHERE thermodynamics lab.
+        </p>
+      </div>
+    </div>
 
     <!-- SUMMARY CALLOUT -->
     <div class="callout-box">
-      <strong>Inquiry-Based Science Education (IBSE) Framework:</strong>
-      This instructor manual provides curriculum alignment, a 60-minute lesson plan, equipment preparation protocols, theoretical physics decay reference tables, and complete official solutions for the Student Worksheet &amp; Question Sheet (Q1 through Q8).
+      <strong>Welcome, Educators!</strong>
+      This teacher guide is built to help you run a smooth, engaging 60-minute thermodynamics lab where students act as aerospace flight controllers. You'll find curriculum alignment, lab setup tips, theoretical reference tables, and complete answer keys with common student misconceptions.
     </div>
 
     <!-- SECTION 1 -->
     <section class="doc-section" id="section-1">
-      <h2><i data-lucide="award"></i> 1. CURRICULUM CONTEXT &amp; SYLLABUS ALIGNMENT</h2>
+      <h2><i data-lucide="award"></i> 1. CURRICULUM GOALS &amp; BIG IDEAS</h2>
       <p>
-        The <strong>SPHERE: Mission Control Digital Twin Laboratory</strong> integrates hands-on experimental physics with computational modeling. Designed for secondary and upper-secondary physics (NGSS, IB Physics, A-Level, and National STEM Curricula), this module targets the following core learning outcomes:
+        The <strong>SPHERE: Mission Control Digital Twin Lab</strong> blends hands-on physics with live computer simulation. Designed for high school and introductory college physics (NGSS, IB Physics, A-Level), the lab focuses on four core takeaways:
       </p>
       <ul>
-        <li><strong>Heat Transfer Mechanisms:</strong> Conduction, Convection, and Thermal Radiation.</li>
-        <li><strong>Exponential Mathematical Decay:</strong> Differential and integrated Newton's Law of Cooling <i>T(t) = T<sub>env</sub> + (T<sub>0</sub> - T<sub>env</sub>)e<sup>-kt</sup></i>.</li>
-        <li><strong>Digital Twin Engineering Methodology:</strong> Validating physical hardware sensors against computer simulation models.</li>
-        <li><strong>Data Analysis &amp; Graphing Literacy:</strong> Manual data logging, graph construction, and percentage error evaluation.</li>
+        <li><strong>How Heat Moves:</strong> Seeing conduction, convection, and radiation in action through real materials.</li>
+        <li><strong>Exponential Cooling:</strong> Understanding Newton's Law of Cooling, $$T(t) = T_{\text{env}} + (T_0 - T_{\text{env}}) \cdot e^{-kt}$$, and what the cooling constant $k$ represents.</li>
+        <li><strong>The "Digital Twin" Concept:</strong> Experiencing how modern engineers run real-time hardware tests alongside predictive computer simulations.</li>
+        <li><strong>Graphing &amp; Data Analysis:</strong> Building dual-curve graphs, calculating absolute errors $|\Delta T|$, and scoring model accuracy.</li>
       </ul>
     </section>
 
     <!-- SECTION 2 -->
     <section class="doc-section" id="section-2">
-      <h2><i data-lucide="clock"></i> 2. LESSON PLAN &amp; TIMELINE (60 MINUTES)</h2>
+      <h2><i data-lucide="clock"></i> 2. 60-MINUTE LESSON ROADMAP</h2>
       
       <table class="styled-table">
         <thead>
           <tr>
-            <th style="width: 15%;">TIMEFRAME</th>
+            <th style="width: 18%;">TIMELINE</th>
             <th style="width: 25%;">LESSON PHASE</th>
-            <th style="width: 60%;">TEACHER &amp; STUDENT ACTIVITIES</th>
+            <th style="width: 57%;">WHAT YOU &amp; YOUR STUDENTS ARE DOING</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>00–10 min</strong></td>
+            <td><strong>$0\text{--}10\text{ min}$</strong></td>
             <td>1. Mission Briefing &amp; Quiz</td>
-            <td>Teacher introduces orbital thermal challenges. Students complete the Pre-Flight Quiz in Mission Control to unlock telemetry features.</td>
+            <td>Hook the class with the extreme temperatures of spacewalks ($+120^\circ\text{C}$ to $-150^\circ\text{C}$). Students complete the quick Pre-Flight Quiz in the Mission Control app to unlock telemetry tools.</td>
           </tr>
           <tr>
-            <td><strong>10–20 min</strong></td>
-            <td>2. Hardware Capsule Assembly</td>
-            <td>Student crews wrap 100ml PET jars with assigned insulation (Bare, Cotton, Mylar, MLI) and thread sensors through PG7 waterproof glands.</td>
+            <td><strong>$10\text{--}20\text{ min}$</strong></td>
+            <td>2. Capsule Assembly</td>
+            <td>Assign crews their insulation setup (A: Bare, B: Cotton, C: Mylar, D: MLI). Show students how to thread the probe through the PG7 gland and check for a snug, leak-free seal.</td>
           </tr>
           <tr>
-            <td><strong>20–35 min</strong></td>
-            <td>3. Live 15m Telemetry Run</td>
-            <td>Capsules submerged in 0°C ice bath. Students record physical core temperatures every 60s into Mission Control &amp; Task Sheets.</td>
+            <td><strong>$20\text{--}35\text{ min}$</strong></td>
+            <td>3. Live 15-Minute Run</td>
+            <td>Pour $100\text{ ml}$ of $80^\circ\text{C}$ water into each jar. Submerge capsules into $0^\circ\text{C}$ ice baths, start the live timer, and log temperatures every $60\text{ seconds}$ on paper and in the app.</td>
           </tr>
           <tr>
-            <td><strong>35–48 min</strong></td>
-            <td>4. Graphing &amp; Correlation</td>
-            <td>Crews plot paper graph curves, compute absolute errors |ΔT|, and calculate their crew Thermal Correlation Score.</td>
+            <td><strong>$35\text{--}48\text{ min}$</strong></td>
+            <td>4. Graphing &amp; Scoring</td>
+            <td>Students plot their real temperature curve against the digital twin line, sum their $|\Delta T|$ error, and calculate their team's final Correlation Score.</td>
           </tr>
           <tr>
-            <td><strong>48–60 min</strong></td>
-            <td>5. Debrief &amp; Analysis</td>
-            <td>Instructor leads reflection on material decay rates (<i>k</i>), sources of experimental error, and spacesuit engineering trade-offs.</td>
+            <td><strong>$48\text{--}60\text{ min}$</strong></td>
+            <td>5. Debrief &amp; Wrap-Up</td>
+            <td>Lead a quick class reflection comparing all 4 insulation curves. Discuss why Mylar needs spacers, why $k$ changes, and real spacesuit mobility trade-offs.</td>
           </tr>
         </tbody>
       </table>
@@ -631,57 +669,58 @@
 
     <!-- SECTION 3 -->
     <section class="doc-section" id="section-3">
-      <h2><i data-lucide="wrench"></i> 3. EQUIPMENT PREPARATION &amp; LAB PROTOCOLS</h2>
+      <h2><i data-lucide="wrench"></i> 3. LAB SETUP &amp; SAFETY CHECKLIST</h2>
       <p>
-        To ensure smooth lab execution, prepare materials prior to student arrival:
+        A few minutes of prep before class ensures everything runs smoothly and safely:
       </p>
       <ul>
-        <li><strong>Water Temperature Control:</strong> Maintain hot water supply at 80°C (use a thermostatically controlled kettle).</li>
-        <li><strong>Ice Bath Preparation:</strong> Prepare slurry buckets containing 50% crushed ice and 50% cold water to guarantee stable <i>T</i><sub>env</sub> = 0°C boundary conditions.</li>
-        <li><strong>PG7 Seal Verification:</strong> Demonstrate tightening the PG7 gland dome nut to prevent liquid leakage into student capsules.</li>
+        <li><strong>Hot Water Safety:</strong> Keep water at $80^\circ\text{C}$ using an electric kettle. Have students wear silicone heat grips when pouring hot water.</li>
+        <li><strong>Steady $0^\circ\text{C}$ Ice Baths:</strong> Use a 50/50 mix of crushed ice and water. Make sure plenty of ice floats throughout the $15\text{ minutes}$ so the bath stays at $0^\circ\text{C}$.</li>
+        <li><strong>Leak Prevention:</strong> Remind students to hand-tighten the PG7 gland dome nut so the internal rubber ring clamps securely around the wire.</li>
+        <li><strong>Probe Placement:</strong> Check that each probe hangs in the center of the liquid and isn't pressed against the plastic jar walls.</li>
       </ul>
     </section>
 
     <!-- SECTION 4 -->
     <section class="doc-section" id="section-4">
-      <h2><i data-lucide="book-open"></i> 4. THEORETICAL PHYSICS REFERENCE &amp; DECAY CONSTANTS</h2>
+      <h2><i data-lucide="book-open"></i> 4. EXPECTED VALUES &amp; COOLING REFERENCE TABLE</h2>
       <p>
-        Expected end temperatures (<i>t</i> = 15 min) based on <i>T</i><sub>0</sub> = 80°C and <i>T</i><sub>env</sub> = 0°C:
+        Here is what your student crews should observe after 15 minutes ($T_0 = 80^\circ\text{C}$, $T_{\text{env}} = 0^\circ\text{C}$):
       </p>
 
       <table class="styled-table">
         <thead>
           <tr>
-            <th>INSULATION SYSTEM</th>
-            <th>DECAY RATE (k)</th>
-            <th>EXPECTED TEMP (15m)</th>
-            <th>DOMINANT THERMAL DISSIPATION PATHWAY</th>
+            <th>INSULATION TYPE</th>
+            <th>COOLING RATE ($k$)</th>
+            <th>EXPECTED TEMP AT 15 MIN</th>
+            <th>WHY IT BEHAVES THIS WAY</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>A. Bare Control</strong></td>
-            <td>k ≈ 0.150 / 0.082</td>
-            <td>8.4°C – 23.3°C</td>
-            <td>Rapid uninsulated liquid conduction &amp; convective fluid currents.</td>
+            <td>$k \approx 0.150$</td>
+            <td>$8^\circ\text{C} - 12^\circ\text{C}$</td>
+            <td>Rapid heat loss through unshielded conduction into water and internal liquid circulation.</td>
           </tr>
           <tr>
-            <td><strong>B. Cotton Layer</strong></td>
-            <td>k ≈ 0.080</td>
-            <td>24.1°C</td>
-            <td>Traps stationary air cells to reduce conductive losses.</td>
+            <td><strong>B. Cotton Sleeve</strong></td>
+            <td>$k \approx 0.080$</td>
+            <td>$\approx 24^\circ\text{C}$</td>
+            <td>Cotton fibers trap pockets of still air, which is a poor heat conductor.</td>
           </tr>
           <tr>
-            <td><strong>C. Mylar Layer</strong></td>
-            <td>k ≈ 0.040</td>
-            <td>43.9°C</td>
-            <td>Reflects infrared radiant electromagnetic heat energy.</td>
+            <td><strong>C. Mylar Foil</strong></td>
+            <td>$k \approx 0.040$</td>
+            <td>$\approx 44^\circ\text{C}$</td>
+            <td>Shiny metallic surface reflects infrared heat radiation back into the core.</td>
           </tr>
           <tr>
-            <td><strong>D. Full MLI System</strong></td>
-            <td>k ≈ 0.015</td>
-            <td>63.9°C</td>
-            <td>Multi-layer barrier blocking conduction, convection, and radiation.</td>
+            <td><strong>D. Full MLI</strong></td>
+            <td>$k \approx 0.015$</td>
+            <td>$\approx 64^\circ\text{C}$</td>
+            <td>The winning combo: cotton blocks conduction, bubble wrap stops convection, and Mylar reflects radiation!</td>
           </tr>
         </tbody>
       </table>
@@ -692,78 +731,96 @@
       <div class="answer-key-card" id="solutions-key">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 12px; margin-bottom: 20px;">
           <span style="font-family: var(--font-hud); font-size: 1.15rem; font-weight: 800; color: var(--primary-amber-dark);">
-            <i data-lucide="check-circle-2" style="vertical-align: middle;"></i> SECTION 5: QUESTION SHEET OFFICIAL SOLUTIONS KEY (Q1–Q8)
+            <i data-lucide="check-circle-2" style="vertical-align: middle;"></i> SECTION 5: OFFICIAL SOLUTIONS &amp; TEACHER ANSWER KEY
           </span>
-          <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--dark-navy); font-weight: bold;">INSTRUCTOR SOLUTIONS</span>
+          <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--dark-navy); font-weight: bold;">ANSWER KEY</span>
         </div>
 
         <!-- Q1 Solution -->
         <div class="solution-item">
-          <div class="solution-title">Q1 Solution: Thermal Radiation vs Conduction in Liquid</div>
+          <div class="solution-title">Question 1: Why doesn't Mylar foil work by itself in cold water?</div>
           <div class="solution-body">
-            <strong>Exemplar Response:</strong> Mylar is an ultra-thin metallic film optimized to reflect infrared radiation. Radiation is the dominant form of heat transfer in space vacuums. However, in an ice-water bath, conduction via direct liquid contact is extremely fast. Because Mylar is very thin and highly conductive to touch, it easily transfers heat directly to surrounding water if used alone. To be effective in a liquid bath, it requires an inner layer (like cotton or bubble wrap) to block conduction.
+            <strong>Sample Answer:</strong> Mylar is designed to reflect infrared heat radiation, which is great in the vacuum of space where radiation is the only way heat travels. But in an ice bath, conduction through direct water contact is super fast. Because Mylar is super thin, heat passes right through it by conduction if there is no air spacer (like cotton or bubble wrap) underneath to stop direct contact.
+            <br><em style="color: var(--text-subtle);">Grading Tip: Look for students mentioning that Mylar reflects radiation, but fails against direct conduction in cold water without a spacer.</em>
           </div>
         </div>
 
         <!-- Q2 Solution -->
         <div class="solution-item">
-          <div class="solution-title">Q2 Solution: Physical Meaning of Cooling Constant (k)</div>
+          <div class="solution-title">Question 2: What does the cooling constant ($k$) tell us?</div>
           <div class="solution-body">
-            <strong>Exemplar Response:</strong> A <strong>smaller</strong> <i>k</i> value represents a <strong>better</strong> thermal insulator. In Newton's exponential equation <i>T(t) = T<sub>env</sub> + (T<sub>0</sub> - T<sub>env</sub>)e<sup>-kt</sup></i>, the decay exponent is proportional to -<i>k</i> · <i>t</i>. As <i>k</i> approaches zero, the exponential factor <i>e<sup>-kt</sup></i> stays near 1.0, keeping core temperatures high and delaying heat loss over time.
+            <strong>Sample Answer:</strong> A <strong>smaller</strong> $k$ value means a <strong>better</strong> insulator. In the formula $T(t) = T_{\text{env}} + (T_0 - T_{\text{env}}) \cdot e^{-kt}$, when $k$ is small, the exponent $-kt$ stays close to 0, which keeps $e^{-kt}$ close to 1. This means the temperature stays higher for longer and cools down much more slowly.
+            <br><em style="color: var(--text-subtle);">Grading Tip: Students must state that smaller $k$ = better insulation and explain that it slows down cooling.</em>
           </div>
         </div>
 
         <!-- Q3 Solution -->
         <div class="solution-item">
-          <div class="solution-title">Q3 Solution: Multi-Layer Insulation (MLI) Synergy</div>
+          <div class="solution-title">Question 3: How does Multi-Layer Insulation (MLI) work together?</div>
           <div class="solution-body">
-            <strong>Exemplar Response:</strong> MLI combines three complementary barriers: cotton traps microscopic stationary air pockets to block conduction; bubble wrap creates sealed air chambers that suppress fluid convection currents; and metallic Mylar reflects thermal radiation back into the core. By simultaneously targeting all three modes of heat transfer, the combination achieves a dramatically lower decay rate (<i>k</i> = 0.015) than any single material alone.
+            <strong>Sample Answer:</strong> Each material tackles a different type of heat loss:
+            <ul style="margin: 6px 0 0 0; padding-left: 20px;">
+              <li><strong>Cotton</strong> traps still air to stop <em>conduction</em>.</li>
+              <li><strong>Bubble wrap</strong> seals off air pockets to stop <em>convection</em> currents.</li>
+              <li><strong>Mylar foil</strong> reflects infrared <em>radiation</em> back inside.</li>
+            </ul>
+            Together, they block all three heat escape routes at once, keeping the water above $60^\circ\text{C}$!
+            <br><em style="color: var(--text-subtle);">Grading Tip: Full credit requires mentioning how the materials address conduction, convection, and radiation.</em>
           </div>
         </div>
 
         <!-- Q4 Solution -->
         <div class="solution-item">
-          <div class="solution-title">Q4 Solution: Physical vs Digital Twin Discrepancy Sources</div>
+          <div class="solution-title">Question 4: Where could experimental errors come from?</div>
           <div class="solution-body">
-            <strong>Exemplar Response (Accept any two):</strong>
+            <strong>Sample Answer (Accept any two sensible answers):</strong>
             <ol style="margin: 4px 0 0 0; padding-left: 20px;">
-              <li>Sensor placement: probe tip touching container walls instead of hanging freely in water core.</li>
-              <li>Incomplete gland tightening leading to cold water seepage into capsule.</li>
-              <li>Thermal stratification: unmixed water inside jar creating localized temperature gradients.</li>
-              <li>Fluctuations in ice bath temperature above 0°C during prolonged testing.</li>
+              <li>The sensor tip was touching the cold plastic jar wall instead of hanging in the middle of the water.</li>
+              <li>Water leaked into the jar through a loose cable gland.</li>
+              <li>The ice bath warmed up above $0^\circ\text{C}$ during the $15\text{ minutes}$.</li>
+              <li>The water inside the jar wasn't stirred, so warm water rose to the top and cold water sank to the bottom.</li>
             </ol>
           </div>
         </div>
 
         <!-- Q5 Solution -->
         <div class="solution-item">
-          <div class="solution-title">Q5 Solution: Environmental Boundary Calibration</div>
+          <div class="solution-title">Question 5: What happens if your ice bath warms up?</div>
           <div class="solution-body">
-            <strong>Exemplar Response:</strong> Students should measure the actual ambient ice bath temperature using their DS18B20 thermometer and enter that exact value (e.g., <i>T</i><sub>env</sub> = 4.5°C) into the <i>T</i><sub>env</sub> parameter field in Mission Control. Updating the environmental boundary parameter ensures the mathematical digital twin accurately models physical classroom conditions.
+            <strong>Sample Answer:</strong> Students should measure the real bath temperature (e.g. $4.5^\circ\text{C}$) and type that new number into the $T_{\text{env}}$ box in the Mission Control simulator. Updating the environment temperature makes the theoretical curve match the real classroom conditions.
+            <br><em style="color: var(--text-subtle);">Grading Tip: Award credit if they mention updating $T_{\text{env}}$ or the environment temperature input in the software.</em>
           </div>
         </div>
 
         <!-- Q6 Solution -->
         <div class="solution-item">
-          <div class="solution-title">Q6 Solution: Water Volume &amp; Heat Capacity Scaling</div>
+          <div class="solution-title">Question 6: What if we double the water volume?</div>
           <div class="solution-body">
-            <strong>Exemplar Response:</strong> Doubling the water volume from 100ml to 200ml doubles the total thermal mass <i>m</i>. Because thermal energy stored is <i>Q = m · c · ΔT</i>, the core holds twice as much thermal energy. For the same surface area, the temperature drop per minute will be slower, resulting in a <strong>smaller effective decay rate constant <i>k</i></strong>.
+            <strong>Sample Answer:</strong> Doubling the water from $100\text{ ml}$ to $200\text{ ml}$ doubles the mass of hot liquid ($Q = m \cdot c \cdot \Delta T$), meaning it holds twice as much thermal energy. Because there is more heat to lose through roughly the same surface area, it cools down <strong>slower</strong>, and the cooling constant <strong>$k$ decreases</strong>.
+            <br><em style="color: var(--text-subtle);">Grading Tip: Look for: cools slower and $k$ decreases.</em>
           </div>
         </div>
 
         <!-- Q7 Solution -->
         <div class="solution-item">
-          <div class="solution-title">Q7 Solution: Spacesuit Design Trade-Offs in EVA</div>
+          <div class="solution-title">Question 7: Spacesuit Design Trade-Offs</div>
           <div class="solution-body">
-            <strong>Exemplar Response:</strong> In real space missions, adding excessive insulation layers increases suit bulk, mass, and stiffness. Astronauts require high joint flexibility and mobility during Extravehicular Activities (EVAs). Excessively thick suits also restrict movement and increase metabolic heat accumulation inside the suit, requiring heavy active cooling loops (LCVG garment).
+            <strong>Sample Answer:</strong> You can't just add 50 layers because the spacesuit would become too heavy, bulky, and stiff. Astronauts wouldn't be able to bend their elbows or fingers during a 7-hour spacewalk. Also, human bodies generate lots of body heat when working hard—too much insulation would trap that heat and cause dangerous overheating without heavy water-cooling systems.
+            <br><em style="color: var(--text-subtle);">Grading Tip: Accept answers discussing joint flexibility/mobility, suit weight/bulk, or body heat buildup.</em>
           </div>
         </div>
 
         <!-- Q8 Solution -->
         <div class="solution-item">
-          <div class="solution-title">Q8 Solution: Correlation Score Optimization</div>
+          <div class="solution-title">Question 8: How can you improve your Correlation Score?</div>
           <div class="solution-body">
-            <strong>Exemplar Response:</strong> Crews can optimize scores by: (1) Ensuring the PG7 gland dome nut is fully hand-tightened to eliminate liquid leaks; (2) Centering the probe tip in the liquid core; (3) Gently swirling the capsule before reading to eliminate thermal stratification; (4) Standardizing timer readings to the exact second.
+            <strong>Sample Answer:</strong>
+            <ol style="margin: 4px 0 0 0; padding-left: 20px;">
+              <li>Tighten the cable gland securely to prevent any cold water leaks.</li>
+              <li>Make sure the probe tip is suspended exactly in the center of the jar.</li>
+              <li>Swirl the jar gently before reading to keep the water mixed evenly.</li>
+              <li>Take readings at the exact second mark on the timer.</li>
+            </ol>
           </div>
         </div>
       </div>
@@ -771,35 +828,35 @@
 
     <!-- SECTION 6: ASSESSMENT RUBRIC -->
     <section class="doc-section" id="section-6">
-      <h2><i data-lucide="clipboard-check"></i> 6. ASSESSMENT RUBRIC &amp; GRADING MATRIX</h2>
+      <h2><i data-lucide="clipboard-check"></i> 6. GRADING RUBRIC &amp; CHECKLIST</h2>
       
       <table class="styled-table">
         <thead>
           <tr>
             <th>CRITERIA</th>
-            <th>EXEMPLARY (A / 90-100%)</th>
-            <th>PROFICIENT (B / 75-89%)</th>
-            <th>NEEDS RE-CALIBRATION (&lt;75%)</th>
+            <th>EXCELLENT (90–100%)</th>
+            <th>GOOD (75–89%)</th>
+            <th>NEEDS WORK (&lt;75%)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Data Logging</strong></td>
-            <td>Complete 15-min table with accurate sensor logging &amp; detailed notes.</td>
-            <td>Missing 1-2 time intervals; basic notes logged.</td>
-            <td>Multiple blank intervals; incomplete data tables.</td>
+            <td>All 15 minutes filled with accurate readings, absolute differences, and helpful notes.</td>
+            <td>Completed with only 1–2 missed minutes; minor calculation mistakes.</td>
+            <td>Multiple blank rows; missing calculations.</td>
           </tr>
           <tr>
-            <td><strong>Graph Accuracy</strong></td>
-            <td>Precise points plotted; clean solid &amp; dashed lines; fully labeled axes.</td>
+            <td><strong>Graphing</strong></td>
+            <td>Clean, accurate points plotted with a smooth line; dashed theoretical curve clearly shown.</td>
             <td>Points plotted with minor curve scaling inaccuracies.</td>
-            <td>Misaligned axes; points not connected; missing legend.</td>
+            <td>Points not connected; axes mislabeled or missing lines.</td>
           </tr>
           <tr>
-            <td><strong>Physics Analysis</strong></td>
-            <td>Thorough answers addressing conduction, convection, radiation, MLI, and volume scaling (Q1–Q8).</td>
-            <td>Correct identification of heat transfer modes with minor details missing.</td>
-            <td>Incorrect concepts; confuses radiation with conduction.</td>
+            <td><strong>Analysis Questions</strong></td>
+            <td>Clear, thoughtful answers explaining conduction, convection, radiation, and MLI synergy (Q1–Q8).</td>
+            <td>Good understanding of heat transfer with minor details missing.</td>
+            <td>Confuses conduction with radiation; incomplete answers.</td>
           </tr>
         </tbody>
       </table>
@@ -807,6 +864,9 @@
 
     <!-- ACTION BUTTONS -->
     <div class="action-bar no-print">
+      <a href="flashcards.html" target="_blank" class="btn-action" style="background: #f59e0b; color: #ffffff; text-decoration: none;">
+        <i data-lucide="layers"></i> PRINTABLE FLASHCARDS (PDF)
+      </a>
       <a href="V2.1_SPHERE_ Mission Control - Teacher Manual.pdf" download="SPHERE_Teacher_Manual_V2.1.pdf" class="btn-action btn-primary" style="text-decoration:none;">
         <i data-lucide="download"></i> DOWNLOAD TEACHER MANUAL (PDF)
       </a>
@@ -817,7 +877,7 @@
 
     <!-- FOOTER -->
     <footer class="doc-footer">
-      SPHERE: MISSION CONTROL // TEACHER MANUAL &amp; SOLUTIONS // © 2026 PROJECT SPHERE INITIATIVE
+      SPHERE: MISSION CONTROL &bull; TEACHER MANUAL, LESSON PLAN &amp; SOLUTIONS &bull; &copy; 2026 PROJECT SPHERE INITIATIVE
     </footer>
 
   </div>
