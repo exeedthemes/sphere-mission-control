@@ -13,8 +13,8 @@
   <!-- KaTeX for Beautiful Math Formula Rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'annotation', 'annotation-xml', 'svg'], throwOnError: false});"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script defer src="katex-init.js"></script>
   
   <style>
     /* ==========================================================================
@@ -427,6 +427,27 @@
       font-size: 0.78rem;
       font-weight: 700;
       color: var(--text-subtle);
+    }
+
+    @media screen and (max-width: 700px) {
+      html, body { max-width: 100%; overflow-x: hidden; }
+      body { padding: 8px; }
+      .container { width: 100%; padding: 18px 14px; border-radius: 10px; }
+      .doc-nav { position: static; padding: 10px; gap: 10px; align-items: stretch; flex-direction: column; }
+      .nav-actions { display: grid; grid-template-columns: 1fr; gap: 8px; }
+      .doc-nav a, .nav-btn-pdf { min-height: 38px; justify-content: center; text-align: center; }
+      .doc-title { font-size: clamp(1.55rem, 8vw, 2rem); overflow-wrap: anywhere; }
+      .doc-subtitle { font-size: 0.95rem; }
+      .doc-section { margin-bottom: 28px; }
+      h2 { align-items: flex-start; font-size: 1.05rem; line-height: 1.35; }
+      .hero-banner { flex-direction: column; align-items: flex-start; padding: 18px; }
+      .hero-banner img { width: min(140px, 45vw); height: auto; align-self: center; }
+      .callout-box, .answer-key-card, .solution-item { padding: 16px; }
+      .styled-table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .styled-table th, .styled-table td { min-width: 130px; padding: 9px; }
+      .action-bar { align-items: stretch; flex-direction: column; gap: 8px; }
+      .btn-action { width: 100%; min-height: 40px; padding: 9px 12px; justify-content: center; text-align: center; font-size: 0.75rem; }
+      .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
     }
 
     /* HIGH-QUALITY PROFESSIONAL PDF PRINT STYLES */

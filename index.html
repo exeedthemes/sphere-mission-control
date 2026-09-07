@@ -13,8 +13,8 @@
   <!-- KaTeX for Beautiful Math Formula Rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'annotation', 'annotation-xml', 'svg'], throwOnError: false});"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script defer src="katex-init.js"></script>
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Lucide Icons CDN -->
@@ -73,7 +73,16 @@
       </div>
 
       <!-- Bottom Row: Compact Navigation Tabs -->
-      <nav class="hud-nav compact-nav" id="hud-nav-tabs">
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button"
+        aria-controls="hud-nav-tabs" aria-expanded="false">
+        <span class="mobile-menu-toggle-label">
+          <i data-lucide="menu"></i>
+          MENU
+        </span>
+        <span class="mobile-menu-current" id="mobile-menu-current">OVERVIEW</span>
+        <i class="mobile-menu-chevron" data-lucide="chevron-down"></i>
+      </button>
+      <nav class="hud-nav compact-nav" id="hud-nav-tabs" aria-label="Main menu">
         <button class="nav-tab active" data-target="briefing">
           <i data-lucide="info"></i> OVERVIEW
         </button>
@@ -854,7 +863,7 @@
               <span class="panel-meta">MODEL OUTPUT</span>
             </div>
 
-            <div style="position: relative; height: 320px; width: 100%;">
+            <div class="chart-viewport">
               <canvas id="simulationChart"></canvas>
             </div>
 

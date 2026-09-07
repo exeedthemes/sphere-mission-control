@@ -13,8 +13,8 @@
   <!-- KaTeX for Beautiful Math Formula Rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'annotation', 'annotation-xml', 'svg'], throwOnError: false});"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script defer src="katex-init.js"></script>
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -544,6 +544,26 @@
       font-size: 0.72rem;
       color: #64748b;
       font-family: var(--font-mono);
+    }
+
+    @media screen and (max-width: 700px) {
+      html, body { max-width: 100%; overflow-x: hidden; }
+      body { padding: 8px; }
+      .deck-container { width: 100%; }
+      .doc-nav { position: static; padding: 10px; gap: 10px; align-items: stretch; flex-direction: column; }
+      .nav-actions { display: grid; grid-template-columns: 1fr; gap: 8px; }
+      .doc-nav a, .doc-nav button { min-height: 38px; justify-content: center; text-align: center; }
+      .hero-banner { padding: 18px 14px; }
+      .hero-title { font-size: clamp(1.15rem, 6vw, 1.55rem); line-height: 1.3; }
+      .sheet-page { padding: 18px 10px; border-radius: 10px; }
+      .page-header, .page-footer { align-items: flex-start; flex-direction: column; gap: 7px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .card-dual-body { grid-template-columns: 1fr; }
+      .card-half { min-width: 0; padding: 14px; }
+      .card-half.front { border-right: 0; border-bottom: 1.5px dotted #0284c7; }
+      .fold-marker { top: auto; right: 50%; bottom: -9px; transform: translateX(50%); }
+      .card-title, .card-prompt, .card-answer { overflow-wrap: anywhere; }
+      .formula-callout, .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
     }
 
     /* ==========================================================================

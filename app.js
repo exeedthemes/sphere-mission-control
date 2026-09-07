@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const elements = {
     tabs: document.querySelectorAll('.nav-tab'),
     sections: document.querySelectorAll('.view-section'),
+    mobileMenuToggle: document.getElementById('mobile-menu-toggle'),
+    mobileMenuCurrent: document.getElementById('mobile-menu-current'),
+    hudNav: document.getElementById('hud-nav-tabs'),
     liveWallClock: document.getElementById('live-wall-clock'),
     systemStatusDot: document.getElementById('system-status-dot'),
     systemStatusText: document.getElementById('system-status-text'),
@@ -97,6 +100,31 @@ document.addEventListener('DOMContentLoaded', () => {
   // Globals for Chart.js Instances
   let simulationChartInstance = null;
   let telemetryChartInstance = null;
+
+  function closeMobileMenu() {
+    if (!elements.mobileMenuToggle || !elements.hudNav) return;
+    elements.mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    elements.hudNav.classList.remove('is-open');
+  }
+
+  if (elements.mobileMenuToggle && elements.hudNav) {
+    elements.mobileMenuToggle.addEventListener('click', () => {
+      const willOpen = elements.mobileMenuToggle.getAttribute('aria-expanded') !== 'true';
+      elements.mobileMenuToggle.setAttribute('aria-expanded', String(willOpen));
+      elements.hudNav.classList.toggle('is-open', willOpen);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeMobileMenu();
+        elements.mobileMenuToggle.focus();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) closeMobileMenu();
+    });
+  }
 
   // Initialize Lucide Icons
   lucide.createIcons();
@@ -344,10 +372,15 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.tabs.forEach(t => {
       if (t.getAttribute('data-target') === target) {
         t.classList.add('active');
+        if (elements.mobileMenuCurrent) {
+          elements.mobileMenuCurrent.textContent = t.textContent.trim();
+        }
       } else {
         t.classList.remove('active');
       }
     });
+
+    closeMobileMenu();
     
     // Toggle views visibility
     elements.sections.forEach(sec => {
@@ -533,11 +566,11 @@ document.addEventListener('DOMContentLoaded', () => {
             title: {
               display: true,
               text: 'TIME (MINUTES)',
-              color: '#94a3b8',
-              font: { family: 'Inter', size: 11, weight: '600' }
+              color: '#334155',
+              font: { family: 'Inter', size: 12, weight: '700' }
             },
-            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#64748b', font: { family: 'Roboto Mono' } }
+            grid: { color: 'rgba(15, 23, 42, 0.10)' },
+            ticks: { color: '#334155', font: { family: 'Roboto Mono', size: 11, weight: '600' } }
           },
           y: {
             min: 0,
@@ -545,18 +578,19 @@ document.addEventListener('DOMContentLoaded', () => {
             title: {
               display: true,
               text: 'TEMPERATURE (°C)',
-              color: '#94a3b8',
-              font: { family: 'Inter', size: 11, weight: '600' }
+              color: '#334155',
+              font: { family: 'Inter', size: 12, weight: '700' }
             },
-            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#64748b', font: { family: 'Roboto Mono' } }
+            grid: { color: 'rgba(15, 23, 42, 0.10)' },
+            ticks: { color: '#334155', font: { family: 'Roboto Mono', size: 11, weight: '600' } }
           }
         },
         plugins: {
           legend: {
             labels: {
-              color: '#e2e8f0',
-              font: { family: 'Inter', size: 11 }
+              color: '#0f172a',
+              font: { family: 'Inter', size: 12, weight: '700' },
+              padding: 14
             }
           },
           tooltip: {
@@ -1726,4 +1760,3 @@ document.addEventListener('DOMContentLoaded', () => {
   
   logToConsole("SYS: Navigation systems aligned. Mission Control fully active.");
 });
-

@@ -13,8 +13,8 @@
   <!-- KaTeX for Beautiful Math Formula Rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'annotation', 'annotation-xml', 'svg'], throwOnError: false});"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script defer src="katex-init.js"></script>
   
   <style>
     /* ==========================================================================
@@ -435,6 +435,27 @@
       display: inline-block;
     }
 
+    @media screen and (max-width: 700px) {
+      html, body { max-width: 100%; overflow-x: hidden; }
+      body { padding: 8px; }
+      .workbook-container { width: 100%; }
+      .doc-nav { position: static; padding: 10px; gap: 10px; align-items: stretch; flex-direction: column; }
+      .nav-actions { display: grid; grid-template-columns: 1fr; gap: 8px; }
+      .doc-nav a, .doc-nav button { min-height: 38px; justify-content: center; text-align: center; }
+      .sheet-page { padding: 18px 12px; border-radius: 10px; }
+      .page-header { align-items: flex-start; flex-wrap: wrap; gap: 8px; }
+      .sheet-title { width: 100%; font-size: clamp(1.2rem, 7vw, 1.55rem); overflow-wrap: anywhere; }
+      .meta-grid, .questions-grid { grid-template-columns: 1fr; }
+      .config-options, .rating-strip, .calc-row, .sign-box, .page-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .section-head { align-items: flex-start; flex-direction: column; gap: 6px; line-height: 1.35; }
+      .table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .logging-table { min-width: 575px; }
+      .graph-container { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .calc-formula { max-width: 100%; margin: 5px 0 0; overflow-x: auto; }
+      .calc-line, .sign-line { width: min(140px, 40vw); }
+      .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+    }
+
     /* ==========================================================================
        STRICT 2-PAGE PRINT STYLES (A4 PORTRAIT)
        ========================================================================== */
@@ -616,7 +637,7 @@
           <span class="tag">60s INTERVALS</span>
         </div>
 
-        <table class="logging-table">
+        <div class="table-scroll"><table class="logging-table">
           <thead>
             <tr>
               <th style="width: 12%;">ELAPSED TIME</th>
@@ -644,7 +665,7 @@
             <tr><td><strong>$14\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
             <tr><td><strong>$15\text{ min}$</strong></td><td></td><td></td><td></td><td>Terminal checkpoint; assess steady-state error.</td></tr>
           </tbody>
-        </table>
+        </table></div>
 
         <!-- Part B: Coordinate Graph Grid -->
         <div class="section-head">
