@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modelConstants: {
       bare: { name: 'Bare capsule (control)', k: 0.150, color: '#0284c7' },
       cotton: { name: 'Cotton layer', k: 0.080, color: '#4facfe' },
-      mylar: { name: 'Reflective-film layer', k: 0.040, color: '#ff9f43' },
+      mylar: { name: 'Reflective-film layer', k: 0.143, color: '#ff9f43' },
       mli: { name: 'Multilayer test assembly', k: 0.015, color: '#10b981' },
       custom: { name: 'Custom cooling constant', k: 0.050, color: '#a55eea' }
     },
@@ -1478,6 +1478,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cachedPrediction) {
       state.predictionCurve = JSON.parse(cachedPrediction);
       const material = state.modelConstants[state.selectedModel];
+
+      // Recalculate cached points so updated/calibrated model constants are
+      // applied after deployment instead of displaying a stale saved curve.
+      state.predictionCurve = state.predictionCurve.map((point) => ({
+        x: point.x,
+        y: parseFloat(calculateNewtonTemperature(point.x, material.k).toFixed(2))
+      }));
       
       elements.simBadge.textContent = `PREDICTION DEPLOYED: ${material.name.toUpperCase()}`;
       elements.telemetryModelBadge.textContent = material.name.toUpperCase();
@@ -1610,18 +1617,18 @@ document.addEventListener('DOMContentLoaded', () => {
       let badgeBg = "#e0f2fe";
       let badgeColor = "#0369a1";
 
-      if (kVal <= 0.025) {
+      if (kVal <= 0.0475) {
         material = "FULL MLI SPACESUIT ($k \\approx 0.015\\text{ min}^{-1}$)";
         badgeBg = "#dcfce7";
         badgeColor = "#15803d";
-      } else if (kVal <= 0.060) {
-        material = "MYLAR RADIATION SHIELD ($k \\approx 0.040\\text{ min}^{-1}$)";
-        badgeBg = "#fef3c7";
-        badgeColor = "#b45309";
-      } else if (kVal <= 0.110) {
+      } else if (kVal <= 0.1115) {
         material = "COTTON CONDUCTION SHIELD ($k \\approx 0.080\\text{ min}^{-1}$)";
         badgeBg = "#e0f2fe";
         badgeColor = "#0369a1";
+      } else if (kVal <= 0.1465) {
+        material = "MYLAR RADIATION SHIELD ($k \\approx 0.143\\text{ min}^{-1}$)";
+        badgeBg = "#fef3c7";
+        badgeColor = "#b45309";
       } else {
         material = "BARE UNINSULATED CORE ($k \\approx 0.150\\text{ min}^{-1}$)";
         badgeBg = "#fee2e2";
