@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SPHERE: Mission Control - Printable Space Thermal Flashcard Deck</title>
+  <title>SPHERE | Printable Thermal Engineering Revision Cards</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;family=Orbitron:wght@600;700;800;900&amp;display=swap" rel="stylesheet">
   
   <!-- KaTeX for Beautiful Math Formula Rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -651,7 +651,7 @@
         <a href="SPHERE_Mission_Control_Flashcards.pdf" download="SPHERE_Mission_Control_Flashcards.pdf" class="nav-btn-link" style="color:#38bdf8; border-color:#0284c7; background:rgba(2,132,199,0.15);">
           <i data-lucide="download" style="width:14px; height:14px;"></i> DOWNLOAD PDF FILE
         </a>
-        <button onclick="window.print()" class="nav-btn-print">
+        <button type="button" onclick="window.print()" class="nav-btn-print">
           <i data-lucide="printer" style="width:16px; height:16px;"></i> PRINT / EXPORT PDF
         </button>
       </div>
@@ -660,9 +660,9 @@
     <!-- Screen Hero Banner (Screen Only) -->
     <div class="hero-banner no-print">
       <div>
-        <div class="hero-title"><i data-lucide="layers"></i> SPACE THERMAL FLASHCARD DECK (PRINTABLE)</div>
+        <div class="hero-title"><i data-lucide="layers"></i> THERMAL ENGINEERING REVISION CARDS</div>
         <div class="hero-desc">
-          High-resolution 16-card revision deck for SPHERE Mission Control. Designed with dual Question/Answer fold guides, KaTeX mathematical formulas, and corner hole-punch targets for study rings.
+          Sixteen printable question-and-answer cards covering the model, experiment, heat-transfer mechanisms and data analysis.
         </div>
       </div>
       <div class="print-instructions-box">
@@ -790,7 +790,7 @@
                   <h3 class="card-title">CAPSULE B (k = 0.015)</h3>
                 </div>
                 <div class="card-answer">
-                  <strong>Answer:</strong> $k$ measures heat loss speed ($k = \frac{hA}{mc}$). A <strong>smaller $k$ value</strong> means slower cooling and superior thermal insulation (heat held 10x longer!).
+                  <strong>Answer:</strong> For a lumped system, $k = \frac{hA}{mc}$ is an effective cooling constant. Under comparable conditions, a smaller $k$ means a slower approach to the ambient temperature.
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -839,15 +839,15 @@
                   <h3 class="card-title">MOLECULAR VIBRATION</h3>
                 </div>
                 <div class="formula-callout">
-                  $$q = -k_{\text{mat}} \cdot A \cdot \frac{dT}{dx}$$
+                  $$\dot Q = -\lambda A\frac{dT}{dx}$$
                 </div>
                 <div class="card-answer">
-                  <strong>Explanation:</strong> Kinetic energy spreads by vibrating atoms bumping adjacent particles. Low-$k_{\text{mat}}$ materials (cotton, fiberglass) act as thermal insulators.
+                  <strong>Explanation:</strong> The conductive heat-transfer rate depends on thermal conductivity $\lambda$, area $A$ and the temperature gradient. Low-conductivity materials reduce the rate.
                 </div>
               </div>
               <div class="card-footer-strip">
                 <span class="card-side-tag">BACK: REVEAL &amp; LAW</span>
-                <span>k_mat = conductivity</span>
+                <span>λ = thermal conductivity</span>
               </div>
             </div>
           </div>
@@ -953,7 +953,7 @@
                   <h3 class="card-title">SPACE VACUUM RADIATION</h3>
                 </div>
                 <div class="card-prompt">
-                  <strong>Question:</strong> Why is thermal radiation the ONLY heat transfer mode that can operate across the vacuum of deep space?
+                  <strong>Question:</strong> Which heat-transfer mechanism can cross a vacuum between separated bodies?
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -976,7 +976,7 @@
                   $$P_{\text{rad}} = \epsilon \sigma A (T^4 - T_{\text{env}}^4)$$
                 </div>
                 <div class="card-answer">
-                  <strong>Answer:</strong> Vacuum contains zero molecules for conduction or convection. Heat radiates via infrared electromagnetic waves carrying energy without matter!
+                  <strong>Answer:</strong> Thermal radiation can cross a vacuum as electromagnetic energy. Conduction can still occur through physical contacts within a spacecraft, but not across an empty gap.
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1054,7 +1054,7 @@
                   <h3 class="card-title">CONVECTIVE AIR TRAPPING</h3>
                 </div>
                 <div class="card-prompt">
-                  <strong>Question:</strong> Why is bubble wrap such an effective insulator during atmospheric lab trials? What mechanism does it eliminate?
+                  <strong>Question:</strong> How do the sealed air cells in bubble wrap reduce heat transfer?
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1074,7 +1074,7 @@
                   <h3 class="card-title">STAGNANT AIR POCKETS</h3>
                 </div>
                 <div class="card-answer">
-                  <strong>Answer:</strong> Air is a poor conductor ($k_{\text{air}} \approx 0.026\text{ W/mK}$). Sealed bubble cells prevent <strong>buoyancy circulation currents</strong> from moving heat away!
+                  <strong>Answer:</strong> Air has low thermal conductivity ($\lambda_{\text{air}} \approx 0.026\text{ W/(m·K)}$), while small sealed cells suppress bulk air circulation.
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1147,14 +1147,14 @@
 
 
     <!-- ==========================================================================
-         PAGE 3: DIGITAL TWIN, TELEMETRY & SPACE ANALOGS
+         PAGE 3: REFERENCE MODEL, MEASUREMENTS &amp; EXPERIMENTAL BOUNDARY
          ========================================================================== -->
     <div class="sheet-page">
       <div class="page-header">
         <div>
           <div class="brand-badge"><i data-lucide="satellite" style="width:12px; height:12px;"></i> SPHERE MISSION CONTROL</div>
           <h1 class="sheet-title"><i data-lucide="cpu" style="color:#0284c7; width:22px; height:22px;"></i> THERMAL REVISION DECK</h1>
-          <div class="sheet-sub">PART 3: DIGITAL TWINS, TELEMETRY &amp; SPACE ANALOGS</div>
+          <div class="sheet-sub">PART 3: REFERENCE MODEL, MEASUREMENTS &amp; EXPERIMENTAL BOUNDARY</div>
         </div>
         <div style="text-align: right;">
           <span class="page-number-tag">SHEET 3 OF 4</span>
@@ -1170,7 +1170,7 @@
 
       <div class="cards-grid">
         
-        <!-- CARD 09: DIGITAL TWIN CONCEPT -->
+        <!-- CARD 09: ANALYTICAL REFERENCE MODEL -->
         <div class="cutout-card">
           <div class="cut-label"><i data-lucide="scissors" style="width:10px; height:10px;"></i> CUT BORDER</div>
           <div class="card-dual-body">
@@ -1185,10 +1185,10 @@
                 </div>
                 <div class="card-header-line">
                   <div class="card-icon"><i data-lucide="cpu" style="width:16px; height:16px;"></i></div>
-                  <h3 class="card-title">DIGITAL TWIN CONCEPT</h3>
+                  <h3 class="card-title">ANALYTICAL REFERENCE MODEL</h3>
                 </div>
                 <div class="card-prompt">
-                  <strong>Question:</strong> What is a Digital Twin in modern aerospace engineering, and how is it used in SPHERE Mission Control?
+                  <strong>Question:</strong> What assumptions does the SPHERE Newton cooling model make?
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1201,14 +1201,14 @@
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #09</span>
-                  <span class="card-category-badge badge-twin">VIRTUAL TELEMETRY</span>
+                  <span class="card-category-badge badge-twin">MODEL ASSUMPTIONS</span>
                 </div>
                 <div class="card-header-line">
                   <div class="card-icon"><i data-lucide="activity" style="width:16px; height:16px;"></i></div>
-                  <h3 class="card-title">LIVE VIRTUAL MODEL</h3>
+                  <h3 class="card-title">LUMPED-PARAMETER MODEL</h3>
                 </div>
                 <div class="card-answer">
-                  <strong>Answer:</strong> A high-fidelity physics model running equations in real-time alongside live physical sensors, enabling immediate anomaly detection and residual tracking.
+                  <strong>Answer:</strong> It assumes a uniform capsule temperature, a constant bath temperature and a constant effective cooling coefficient. The model is a reference calculation, not a full digital twin.
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1219,7 +1219,7 @@
           </div>
         </div>
 
-        <!-- CARD 10: ICE BATH SPACE ANALOG -->
+        <!-- CARD 10: ICE-WATER BOUNDARY -->
         <div class="cutout-card">
           <div class="cut-label"><i data-lucide="scissors" style="width:10px; height:10px;"></i> CUT BORDER</div>
           <div class="card-dual-body">
@@ -1234,10 +1234,10 @@
                 </div>
                 <div class="card-header-line">
                   <div class="card-icon"><i data-lucide="snowflake" style="width:16px; height:16px;"></i></div>
-                  <h3 class="card-title">ICE BATH SPACE ANALOG</h3>
+                  <h3 class="card-title">ICE-WATER BOUNDARY</h3>
                 </div>
                 <div class="card-prompt">
-                  <strong>Question:</strong> Why do we submerge the insulated capsule into a $0^\circ\text{C}$ ice-water slurry during laboratory mission runs?
+                  <strong>Question:</strong> Why is an ice-water slurry used in the comparative experiment?
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1257,7 +1257,7 @@
                   <h3 class="card-title">CONSTANT HEAT SINK</h3>
                 </div>
                 <div class="card-answer">
-                  <strong>Answer:</strong> Melting ice water stays at an exact, invariant $0^\circ\text{C}$ ($T_{\text{env}} = 0^\circ\text{C}$), simulating the immense, infinite thermal heat sink of deep space.
+                  <strong>Answer:</strong> The slurry provides a relatively stable, repeatable cold boundary. Its actual temperature must be measured; it does not reproduce vacuum heat transfer.
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1379,14 +1379,14 @@
 
 
     <!-- ==========================================================================
-         PAGE 4: MISSION PROTOCOLS, FORMULAS & SYNTHESIS
+         PAGE 4: EXPERIMENTAL METHOD, FORMULAS & SYNTHESIS
          ========================================================================== -->
     <div class="sheet-page">
       <div class="page-header">
         <div>
           <div class="brand-badge"><i data-lucide="satellite" style="width:12px; height:12px;"></i> SPHERE MISSION CONTROL</div>
           <h1 class="sheet-title"><i data-lucide="clipboard-check" style="color:#059669; width:22px; height:22px;"></i> THERMAL REVISION DECK</h1>
-          <div class="sheet-sub">PART 4: MISSION PROTOCOLS, MATH METRICS &amp; SYNTHESIS</div>
+          <div class="sheet-sub">PART 4: EXPERIMENTAL METHOD, ERROR METRICS &amp; SYNTHESIS</div>
         </div>
         <div style="text-align: right;">
           <span class="page-number-tag">SHEET 4 OF 4</span>
@@ -1402,7 +1402,7 @@
 
       <div class="cards-grid">
         
-        <!-- CARD 13: CORRELATION SCORE & RESIDUALS -->
+        <!-- CARD 13: MEAN ABSOLUTE ERROR -->
         <div class="cutout-card">
           <div class="cut-label"><i data-lucide="scissors" style="width:10px; height:10px;"></i> CUT BORDER</div>
           <div class="card-dual-body">
@@ -1417,10 +1417,10 @@
                 </div>
                 <div class="card-header-line">
                   <div class="card-icon"><i data-lucide="percent" style="width:16px; height:16px;"></i></div>
-                  <h3 class="card-title">CORRELATION SCORE (R²)</h3>
+                  <h3 class="card-title">MEAN ABSOLUTE ERROR</h3>
                 </div>
                 <div class="card-prompt">
-                  <strong>Question:</strong> How does Mission Control calculate the Correlation Score between live physical sensor telemetry and the Digital Twin model?
+                  <strong>Question:</strong> How is the mean absolute error between measured and predicted temperatures calculated?
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1437,18 +1437,18 @@
                 </div>
                 <div class="card-header-line">
                   <div class="card-icon"><i data-lucide="target" style="width:16px; height:16px;"></i></div>
-                  <h3 class="card-title">RESIDUAL VARIANCE</h3>
+                  <h3 class="card-title">MODEL RESIDUALS</h3>
                 </div>
                 <div class="formula-callout">
-                  $$R^2 = 1 - \frac{\sum (T_{\text{meas}} - T_{\text{pred}})^2}{\sum (T_{\text{meas}} - \bar{T})^2}$$
+                  $$\mathrm{MAE}=\frac{1}{n}\sum_{i=1}^{n}|T_{\mathrm{meas},i}-T_{\mathrm{model},i}|$$
                 </div>
                 <div class="card-answer">
-                  <strong>Answer:</strong> Quantifies goodness-of-fit. A score $>95\%$ proves the theoretical physics model matches actual mission hardware telemetry with high fidelity.
+                  <strong>Answer:</strong> MAE is the mean magnitude of the residuals and is reported in $^\circ\text{C}$. A lower value indicates closer agreement but does not, by itself, validate every model assumption.
                 </div>
               </div>
               <div class="card-footer-strip">
                 <span class="card-side-tag">BACK: REVEAL &amp; LAW</span>
-                <span>Target: >95% Correlation</span>
+                <span>Units: °C</span>
               </div>
             </div>
           </div>
@@ -1472,7 +1472,7 @@
                   <h3 class="card-title">PROBE PLACEMENT</h3>
                 </div>
                 <div class="card-prompt">
-                  <strong>Question:</strong> Why must the digital thermocouple probe be centered inside the fluid rather than touching the capsule wall?
+                  <strong>Question:</strong> Why should the thermometer probe be positioned near the centre of the liquid rather than touching the capsule wall?
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1492,12 +1492,12 @@
                   <h3 class="card-title">BULK FLUID TEMPERATURE</h3>
                 </div>
                 <div class="card-answer">
-                  <strong>Answer:</strong> Touching the outer wall measures the cold boundary gradient rather than core liquid bulk temperature, introducing measurement artifacts into telemetry.
+                  <strong>Answer:</strong> Wall contact biases the reading towards the local boundary temperature rather than the bulk liquid temperature and introduces a systematic measurement error.
                 </div>
               </div>
               <div class="card-footer-strip">
                 <span class="card-side-tag">BACK: REVEAL &amp; LAW</span>
-                <span>Center probe exactly</span>
+                <span>Use consistent probe position</span>
               </div>
             </div>
           </div>
@@ -1521,7 +1521,7 @@
                   <h3 class="card-title">SI UNITS REFERENCE</h3>
                 </div>
                 <div class="card-prompt">
-                  <strong>Question:</strong> What are the standard SI units for temperature $T$, heat flow $Q$, thermal conductivity $k_{\text{mat}}$, and cooling constant $k$?
+                  <strong>Question:</strong> What are the standard SI units for temperature $T$, thermal energy $Q$, thermal conductivity $\lambda$, and cooling constant $k$?
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1544,7 +1544,7 @@
                   • <strong>Temperature ($T$):</strong> Kelvin ($\text{K}$) or Celsius ($^\circ\text{C}$)<br>
                   • <strong>Thermal Energy ($Q$):</strong> Joules ($\text{J}$)<br>
                   • <strong>Decay Constant ($k$):</strong> $\text{s}^{-1}$ or $\text{min}^{-1}$<br>
-                  • <strong>Conductivity ($k_{\text{mat}}$):</strong> $\text{W}/(\text{m}\cdot\text{K})$
+                  • <strong>Conductivity ($\lambda$):</strong> $\text{W}/(\text{m}\cdot\text{K})$
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1565,15 +1565,15 @@
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #16</span>
-                  <span class="card-category-badge badge-mli">CREW STRATEGY</span>
+                  <span class="card-category-badge badge-mli">DESIGN COMPARISON</span>
                   <span class="hole-punch-guide" title="Hole Punch"></span>
                 </div>
                 <div class="card-header-line">
                   <div class="card-icon"><i data-lucide="shield-check" style="width:16px; height:16px;"></i></div>
-                  <h3 class="card-title">CREW MLI OPTIMIZATION</h3>
+                  <h3 class="card-title">MULTILAYER CONFIGURATION</h3>
                 </div>
                 <div class="card-prompt">
-                  <strong>Question:</strong> Which insulation configuration produces the highest survival time and smallest decay constant $k$? Why?
+                  <strong>Question:</strong> Which tested configuration is assigned the smallest reference cooling constant, and which mechanisms may explain that choice?
                 </div>
               </div>
               <div class="card-footer-strip">
@@ -1586,19 +1586,19 @@
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #16</span>
-                  <span class="card-category-badge badge-mli">SURVIVAL RECORD</span>
+                  <span class="card-category-badge badge-mli">REFERENCE RESULT</span>
                 </div>
                 <div class="card-header-line">
                   <div class="card-icon"><i data-lucide="trophy" style="width:16px; height:16px;"></i></div>
-                  <h3 class="card-title">3-LAYER COMPOSITE MLI</h3>
+                  <h3 class="card-title">MULTILAYER TEST ASSEMBLY</h3>
                 </div>
                 <div class="card-answer">
-                  <strong>Answer:</strong> <strong>Cotton + Bubble Wrap + Mylar</strong> drops decay constant $k$ from $\sim 0.150\text{ min}^{-1}$ (bare tube) down to $< 0.020\text{ min}^{-1}$, preserving capsule heat for $>20\text{ minutes}$.
+                  <strong>Answer:</strong> The cotton, bubble-wrap and reflective-film assembly is assigned $k=0.015\text{ min}^{-1}$. This is a model assumption to be evaluated against measurements, not a guaranteed material property.
                 </div>
               </div>
               <div class="card-footer-strip">
                 <span class="card-side-tag">BACK: REVEAL &amp; LAW</span>
-                <span>Maximum Thermal Shield</span>
+                <span>Compare with measured data</span>
               </div>
             </div>
           </div>

@@ -63,6 +63,18 @@
   padding: 0;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 body {
   background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 70%, #020617 100%);
   color: var(--text-bright);
@@ -2149,6 +2161,20 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
 }
 
+.deliverable-btn-teacher {
+  background: rgba(217, 119, 6, 0.18);
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+.deliverable-btn-teacher:hover,
+.deliverable-btn-teacher.active {
+  background: #d97706;
+  color: #ffffff;
+  border-color: #fbbf24;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+}
+
 /* Interactive 6-Stage Lab Workflow Pipeline */
 .lab-workflow-container {
   background: #ffffff;
@@ -2486,7 +2512,7 @@ h1, h2, h3, h4, h5, h6 {
 
   .deliverables-hub {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     width: 100%;
   }
 

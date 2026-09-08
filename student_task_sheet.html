@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SPHERE: Mission Control - Student Task Sheet & Graph Workbook</title>
+  <title>SPHERE | Thermal-Insulation Laboratory Worksheet</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;family=Orbitron:wght@600;700;800;900&amp;display=swap" rel="stylesheet">
   
   <!-- KaTeX for Beautiful Math Formula Rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -89,9 +89,9 @@
     .doc-nav a, .doc-nav button {
       text-decoration: none;
       font-family: var(--font-hud);
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       transition: all 0.2s ease;
       cursor: pointer;
     }
@@ -100,7 +100,7 @@
       color: #0284c7;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .nav-btn-back:hover {
@@ -109,7 +109,7 @@
 
     .nav-actions {
       display: flex;
-      gap: 12px;
+      gap: 8px;
       align-items: center;
     }
 
@@ -117,7 +117,7 @@
       color: #fbbf24;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .nav-btn-alt:hover {
@@ -128,12 +128,13 @@
       background: #0284c7;
       color: #ffffff;
       border: none;
-      padding: 8px 16px;
+      padding: 6px 14px;
       border-radius: 6px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+      gap: 5px;
+      font-size: 0.74rem;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
     }
 
     .nav-btn-print:hover {
@@ -583,7 +584,7 @@
         <a href="teacher_manual.html" class="nav-btn-alt">
           <i data-lucide="graduation-cap" style="width: 16px; height: 16px;"></i> INSTRUCTOR GUIDE
         </a>
-        <button onclick="window.print()" class="nav-btn-print">
+        <button type="button" onclick="window.print()" class="nav-btn-print">
           <i data-lucide="printer" style="width: 16px; height: 16px;"></i> PRINT / EXPORT PDF
         </button>
       </div>
@@ -597,7 +598,7 @@
         <!-- Page 1 Header -->
         <header class="page-header">
           <div>
-            <span class="brand-badge">FLIGHT DATA LOG &bull; THERMAL MISSION</span>
+            <span class="brand-badge">EXPERIMENTAL DATA LOG &bull; THERMAL INSULATION</span>
             <h1 class="sheet-title">SPHERE: MISSION CONTROL</h1>
             <div class="sheet-sub">STUDENT LABORATORY TASK SHEET &amp; EXPERIMENTAL REGISTER</div>
           </div>
@@ -606,14 +607,14 @@
           </div>
         </header>
 
-        <!-- Crew Metadata Grid -->
+        <!-- Student and test metadata -->
         <div class="meta-grid">
           <div class="meta-field">
-            <label>FLIGHT CREW MEMBERS / RESEARCHERS:</label>
+            <label>STUDENT NAME(S):</label>
             <div class="meta-line"></div>
           </div>
           <div class="meta-field">
-            <label>MISSION CALLSIGN / TEAM DESIGNATION:</label>
+            <label>TEAM / TEST IDENTIFIER:</label>
             <div class="meta-line"></div>
           </div>
           <div class="meta-field">
@@ -633,7 +634,7 @@
 
         <!-- Part A: Telemetry Logging Table -->
         <div class="section-head">
-          <span>PART A. LIVE TELEMETRY DATA REGISTER ($0$ TO $15\text{ MIN}$)</span>
+          <span>PART A. EXPERIMENTAL TEMPERATURE LOG ($0$ TO $15\text{ MIN}$)</span>
           <span class="tag">60s INTERVALS</span>
         </div>
 
@@ -649,21 +650,21 @@
           </thead>
           <tbody>
             <tr><td><strong>$0\text{ min}$</strong></td><td>$80.0^\circ\text{C}$</td><td>$80.0^\circ\text{C}$</td><td>$0.0^\circ\text{C}$</td><td>Capsule submerged; ice bath boundary verified.</td></tr>
-            <tr><td><strong>$1\text{ min}$</strong></td><td></td><td></td><td></td><td>Initial boundary transient response.</td></tr>
+            <tr><td><strong>$1\text{ min}$</strong></td><td></td><td></td><td></td><td>Check immersion depth and probe position.</td></tr>
             <tr><td><strong>$2\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
             <tr><td><strong>$3\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
             <tr><td><strong>$4\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
             <tr><td><strong>$5\text{ min}$</strong></td><td></td><td></td><td></td><td>Mid-phase checkpoint; verify ice slurry volume.</td></tr>
             <tr><td><strong>$6\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
             <tr><td><strong>$7\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>$8\text{ min}$</strong></td><td></td><td></td><td></td><td>Transient decay stabilization mark.</td></tr>
+            <tr><td><strong>$8\text{ min}$</strong></td><td></td><td></td><td></td><td>Record any change in bath condition.</td></tr>
             <tr><td><strong>$9\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>$10\text{ min}$</strong></td><td></td><td></td><td></td><td>Late-phase exponential tracking.</td></tr>
+            <tr><td><strong>$10\text{ min}$</strong></td><td></td><td></td><td></td><td>Check for leakage or probe contact with the wall.</td></tr>
             <tr><td><strong>$11\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
             <tr><td><strong>$12\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
             <tr><td><strong>$13\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
             <tr><td><strong>$14\text{ min}$</strong></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td><strong>$15\text{ min}$</strong></td><td></td><td></td><td></td><td>Terminal checkpoint; assess steady-state error.</td></tr>
+            <tr><td><strong>$15\text{ min}$</strong></td><td></td><td></td><td></td><td>Final reading; record bath temperature.</td></tr>
           </tbody>
         </table></div>
 
@@ -674,7 +675,7 @@
         </div>
         
         <div class="graph-instructions">
-          Plot observed temperatures as discrete solid circular points <strong style="color:var(--primary-dark);">(•)</strong> and connect with a solid curve. Plot theoretical Digital Twin predictions as a dashed curve <strong style="color:var(--accent-amber-dark);">(---)</strong>.
+          Plot measured temperatures as solid points and connect them with a line. Plot the analytical reference-model values as a dashed line.
         </div>
 
         <div class="graph-container">
@@ -713,7 +714,7 @@
             <text x="530" y="304" text-anchor="middle" font-size="9" font-family="sans-serif" font-weight="bold" fill="#334155">12m</text>
             <text x="645" y="304" text-anchor="middle" font-size="10" font-family="sans-serif" font-weight="bold" fill="#0f172a">15m</text>
 
-            <text x="357" y="325" text-anchor="middle" font-size="10" font-family="sans-serif" font-weight="bold" fill="#0f172a">MISSION ELAPSED TIME (MINUTES)</text>
+            <text x="357" y="325" text-anchor="middle" font-size="10" font-family="sans-serif" font-weight="bold" fill="#0f172a">ELAPSED TIME (MINUTES)</text>
             <text x="357" y="16" text-anchor="middle" font-size="10" font-family="sans-serif" font-weight="bold" fill="#0f172a">THERMAL DECAY COOLING CURVE TEMPLATE</text>
           </svg>
         </div>
@@ -736,9 +737,9 @@
         <!-- Page 2 Header -->
         <header class="page-header">
           <div>
-            <span class="brand-badge">THERMAL CORRELATION &bull; FLIGHT DEBRIEF</span>
+            <span class="brand-badge">MODEL AGREEMENT &bull; TECHNICAL ANALYSIS</span>
             <h1 class="sheet-title">SPHERE: MISSION CONTROL</h1>
-            <div class="sheet-sub">THERMAL CORRELATION &amp; ANALYSIS WORKBOOK</div>
+            <div class="sheet-sub">RESIDUAL, ERROR &amp; UNCERTAINTY ANALYSIS</div>
           </div>
           <div style="text-align: right;">
             <span class="page-number-tag">PAGE 2 OF 2</span>
@@ -747,7 +748,7 @@
 
         <!-- Part C: Calculations -->
         <div class="section-head">
-          <span>PART C. QUANTITATIVE RESIDUAL &amp; CORRELATION ANALYSIS</span>
+          <span>PART C. QUANTITATIVE RESIDUAL &amp; ERROR ANALYSIS</span>
           <span class="tag">STATISTICAL EVALUATION</span>
         </div>
 
@@ -757,21 +758,19 @@
             <span><strong>$\sum |\Delta T| =$ </strong> <span class="calc-line"></span> $^\circ\text{C}$</span>
           </div>
           <div class="calc-row">
-            <span><strong>2. Mean Absolute Error (MAE):</strong> <span class="calc-formula">$\text{MAE} = \frac{1}{15} \sum |\Delta T|$</span></span>
+            <span><strong>2. Mean Absolute Error (MAE):</strong> <span class="calc-formula">$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |T_{\text{obs},i}-T_{\text{model},i}|$</span></span>
             <span><strong>$\text{MAE} =$ </strong> <span class="calc-line"></span> $^\circ\text{C}$</span>
           </div>
           <div class="calc-row">
-            <span><strong>3. Digital Twin Correlation Score:</strong> <span class="calc-formula">$\text{Score} = \max\left(0, 100\% - [\text{MAE} \times 5\%]\right)$</span></span>
-            <span><strong>$\text{Score} =$ </strong> <span class="calc-line"></span> $\%$</span>
+            <span><strong>3. Interpretation:</strong> Compare MAE with the thermometer accuracy and variation between repeated measurements.</span>
+            <span><strong>Number of observations:</strong> <span class="calc-line"></span></span>
           </div>
 
           <div class="rating-strip">
-            <span>OFFICIAL PERFORMANCE RATING:</span>
-            <span>[ ] A+ ($\ge 95.0\%$)</span>
-            <span>[ ] A ($90.0\text{--}94.9\%$)</span>
-            <span>[ ] B ($80.0\text{--}89.9\%$)</span>
-            <span>[ ] C ($70.0\text{--}79.9\%$)</span>
-            <span>[ ] RE-CALIBRATE ($<70.0\%$)</span>
+            <span>MODEL-AGREEMENT RESULT:</span>
+            <span>MAE = __________ $^\circ\text{C}$</span>
+            <span>[ ] uncertainty discussed</span>
+            <span>[ ] model assumptions discussed</span>
           </div>
         </div>
 
@@ -809,7 +808,7 @@
             <div>
               <div class="q-title">Inquiry 3: Why Multi-Layer Insulation (MLI) Works</div>
               <div class="q-desc">
-                Why does combining Cotton, Bubble Wrap, and Mylar (Config D) protect the capsule so much better than any single material on its own? Explain how it stops conduction, convection, and radiation.
+                Why can the multilayer configuration reduce the cooling rate relative to a single layer? Discuss trapped air, fluid motion, radiation and interfacial resistance.
               </div>
             </div>
             <div class="q-answer-space"></div>
@@ -854,7 +853,7 @@
       <div>
         <div style="background: var(--bg-subtle); border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 6px; margin-bottom: 8px;">
           <div class="sign-box">
-            <span><strong>CREW COMMANDER SIGNATURE:</strong> <span class="sign-line"></span></span>
+            <span><strong>STUDENT SIGNATURE:</strong> <span class="sign-line"></span></span>
             <span><strong>INSTRUCTOR VALIDATION:</strong> <span class="sign-line"></span></span>
             <span><strong>EVALUATION SCORE:</strong> ________ / 100</span>
           </div>

@@ -1,6 +1,6 @@
 /**
- * SPHERE: Mission Control - Telemetry & Simulation Suite
- * Core Application Engine
+ * SPHERE thermal-insulation laboratory application
+ * Interactive model, measurement log and assessment logic
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const state = {
     selectedModel: 'bare',
     modelConstants: {
-      bare: { name: 'Bare Capsule (Control)', k: 0.150, color: '#0284c7' },
-      cotton: { name: 'Cotton Layer (Conduction Shield)', k: 0.080, color: '#4facfe' },
-      mylar: { name: 'Mylar Layer (Radiation Shield)', k: 0.040, color: '#ff9f43' },
-      mli: { name: 'Full MLI (Cotton + Bubble Wrap + Mylar)', k: 0.015, color: '#10b981' },
-      custom: { name: 'Custom Sandbox Layer', k: 0.050, color: '#a55eea' }
+      bare: { name: 'Bare capsule (control)', k: 0.150, color: '#0284c7' },
+      cotton: { name: 'Cotton layer', k: 0.080, color: '#4facfe' },
+      mylar: { name: 'Reflective-film layer', k: 0.040, color: '#ff9f43' },
+      mli: { name: 'Multilayer test assembly', k: 0.015, color: '#10b981' },
+      custom: { name: 'Custom cooling constant', k: 0.050, color: '#a55eea' }
     },
     predictionCurve: [], // Cached prediction data points [{x: time, y: temp}]
     telemetryPoints: [],  // User logged physical points [{time: number, temp: number}]
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // UI Element Caches
   const elements = {
-    tabs: document.querySelectorAll('.nav-tab'),
+    tabs: document.querySelectorAll('.nav-tab, .top-portal-btn'),
     sections: document.querySelectorAll('.view-section'),
     mobileMenuToggle: document.getElementById('mobile-menu-toggle'),
     mobileMenuCurrent: document.getElementById('mobile-menu-current'),
@@ -420,6 +420,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Support direct links to a specific application section.
+  const initialTarget = window.location.hash.replace('#', '');
+  if (initialTarget && Array.from(elements.sections).some(section => section.id === initialTarget)) {
+    switchTab(initialTarget);
+  }
+
+  window.addEventListener('hashchange', () => {
+    const target = window.location.hash.replace('#', '');
+    if (Array.from(elements.sections).some(section => section.id === target)) {
+      switchTab(target);
+    }
+  });
+
   // Attach workflow pipeline buttons
   document.querySelectorAll('.workflow-nav-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -612,7 +625,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // 5. Live Telemetry Logbook Cockpit (Module 4)
+  // 5. Experimental measurement log (Module 4)
   // ==========================================================================
 
   // CountDown Timer Clock Implementation
@@ -656,8 +669,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (currentMinute > 0 && currentMinute > (state.timer.lastTriggeredMinute || 0) && state.timer.secondsRemaining >= 0) {
           state.timer.lastTriggeredMinute = currentMinute;
-          logToConsole(`MISSION TIME [${String(currentMinute).padStart(2, '0')}:00]: Epoch checkpoint! Transmit actual thermometer telemetry.`, 'warn');
-          showNotification(`Minute ${currentMinute} Reached! Transmit physical telemetry.`, 'info');
+          logToConsole(`TIMER [${String(currentMinute).padStart(2, '0')}:00]: Record the thermometer reading.`, 'warn');
+          showNotification(`Minute ${currentMinute}: Record Temperature`, 'info');
           playEpochSound();
           openEpochModal(currentMinute);
         }
@@ -848,7 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.acquiredCountBadge.textContent = `${state.telemetryPoints.length} / ${duration + 1}`;
   }
 
-  // Helper to record telemetry packet
+  // Helper to record a temperature measurement
   function addTelemetryPoint(timeVal, tempVal) {
     const durationInput = elements.simTime ? parseInt(elements.simTime.value) : 15;
     const duration = isNaN(durationInput) || durationInput <= 0 ? 15 : durationInput;
@@ -883,13 +896,13 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTelemetryChart();
     saveToLocalStorage();
     
-    logToConsole(`LAB: Telemetry packet transmitted. Time: ${timeVal.toFixed(1)}m, Temp: ${tempVal.toFixed(1)}°C.`, 'success');
+    logToConsole(`LAB: Measurement recorded. Time: ${timeVal.toFixed(1)} min, temperature: ${tempVal.toFixed(1)} °C.`, 'success');
     showNotification(`Logged ${tempVal.toFixed(1)}°C at t=${timeVal.toFixed(1)} min`, "success");
     playSuccessSound();
     return true;
   }
 
-  // Transmit and log manual packet from main form
+  // Validate and record a manual measurement from the main form
   if (document.getElementById('telemetry-entry-form')) {
     document.getElementById('telemetry-entry-form').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -1009,7 +1022,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (elements.emptyTableMsg) elements.emptyTableMsg.style.display = 'table-row';
       if (elements.telemetryCorrelationScore) elements.telemetryCorrelationScore.textContent = 'N/A';
       if (elements.telemetryCorrelationGrade) {
-        elements.telemetryCorrelationGrade.textContent = 'NO DATA PACKETS';
+        elements.telemetryCorrelationGrade.textContent = 'NO MEASUREMENTS';
         elements.telemetryCorrelationGrade.className = 'glow-orange';
       }
       return;
@@ -1017,7 +1030,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (elements.emptyTableMsg) elements.emptyTableMsg.style.display = 'none';
     
-    // Calculate Thermal Correlation Score & Grade
+    // Calculate the mean absolute error between observations and the reference model.
     let sumAbsError = 0;
     const activeMaterial = state.modelConstants[state.selectedModel];
     
@@ -1026,35 +1039,9 @@ document.addEventListener('DOMContentLoaded', () => {
       sumAbsError += Math.abs(pt.temp - predT);
     });
     
-    const avgAbsError = sumAbsError / state.telemetryPoints.length;
-    // Map absolute error to a 0-100% score (1°C error = 95%, 5°C error = 75%, 10°C error = 50%)
-    const rawScore = 100 - (avgAbsError * 5.0);
-    const finalScore = Math.max(0, Math.min(100, Math.round(rawScore)));
-    
-    if (elements.telemetryCorrelationScore) elements.telemetryCorrelationScore.textContent = `${finalScore}%`;
-    
-    let grade = '';
-    let gradeClass = '';
-    if (finalScore >= 95) {
-      grade = 'EXCELLENT SEAL [A+]';
-      gradeClass = 'glow-green';
-    } else if (finalScore >= 90) {
-      grade = 'HIGH STABILITY [A]';
-      gradeClass = 'glow-green';
-    } else if (finalScore >= 80) {
-      grade = 'MODERATE ISOLATION [B]';
-      gradeClass = 'glow-orange';
-    } else if (finalScore >= 70) {
-      grade = 'THERMAL DECAY DETECTED [C]';
-      gradeClass = 'glow-orange';
-    } else {
-      grade = 'CONVECTIVE LEAKAGE [F]';
-      gradeClass = 'glow-red';
-    }
-    
-    if (elements.telemetryCorrelationGrade) {
-      elements.telemetryCorrelationGrade.textContent = grade;
-      elements.telemetryCorrelationGrade.className = gradeClass;
+    const meanAbsoluteError = sumAbsError / state.telemetryPoints.length;
+    if (elements.telemetryCorrelationScore) {
+      elements.telemetryCorrelationScore.textContent = `${meanAbsoluteError.toFixed(2)} °C`;
     }
     
     // Sort array by time ascending
@@ -1122,8 +1109,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTelemetryTable();
     updateTelemetryChart();
     saveToLocalStorage();
-    logToConsole(`LAB: Telemetry packet erased for timestamp: ${timeValue.toFixed(1)}m.`, 'warn');
-    showNotification("Data Packet Erased", "error");
+    logToConsole(`LAB: Measurement deleted at ${timeValue.toFixed(1)} min.`, 'warn');
+    showNotification("Measurement Deleted", "info");
   }
 
   // Clear telemetry completely
@@ -1145,7 +1132,7 @@ document.addEventListener('DOMContentLoaded', () => {
       playClickSound();
       if (!state.telemetryPoints || state.telemetryPoints.length === 0) {
         showNotification("No Data To Export", "error");
-        alert("No telemetry data available to export. Please log some measurements or use sample data first.");
+        alert("No measurement data are available to export. Record measurements or load the example data first.");
         return;
       }
 
@@ -1275,7 +1262,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div><strong>Initial temperature</strong><span>${safeInitialTemp.toFixed(1)} °C</span></div>
           <div><strong>Environment temperature</strong><span>${safeEnvironmentTemp.toFixed(1)} °C</span></div>
           <div><strong>Data points</strong><span>${state.telemetryPoints.length}</span></div>
-          <div><strong>Prediction accuracy</strong><span>${elements.telemetryCorrelationScore ? elements.telemetryCorrelationScore.textContent : 'N/A'}</span></div>
+          <div><strong>Mean absolute error</strong><span>${elements.telemetryCorrelationScore ? elements.telemetryCorrelationScore.textContent : 'N/A'}</span></div>
         </section>
         ${chartMarkup}
         <section>
@@ -1342,13 +1329,13 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTelemetryChart();
     saveToLocalStorage();
     
-    logToConsole("LAB: Cybernetic simulation complete. Real-world sensor variance dataset mounted.", "success");
-    showNotification("Sample Telemetry Mounted", "success");
+    logToConsole("LAB: Example measurement data loaded for demonstration.", "success");
+    showNotification("Example Measurements Loaded", "success");
     playSuccessSound();
   });
 
   // ==========================================================================
-  // 6. Teacher Portal Authentication Gate (Module 5)
+  // 6. Teacher Portal classroom access gate (Module 5)
   // ==========================================================================
   elements.adminLoginForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -1361,15 +1348,15 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.adminAuthorizedDashboard.style.display = 'grid';
       elements.adminPasswordInput.value = '';
       
-      logToConsole("SYS: Instructor access validated. Key decrypted.", "success");
-      showNotification("Teacher Portal Unlocked", "success");
+      logToConsole("SYS: Instructor access code accepted.", "success");
+      showNotification("Teacher Portal Open", "success");
       playSuccessSound();
       
       sessionStorage.setItem('sphere_admin_auth', 'true');
       lucide.createIcons();
     } else {
-      showNotification("Access Denied: Invalid Decryption Key", "error");
-      logToConsole("WARN: Unauthorized access attempt registered on teacher portal.", "warn");
+      showNotification("Incorrect Instructor Access Code", "error");
+      logToConsole("WARN: Incorrect instructor access code entered.", "warn");
       playWarningSound();
       elements.adminPasswordInput.value = '';
     }
@@ -1382,7 +1369,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.adminLoginGate.style.display = 'block';
     
     logToConsole("SYS: Instructor session locked.");
-    showNotification("Teacher Portal Secured", "error");
+    showNotification("Teacher Portal Closed", "info");
     playWarningSound();
     
     sessionStorage.removeItem('sphere_admin_auth');
@@ -1392,9 +1379,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Pre-Flight Certification Quiz Evaluation
   function evaluateQuiz() {
     playClickSound();
-    const q1 = document.querySelector('input[name="q1"]:checked')?.value;
-    const q2 = document.querySelector('input[name="q2"]:checked')?.value;
-    const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+    const q1 = document.querySelector('input[name="preflight-q1"]:checked')?.value;
+    const q2 = document.querySelector('input[name="preflight-q2"]:checked')?.value;
+    const q3 = document.querySelector('input[name="preflight-q3"]:checked')?.value;
     
     if (!q1 || !q2 || !q3) {
       showNotification("Error: Answer all quiz questions first!", "error");
@@ -1404,7 +1391,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const isCorrect1 = q1 === 'radiation';
-    const isCorrect2 = q2 === 'conduction';
+    const isCorrect2 = q2 === 'convection';
     const isCorrect3 = q3 === 'convection';
     
     if (isCorrect1 && isCorrect2 && isCorrect3) {
@@ -1414,13 +1401,13 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.quizStatusBadge.style.color = "var(--green)";
       elements.quizStatusBadge.classList.add('glow-green');
       
-      logToConsole("SYS: Pre-flight quiz certified: 3/3 CORRECT. Credential card SPHERE-ENG-ACTIVE issued.", "success");
-      showNotification("Assessment Passed! Credentials Issued.", "success");
+      logToConsole("SYS: Preliminary assessment completed with 3/3 correct answers.", "success");
+      showNotification("Preliminary Assessment Passed", "success");
       playSuccessSound();
       
       localStorage.setItem('sphere_quiz_certified', 'true');
     } else {
-      elements.quizStatusBadge.textContent = "STATUS: ACCESS DENIED";
+      elements.quizStatusBadge.textContent = "STATUS: REVIEW REQUIRED";
       elements.quizStatusBadge.style.backgroundColor = "rgba(244, 63, 94, 0.1)";
       elements.quizStatusBadge.style.borderColor = "var(--red)";
       elements.quizStatusBadge.style.color = "var(--red)";
@@ -1431,8 +1418,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isCorrect2) incorrectCount++;
       if (!isCorrect3) incorrectCount++;
       
-      logToConsole(`WARN: Certification failed. ${incorrectCount} incorrect heat transfer answers detected. Re-evaluating mechanical layers...`, "warn");
-      showNotification(`Failed: ${incorrectCount} incorrect answers. Try again!`, "error");
+      logToConsole(`ASSESSMENT: ${incorrectCount} answer(s) require review.`, "warn");
+      showNotification(`${incorrectCount} Answer(s) Require Review`, "error");
       playWarningSound();
     }
   }
@@ -1450,9 +1437,9 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.quizStatusBadge.classList.add('glow-green');
       
       // Auto check correct answers for educational reinforcement
-      const q1El = document.querySelector('input[name="q1"][value="radiation"]');
-      const q2El = document.querySelector('input[name="q2"][value="conduction"]');
-      const q3El = document.querySelector('input[name="q3"][value="convection"]');
+      const q1El = document.querySelector('input[name="preflight-q1"][value="radiation"]');
+      const q2El = document.querySelector('input[name="preflight-q2"][value="convection"]');
+      const q3El = document.querySelector('input[name="preflight-q3"][value="convection"]');
       if (q1El) q1El.checked = true;
       if (q2El) q2El.checked = true;
       if (q3El) q3El.checked = true;
@@ -1700,39 +1687,39 @@ document.addEventListener('DOMContentLoaded', () => {
       const totalQuestions = 10;
 
       // Q1 Check
-      const q1Selected = document.querySelector('input[name="q1"]:checked');
+      const q1Selected = document.querySelector('input[name="worksheet-q1"]:checked');
       const q1Feedback = document.getElementById('q1-feedback');
       if (q1Selected && q1Selected.value === answerKey.q1) {
         correctCount++;
         q1Feedback.className = 'quiz-feedback correct';
-        q1Feedback.innerHTML = '✓ CORRECT! Space is a vacuum (radiation dominant), whereas ice bath heat loss occurs via conduction.';
+        q1Feedback.innerHTML = '✓ Correct. Radiation dominates external heat transfer in vacuum, whereas the water-bath experiment is governed mainly by conduction and convection.';
       } else {
         q1Feedback.className = 'quiz-feedback incorrect';
-        q1Feedback.innerHTML = '✗ INCORRECT! Correct answer is B: Liquid ice water transfers heat primarily via direct conduction.';
+        q1Feedback.innerHTML = '✗ Review required. The correct answer is B.';
       }
 
       // Q2 Check
-      const q2Selected = document.querySelector('input[name="q2"]:checked');
+      const q2Selected = document.querySelector('input[name="worksheet-q2"]:checked');
       const q2Feedback = document.getElementById('q2-feedback');
       if (q2Selected && q2Selected.value === answerKey.q2) {
         correctCount++;
         q2Feedback.className = 'quiz-feedback correct';
-        q2Feedback.innerHTML = '✓ CORRECT! A lower k constant represents a slower rate of cooling (superior insulation).';
+        q2Feedback.innerHTML = '✓ Correct. A lower cooling constant represents a slower approach to the ambient temperature.';
       } else {
         q2Feedback.className = 'quiz-feedback incorrect';
-        q2Feedback.innerHTML = '✗ INCORRECT! Correct answer is B: Smaller k values mean heat is retained much longer.';
+        q2Feedback.innerHTML = '✗ Review required. The correct answer is B: a smaller cooling constant corresponds to slower cooling.';
       }
 
       // Q3 Check
-      const q3Selected = document.querySelector('input[name="q3"]:checked');
+      const q3Selected = document.querySelector('input[name="worksheet-q3"]:checked');
       const q3Feedback = document.getElementById('q3-feedback');
       if (q3Selected && q3Selected.value === answerKey.q3) {
         correctCount++;
         q3Feedback.className = 'quiz-feedback correct';
-        q3Feedback.innerHTML = '✓ CORRECT! Multi-layer insulation combines cotton (conduction), bubble wrap (convection), and Mylar (radiation).';
+        q3Feedback.innerHTML = '✓ Correct. The layers reduce different heat-transfer pathways and introduce additional thermal resistance.';
       } else {
         q3Feedback.className = 'quiz-feedback incorrect';
-        q3Feedback.innerHTML = '✗ INCORRECT! Correct answer is A: MLI targets all three distinct heat transfer pathways.';
+        q3Feedback.innerHTML = '✗ Review required. The correct answer is A.';
       }
 
       // Q4 Check (Text Area)
@@ -1741,38 +1728,38 @@ document.addEventListener('DOMContentLoaded', () => {
       if (q4Text && q4Text.value.trim().length >= 10) {
         correctCount++;
         q4Feedback.className = 'quiz-feedback correct';
-        q4Feedback.innerHTML = '✓ EXPLANATION VERIFIED! Excellent physical reasoning on telemetry error sources.';
+        q4Feedback.innerHTML = '✓ Response recorded. Compare your explanation with the instructor rubric.';
       } else {
         q4Feedback.className = 'quiz-feedback incorrect';
-        q4Feedback.innerHTML = '✗ INCOMPLETE! Please provide a written explanation (e.g., sensor placement near wall, ice melting, non-uniform water mixing).';
+        q4Feedback.innerHTML = '✗ Provide at least one complete explanation of an experimental uncertainty.';
       }
 
       // Q5 Check
-      const q5Selected = document.querySelector('input[name="q5"]:checked');
+      const q5Selected = document.querySelector('input[name="worksheet-q5"]:checked');
       const q5Feedback = document.getElementById('q5-feedback');
       if (q5Selected && q5Selected.value === answerKey.q5) {
         correctCount++;
         q5Feedback.className = 'quiz-feedback correct';
-        q5Feedback.innerHTML = '✓ CORRECT! Adjusting $T_{\\text{env}}$ to 4.5°C recalibrates the Digital Twin mathematical model.';
+        q5Feedback.innerHTML = '✓ Correct. Set $T_{\\text{env}}$ to the measured bath temperature before recalculating the reference curve.';
       } else {
         q5Feedback.className = 'quiz-feedback incorrect';
-        q5Feedback.innerHTML = '✗ INCORRECT! Correct answer is B: Update $T_{\\text{env}}$ parameter in the simulator.';
+        q5Feedback.innerHTML = '✗ Review required. The correct answer is B: update $T_{\\text{env}}$ in the model.';
       }
 
       // Q6 Check
-      const q6Selected = document.querySelector('input[name="q6"]:checked');
+      const q6Selected = document.querySelector('input[name="worksheet-q6"]:checked');
       const q6Feedback = document.getElementById('q6-feedback');
       if (q6Selected && q6Selected.value === answerKey.q6) {
         correctCount++;
         q6Feedback.className = 'quiz-feedback correct';
-        q6Feedback.innerHTML = '✓ CORRECT! Thermal Conductivity ($k$) governs the conduction heat flux density across solid layers.';
+        q6Feedback.innerHTML = '✓ Correct. Thermal conductivity ($\\lambda$), in W/(m·K), governs conductive heat transfer through a material.';
       } else {
         q6Feedback.className = 'quiz-feedback incorrect';
-        q6Feedback.innerHTML = '✗ INCORRECT! Correct answer is A: Thermal Conductivity Coefficient ($k$).';
+        q6Feedback.innerHTML = '✗ Review required. The correct answer is A: thermal conductivity ($\\lambda$).';
       }
 
       // Q7 Check
-      const q7Selected = document.querySelector('input[name="q7"]:checked');
+      const q7Selected = document.querySelector('input[name="worksheet-q7"]:checked');
       const q7Feedback = document.getElementById('q7-feedback');
       if (q7Selected && q7Selected.value === answerKey.q7) {
         correctCount++;
@@ -1784,19 +1771,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Q8 Check
-      const q8Selected = document.querySelector('input[name="q8"]:checked');
+      const q8Selected = document.querySelector('input[name="worksheet-q8"]:checked');
       const q8Feedback = document.getElementById('q8-feedback');
       if (q8Selected && q8Selected.value === answerKey.q8) {
         correctCount++;
         q8Feedback.className = 'quiz-feedback correct';
-        q8Feedback.innerHTML = '✓ CORRECT! Ethanol holds less heat per gram ($c = 2440\\text{ J/kg}\\cdot^\\circ\\text{C}$), causing temperature to plunge much faster.';
+        q8Feedback.innerHTML = '✓ Correct. For equal mass and comparable heat-transfer conditions, the lower specific heat capacity produces a faster temperature decrease.';
       } else {
         q8Feedback.className = 'quiz-feedback incorrect';
         q8Feedback.innerHTML = '✗ INCORRECT! Correct answer is A: Lower heat capacity means faster temperature drop.';
       }
 
       // Q9 Check
-      const q9Selected = document.querySelector('input[name="q9"]:checked');
+      const q9Selected = document.querySelector('input[name="worksheet-q9"]:checked');
       const q9Feedback = document.getElementById('q9-feedback');
       if (q9Selected && q9Selected.value === answerKey.q9) {
         correctCount++;
@@ -1808,7 +1795,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Q10 Check
-      const q10Selected = document.querySelector('input[name="q10"]:checked');
+      const q10Selected = document.querySelector('input[name="worksheet-q10"]:checked');
       const q10Feedback = document.getElementById('q10-feedback');
       if (q10Selected && q10Selected.value === answerKey.q10) {
         correctCount++;
@@ -1833,10 +1820,10 @@ document.addEventListener('DOMContentLoaded', () => {
       scoreBadgeEl.textContent = `GRADE: ${grade}`;
 
       if (percentage >= 80) {
-        scoreSummaryEl.textContent = `Outstanding mission performance, Astronaut! Your crew scored ${correctCount}/${totalQuestions} questions correctly. You have mastered space thermal protection systems.`;
+        scoreSummaryEl.textContent = `Assessment complete: ${correctCount}/${totalQuestions} answers are correct. Review the written-response feedback with the instructor.`;
         playSuccessSound();
       } else {
-        scoreSummaryEl.textContent = `Evaluation complete. You answered ${correctCount}/${totalQuestions} questions correctly. Review the flashcard deck and re-test your thermal knowledge!`;
+        scoreSummaryEl.textContent = `Assessment complete: ${correctCount}/${totalQuestions} answers are correct. Review the relevant theory before repeating the assessment.`;
         playWarningSound();
       }
 
@@ -1847,7 +1834,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnResetQuiz) {
       btnResetQuiz.addEventListener('click', () => {
-        document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+        document.querySelectorAll('#student-quiz-form input[type="radio"]').forEach(r => r.checked = false);
         const q4Text = document.getElementById('q4-text');
         if (q4Text) q4Text.value = '';
         document.querySelectorAll('.quiz-feedback').forEach(f => {
@@ -1855,7 +1842,7 @@ document.addEventListener('DOMContentLoaded', () => {
           f.innerHTML = '';
         });
         scoreBanner.classList.remove('show');
-        showNotification("QUIZ RESET: All answers cleared.", "info");
+        showNotification("Worksheet Responses Reset", "info");
       });
     }
   }
@@ -1888,5 +1875,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load cached settings
   loadFromLocalStorage();
   
-  logToConsole("SYS: Navigation systems aligned. Mission Control fully active.");
+  logToConsole("SYS: SPHERE laboratory interface ready.");
 });
