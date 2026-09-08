@@ -398,6 +398,58 @@
       color: var(--text-subtle);
     }
 
+    /* Separate Reference Graphs & Compact Q&A Layout */
+    .separate-graphs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 16px 0 20px;
+    }
+    .separate-graph-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+    .separate-graph-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 8px;
+      background: #f8fafc;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+    }
+    .separate-graph-header .badge-k {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #334155;
+      background: #e2e8f0;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .separate-graph-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .graph-footer-note {
+      font-size: 0.72rem;
+      color: var(--text-subtle);
+      text-align: center;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
     @media screen and (max-width: 700px) {
       html, body { max-width: 100%; overflow-x: hidden; }
       body { padding: 8px; }
@@ -540,8 +592,25 @@
       }
 
       #section-4 {
+        break-before: page !important;
+        page-break-before: always !important;
         break-inside: auto;
         page-break-inside: auto;
+      }
+
+      .separate-graphs-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8pt !important;
+        margin: 10pt 0 12pt !important;
+      }
+
+      .separate-graph-card {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        padding: 6pt !important;
+        border: 1pt solid #cbd5e1 !important;
+        box-shadow: none !important;
       }
 
       .prediction-figure {
@@ -567,18 +636,33 @@
       }
 
       #section-5 {
-        break-before: page;
-        page-break-before: always;
+        break-before: page !important;
+        page-break-before: always !important;
+      }
+
+      .solutions-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8pt !important;
       }
 
       #section-5 .answer-key-card {
-        padding: 12pt !important;
-        margin: 10pt 0 16pt !important;
+        padding: 10pt 12pt !important;
+        margin: 8pt 0 12pt !important;
       }
 
       #section-5 .solution-item {
-        padding: 10pt !important;
-        margin-bottom: 8pt !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        padding: 6pt 8pt !important;
+        margin-bottom: 0 !important;
+        font-size: 8pt !important;
+        line-height: 1.35 !important;
+      }
+
+      #section-5 .solution-title {
+        font-size: 8.5pt !important;
+        margin-bottom: 3pt !important;
       }
 
       #section-5 .q7-solution {
@@ -765,6 +849,161 @@
         </tbody>
       </table>
 
+      <h3 style="margin-top: 24px; font-family: var(--font-sans); color: var(--dark-navy);"><i data-lucide="line-chart" style="vertical-align: middle; margin-right: 6px;"></i> INDIVIDUAL MATERIAL REFERENCE CURVES</h3>
+      <p style="font-size: 0.9rem; color: var(--text-subtle); margin-bottom: 12px;">
+        Individual theoretical cooling curves for each reference configuration calculated via $T(t) = T_{\text{env}} + (T_0 - T_{\text{env}})e^{-kt}$ ($T_0 = 80.0^\circ\text{C}, T_{\text{env}} = 0.0^\circ\text{C}$):
+      </p>
+      
+      <div class="separate-graphs-grid">
+        <!-- Graph A: Bare Control -->
+        <div class="separate-graph-card">
+          <div class="separate-graph-header" style="border-left: 4px solid #0369a1;">
+            <strong style="color: #0369a1;">A. BARE CAPSULE CONTROL</strong>
+            <span class="badge-k">$k = 0.150\text{ min}^{-1}$</span>
+          </div>
+          <svg viewBox="0 0 340 180" class="separate-graph-svg" role="img" aria-label="Bare capsule prediction curve">
+            <rect x="40" y="25" width="280" height="120" fill="#f8fafc" stroke="#334155" stroke-width="1"/>
+            <g stroke="#e2e8f0" stroke-width="1">
+              <line x1="40" y1="55" x2="320" y2="55"/>
+              <line x1="40" y1="85" x2="320" y2="85"/>
+              <line x1="40" y1="115" x2="320" y2="115"/>
+              <line x1="96" y1="25" x2="96" y2="145"/>
+              <line x1="152" y1="25" x2="152" y2="145"/>
+              <line x1="208" y1="25" x2="208" y2="145"/>
+              <line x1="264" y1="25" x2="264" y2="145"/>
+            </g>
+            <g font-family="sans-serif" font-size="8.5" fill="#475569">
+              <text x="34" y="28" text-anchor="end">80</text>
+              <text x="34" y="58" text-anchor="end">60</text>
+              <text x="34" y="88" text-anchor="end">40</text>
+              <text x="34" y="118" text-anchor="end">20</text>
+              <text x="34" y="148" text-anchor="end">0</text>
+              <text x="40" y="158" text-anchor="middle">0</text>
+              <text x="96" y="158" text-anchor="middle">3</text>
+              <text x="152" y="158" text-anchor="middle">6</text>
+              <text x="208" y="158" text-anchor="middle">9</text>
+              <text x="264" y="158" text-anchor="middle">12</text>
+              <text x="320" y="158" text-anchor="middle">15</text>
+            </g>
+            <text x="180" y="172" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#334155">Time (min)</text>
+            <text x="12" y="85" text-anchor="middle" transform="rotate(-90 12 85)" font-family="sans-serif" font-size="8.5" font-weight="700" fill="#334155">T (°C)</text>
+            <polyline points="40,25 58.7,41.7 77.3,56.1 96,68.5 114.7,79.15 133.3,88.3 152,96.2 170.7,103 189.3,108.85 208,113.95 226.7,118.15 245.3,121.9 264,125.2 282.7,127.9 301.3,130.3 320,132.4" fill="none" stroke="#0369a1" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="graph-footer-note">Rapid heat loss ($T(15) \approx 8.4^\circ\text{C}$)</div>
+        </div>
+
+        <!-- Graph B: Bubble Wrap -->
+        <div class="separate-graph-card">
+          <div class="separate-graph-header" style="border-left: 4px solid #15803d;">
+            <strong style="color: #15803d;">B. BUBBLE WRAP LAYER</strong>
+            <span class="badge-k">$k = 0.040\text{ min}^{-1}$</span>
+          </div>
+          <svg viewBox="0 0 340 180" class="separate-graph-svg" role="img" aria-label="Bubble wrap prediction curve">
+            <rect x="40" y="25" width="280" height="120" fill="#f8fafc" stroke="#334155" stroke-width="1"/>
+            <g stroke="#e2e8f0" stroke-width="1">
+              <line x1="40" y1="55" x2="320" y2="55"/>
+              <line x1="40" y1="85" x2="320" y2="85"/>
+              <line x1="40" y1="115" x2="320" y2="115"/>
+              <line x1="96" y1="25" x2="96" y2="145"/>
+              <line x1="152" y1="25" x2="152" y2="145"/>
+              <line x1="208" y1="25" x2="208" y2="145"/>
+              <line x1="264" y1="25" x2="264" y2="145"/>
+            </g>
+            <g font-family="sans-serif" font-size="8.5" fill="#475569">
+              <text x="34" y="28" text-anchor="end">80</text>
+              <text x="34" y="58" text-anchor="end">60</text>
+              <text x="34" y="88" text-anchor="end">40</text>
+              <text x="34" y="118" text-anchor="end">20</text>
+              <text x="34" y="148" text-anchor="end">0</text>
+              <text x="40" y="158" text-anchor="middle">0</text>
+              <text x="96" y="158" text-anchor="middle">3</text>
+              <text x="152" y="158" text-anchor="middle">6</text>
+              <text x="208" y="158" text-anchor="middle">9</text>
+              <text x="264" y="158" text-anchor="middle">12</text>
+              <text x="320" y="158" text-anchor="middle">15</text>
+            </g>
+            <text x="180" y="172" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#334155">Time (min)</text>
+            <text x="12" y="85" text-anchor="middle" transform="rotate(-90 12 85)" font-family="sans-serif" font-size="8.5" font-weight="700" fill="#334155">T (°C)</text>
+            <polyline points="40,25 58.7,29.6 77.3,34.15 96,38.5 114.7,42.7 133.3,46.75 152,50.65 170.7,54.4 189.3,57.85 208,61.3 226.7,64.6 245.3,67.75 264,70.75 282.7,73.6 301.3,76.45 320,79.15" fill="none" stroke="#15803d" stroke-width="2.5" stroke-dasharray="8 4" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="graph-footer-note">Moderate gradual decay ($T(15) \approx 43.9^\circ\text{C}$)</div>
+        </div>
+
+        <!-- Graph C: Reflective Film (Mylar) -->
+        <div class="separate-graph-card">
+          <div class="separate-graph-header" style="border-left: 4px solid #c2410c;">
+            <strong style="color: #c2410c;">C. REFLECTIVE FILM (MYLAR)</strong>
+            <span class="badge-k">$k = 0.121\text{ min}^{-1}$</span>
+          </div>
+          <svg viewBox="0 0 340 180" class="separate-graph-svg" role="img" aria-label="Mylar foil prediction curve">
+            <rect x="40" y="25" width="280" height="120" fill="#f8fafc" stroke="#334155" stroke-width="1"/>
+            <g stroke="#e2e8f0" stroke-width="1">
+              <line x1="40" y1="55" x2="320" y2="55"/>
+              <line x1="40" y1="85" x2="320" y2="85"/>
+              <line x1="40" y1="115" x2="320" y2="115"/>
+              <line x1="96" y1="25" x2="96" y2="145"/>
+              <line x1="152" y1="25" x2="152" y2="145"/>
+              <line x1="208" y1="25" x2="208" y2="145"/>
+              <line x1="264" y1="25" x2="264" y2="145"/>
+            </g>
+            <g font-family="sans-serif" font-size="8.5" fill="#475569">
+              <text x="34" y="28" text-anchor="end">80</text>
+              <text x="34" y="58" text-anchor="end">60</text>
+              <text x="34" y="88" text-anchor="end">40</text>
+              <text x="34" y="118" text-anchor="end">20</text>
+              <text x="34" y="148" text-anchor="end">0</text>
+              <text x="40" y="158" text-anchor="middle">0</text>
+              <text x="96" y="158" text-anchor="middle">3</text>
+              <text x="152" y="158" text-anchor="middle">6</text>
+              <text x="208" y="158" text-anchor="middle">9</text>
+              <text x="264" y="158" text-anchor="middle">12</text>
+              <text x="320" y="158" text-anchor="middle">15</text>
+            </g>
+            <text x="180" y="172" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#334155">Time (min)</text>
+            <text x="12" y="85" text-anchor="middle" transform="rotate(-90 12 85)" font-family="sans-serif" font-size="8.5" font-weight="700" fill="#334155">T (°C)</text>
+            <polyline points="40,25 58.7,38.65 77.3,50.8 96,61.45 114.7,71.05 133.3,79.45 152,86.95 170.7,93.55 189.3,99.4 208,104.65 226.7,109.3 245.3,113.35 264,116.95 282.7,120.1 301.3,122.95 320,125.5" fill="none" stroke="#c2410c" stroke-width="2.5" stroke-dasharray="3 3" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="graph-footer-note">Empirical fitted curve ($T(15) \approx 13.0^\circ\text{C}$)</div>
+        </div>
+
+        <!-- Graph D: Multilayer Assembly -->
+        <div class="separate-graph-card">
+          <div class="separate-graph-header" style="border-left: 4px solid #7e22ce;">
+            <strong style="color: #7e22ce;">D. MULTILAYER ASSEMBLY</strong>
+            <span class="badge-k">$k = 0.015\text{ min}^{-1}$</span>
+          </div>
+          <svg viewBox="0 0 340 180" class="separate-graph-svg" role="img" aria-label="Multilayer assembly prediction curve">
+            <rect x="40" y="25" width="280" height="120" fill="#f8fafc" stroke="#334155" stroke-width="1"/>
+            <g stroke="#e2e8f0" stroke-width="1">
+              <line x1="40" y1="55" x2="320" y2="55"/>
+              <line x1="40" y1="85" x2="320" y2="85"/>
+              <line x1="40" y1="115" x2="320" y2="115"/>
+              <line x1="96" y1="25" x2="96" y2="145"/>
+              <line x1="152" y1="25" x2="152" y2="145"/>
+              <line x1="208" y1="25" x2="208" y2="145"/>
+              <line x1="264" y1="25" x2="264" y2="145"/>
+            </g>
+            <g font-family="sans-serif" font-size="8.5" fill="#475569">
+              <text x="34" y="28" text-anchor="end">80</text>
+              <text x="34" y="58" text-anchor="end">60</text>
+              <text x="34" y="88" text-anchor="end">40</text>
+              <text x="34" y="118" text-anchor="end">20</text>
+              <text x="34" y="148" text-anchor="end">0</text>
+              <text x="40" y="158" text-anchor="middle">0</text>
+              <text x="96" y="158" text-anchor="middle">3</text>
+              <text x="152" y="158" text-anchor="middle">6</text>
+              <text x="208" y="158" text-anchor="middle">9</text>
+              <text x="264" y="158" text-anchor="middle">12</text>
+              <text x="320" y="158" text-anchor="middle">15</text>
+            </g>
+            <text x="180" y="172" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#334155">Time (min)</text>
+            <text x="12" y="85" text-anchor="middle" transform="rotate(-90 12 85)" font-family="sans-serif" font-size="8.5" font-weight="700" fill="#334155">T (°C)</text>
+            <polyline points="40,25 58.7,26.8 77.3,28.6 96,30.25 114.7,32.05 133.3,33.7 152,35.35 170.7,37.0 189.3,38.65 208,40.15 226.7,41.8 245.3,43.3 264,44.8 282.7,46.3 301.3,47.8 320,49.15" fill="none" stroke="#7e22ce" stroke-width="2.5" stroke-dasharray="10 3 2 3" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="graph-footer-note">Ultra-low cooling rate ($T(15) \approx 63.9^\circ\text{C}$)</div>
+        </div>
+      </div>
+
       <figure class="prediction-figure">
         <svg viewBox="0 0 760 330" role="img" aria-labelledby="prediction-curves-title prediction-curves-desc">
           <title id="prediction-curves-title">Predicted temperature curves for all four reference configurations</title>
@@ -848,95 +1087,92 @@
           Online key: Q1 B, Q2 B, Q3 A, Q5 B, Q6 A, Q7 A, Q8 A, Q9 B, Q10 A.
         </p>
 
-        <!-- Q1 Solution -->
-        <div class="solution-item">
-          <div class="solution-title">Question 1: Why can reflective film provide limited insulation in direct water contact?</div>
-          <div class="solution-body">
-            <strong>Sample answer:</strong> A reflective film can reduce radiative exchange, but it has little thickness
-            and therefore provides limited resistance to conduction when it is in direct contact with the capsule and
-            surrounding water. A low-conductivity spacer introduces trapped air and additional thermal resistance.
-            <br><em style="color: var(--text-subtle);">Marking guidance: award credit for distinguishing radiative performance from conductive resistance.</em>
+        <div class="solutions-grid">
+          <!-- Q1 Solution -->
+          <div class="solution-item">
+            <div class="solution-title">Question 1: Why can reflective film provide limited insulation in direct water contact?</div>
+            <div class="solution-body">
+              <strong>Sample answer:</strong> A reflective film can reduce radiative exchange, but it has little thickness
+              and therefore provides limited resistance to conduction when it is in direct contact with the capsule and
+              surrounding water. A low-conductivity spacer introduces trapped air and additional thermal resistance.
+              <br><em style="color: var(--text-subtle);">Marking guidance: award credit for distinguishing radiative performance from conductive resistance.</em>
+            </div>
           </div>
-        </div>
 
-        <!-- Q2 Solution -->
-        <div class="solution-item">
-          <div class="solution-title">Question 2: What does the cooling constant ($k$) tell us?</div>
-          <div class="solution-body">
-            <strong>Sample answer:</strong> Within the same test geometry and boundary conditions, a smaller fitted $k$
-            means a slower exponential approach to $T_{\text{env}}$ ($T(t) = T_{\text{env}} + (T_0 - T_{\text{env}})e^{-kt}$). The value is an effective system parameter with
-            units of $\text{min}^{-1}$; it is not the material thermal conductivity $\lambda$.
+          <!-- Q2 Solution -->
+          <div class="solution-item">
+            <div class="solution-title">Question 2: What does the cooling constant ($k$) tell us?</div>
+            <div class="solution-body">
+              <strong>Sample answer:</strong> Within the same test geometry and boundary conditions, a smaller fitted $k$
+              means a slower exponential approach to $T_{\text{env}}$ ($T(t) = T_{\text{env}} + (T_0 - T_{\text{env}})e^{-kt}$). The value is an effective system parameter with
+              units of $\text{min}^{-1}$; it is not the material thermal conductivity $\lambda$.
+            </div>
           </div>
-        </div>
 
-        <!-- Q3 Solution -->
-        <div class="solution-item">
-          <div class="solution-title">Question 3: Why can the multilayer assembly reduce cooling?</div>
-          <div class="solution-body">
-            <strong>Sample answer:</strong> The materials introduce complementary resistance mechanisms:
-            <ul style="margin: 6px 0 0 0; padding-left: 20px;">
-              <li><strong>Cotton</strong> traps air and reduces effective conduction.</li>
-              <li><strong>Bubble wrap</strong> limits air movement within sealed cells.</li>
-              <li><strong>Reflective film</strong> reduces radiative exchange when an air gap is present.</li>
-            </ul>
-            Interfaces between layers also add contact resistance. The measured result must be used to determine the
-            actual performance ($k \approx 0.015\text{ min}^{-1}$); no specific final temperature should be assumed without empirical data.
+          <!-- Q3 Solution -->
+          <div class="solution-item">
+            <div class="solution-title">Question 3: Why can the multilayer assembly reduce cooling?</div>
+            <div class="solution-body">
+              <strong>Sample answer:</strong> The materials introduce complementary resistance mechanisms:
+              <ul style="margin: 4px 0 0 0; padding-left: 18px;">
+                <li><strong>Cotton:</strong> Traps air &amp; slows conduction.</li>
+                <li><strong>Bubble wrap:</strong> Limits cell fluid motion.</li>
+                <li><strong>Reflective film:</strong> Reduces radiation in gaps.</li>
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <!-- Q4 Solution -->
-        <div class="solution-item">
-          <div class="solution-title">Question 4: Where could experimental errors come from?</div>
-          <div class="solution-body">
-            <strong>Sample Answer (Accept any two sensible answers matching Mission Control's Resemblance Diagnosis):</strong>
-            <ol style="margin: 4px 0 0 0; padding-left: 20px;">
-              <li><strong>Model / Constant ($k$) Mismatch:</strong> Selected reference model (Bare, Bubble Wrap, Mylar, Foam, Aerogel) or custom $k$ value does not match the physical insulation tested.</li>
-              <li><strong>Air Drafts & Convection:</strong> Room ventilation or air currents increased forced convective heat transfer ($h$).</li>
-              <li><strong>Lid Sealing & Evaporation:</strong> Steam/vapor escaping from an unsealed stopper or probe insertion port (evaporative cooling drops temperature rapidly).</li>
-              <li><strong>Probe Placement & Stratification:</strong> Thermometer touching the container wall instead of fluid core depth, or un-stirred water creating thermal stratification.</li>
-              <li><strong>Initial Thermal Inertia:</strong> Cold container glass wall absorbing heat during the first 0–2 minutes before reaching thermal equilibrium.</li>
-            </ol>
+          <!-- Q4 Solution -->
+          <div class="solution-item">
+            <div class="solution-title">Question 4: Where could experimental errors come from?</div>
+            <div class="solution-body">
+              <strong>Sample Answer (Accept any 2):</strong>
+              <ol style="margin: 4px 0 0 0; padding-left: 18px;">
+                <li>Model / Constant ($k$) Mismatch.</li>
+                <li>Room convection / air drafts.</li>
+                <li>Lid unsealed (evaporative loss).</li>
+                <li>Probe wall contact or stratification.</li>
+                <li>Glass wall thermal mass (0–2 min).</li>
+              </ol>
+            </div>
           </div>
-        </div>
 
-        <!-- Q5 Solution -->
-        <div class="solution-item">
-          <div class="solution-title">Question 5: What happens if your ice bath warms up?</div>
-          <div class="solution-body">
-            <strong>Sample Answer:</strong> Students should measure the real bath temperature (e.g. $T_{\text{env}} = 4.5^\circ\text{C}$) and type that new number into the $T_{\text{env}}$ box in the Mission Control simulator. Updating the environment temperature makes the theoretical curve ($T(t) = T_{\text{env}} + (T_0 - T_{\text{env}})e^{-kt}$) match the real classroom conditions.
-            <br><em style="color: var(--text-subtle);">Grading Tip: Award credit if they mention updating $T_{\text{env}}$ or the environment temperature input in the software.</em>
+          <!-- Q5 Solution -->
+          <div class="solution-item">
+            <div class="solution-title">Question 5: What happens if your ice bath warms up?</div>
+            <div class="solution-body">
+              <strong>Sample Answer:</strong> Measure the real bath temperature (e.g. $T_{\text{env}} = 4.5^\circ\text{C}$) and enter it into the simulator. Updating $T_{\text{env}}$ adjusts the theoretical curve ($T(t) = T_{\text{env}} + (T_0 - T_{\text{env}})e^{-kt}$) to match real conditions.
+            </div>
           </div>
-        </div>
 
-        <!-- Q6 Solution -->
-        <div class="solution-item">
-          <div class="solution-title">Question 6: What if we double the water volume?</div>
-          <div class="solution-body">
-            <strong>Sample Answer:</strong> Doubling the water from $100\text{ mL}$ to $200\text{ mL}$ doubles the mass of hot liquid ($Q = m \cdot c \cdot \Delta T$), meaning it holds twice as much thermal energy. Because there is more heat to lose through roughly the same surface area, it cools down <strong>slower</strong>, and the cooling constant <strong>$k$ decreases</strong>.
-            <br><em style="color: var(--text-subtle);">Grading Tip: Look for: cools slower and $k$ decreases.</em>
+          <!-- Q6 Solution -->
+          <div class="solution-item">
+            <div class="solution-title">Question 6: What if we double the water volume?</div>
+            <div class="solution-body">
+              <strong>Sample Answer:</strong> Doubling water from $100\text{ mL}$ to $200\text{ mL}$ doubles thermal mass ($Q = m \cdot c \cdot \Delta T$). Holding twice as much energy with similar surface area causes it to cool <strong>slower</strong>, decreasing fitted <strong>$k$</strong>.
+            </div>
           </div>
-        </div>
 
-        <!-- Q7 Solution -->
-        <div class="solution-item q7-solution">
-          <div class="solution-title">Question 7: Spacesuit Design Trade-Offs</div>
-          <div class="solution-body">
-            <strong>Sample Answer:</strong> You can't simply keep adding layers because the spacesuit would become heavier, bulkier and stiffer, reducing joint mobility during a long spacewalk. The astronaut also generates metabolic heat, so the thermal-control system must reject heat as well as limit heat loss.
-            <br><em style="color: var(--text-subtle);">Grading Tip: Accept answers discussing joint flexibility/mobility, suit weight/bulk, or body heat buildup.</em>
+          <!-- Q7 Solution -->
+          <div class="solution-item q7-solution">
+            <div class="solution-title">Question 7: Spacesuit Design Trade-Offs</div>
+            <div class="solution-body">
+              <strong>Sample Answer:</strong> Adding too many layers increases mass, bulk and stiffness, restricting joint mobility. Metabolic body heat buildup also requires controlled heat rejection.
+            </div>
           </div>
-        </div>
 
-        <!-- Q8 Solution -->
-        <div class="solution-item q8-solution">
-          <div class="solution-title">Question 8: How can the MAE be reduced?</div>
-          <div class="solution-body">
-            <strong>Sample Answer:</strong>
-            <ol style="margin: 4px 0 0 0; padding-left: 20px;">
-              <li>Use a consistent lid-sealing method and leak-test the capsule before immersion.</li>
-              <li>Position the probe consistently near the centre of the liquid without contacting the wall; use a thermometer with documented accuracy (e.g. $\pm 0.5^\circ\text{C}$).</li>
-              <li>Swirl the jar gently before reading to keep the water mixed evenly.</li>
-              <li>Take readings at consistent recorded times ($\text{MAE} = \frac{1}{n}\sum_{i=1}^n |T_{\text{obs},i} - T_{\text{model},i}|$).</li>
-            </ol>
+          <!-- Q8 Solution -->
+          <div class="solution-item q8-solution">
+            <div class="solution-title">Question 8: How can the MAE be reduced?</div>
+            <div class="solution-body">
+              <strong>Sample Answer:</strong>
+              <ol style="margin: 4px 0 0 0; padding-left: 18px;">
+                <li>Seal lid &amp; leak-test before immersion.</li>
+                <li>Centre probe (avoid glass wall contact).</li>
+                <li>Swirl jar gently before reading.</li>
+                <li>Record readings at exact minute intervals.</li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
