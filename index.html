@@ -53,9 +53,6 @@
             <a href="student_manual.html" target="_blank" rel="noopener" class="deliverable-btn deliverable-btn-student" title="Open student laboratory manual">
               <i data-lucide="book-open" style="width: 12px; height: 12px;"></i> STUDENT MANUAL
             </a>
-            <a href="flashcards.html" target="_blank" rel="noopener" class="deliverable-btn deliverable-btn-flashcards" title="Open printable revision cards">
-              <i data-lucide="layers" style="width: 12px; height: 12px;"></i> FLASHCARDS (PDF)
-            </a>
             <button type="button" class="deliverable-btn deliverable-btn-teacher top-portal-btn" data-target="admin" title="Open Teacher Portal">
               <i data-lucide="shield-alert" style="width: 12px; height: 12px;"></i> TEACHER PORTAL
             </button>
@@ -340,7 +337,7 @@
               <div class="sim-stat-box" style="text-align:left;">
                 <h4 class="glow-cyan"><i data-lucide="flame" style="width:14px;height:14px;vertical-align:middle;"></i> 1. CONDUCTION</h4>
                 <p class="step-desc">Heat passing through direct contact as vibrating particles bump into neighboring molecules.</p>
-                <span class="step-badge" style="background:rgba(2,132,199,0.15);color:#38bdf8;border-color:#0284c7;">COTTON SHIELD (k = 0.080)</span>
+                <span class="step-badge" style="background:rgba(2,132,199,0.15);color:#38bdf8;border-color:#0284c7;">COTTON INNER LAYER (OPTIONAL SOLO TRIAL)</span>
               </div>
 
               <div class="sim-stat-box" style="text-align:left;">
@@ -403,11 +400,11 @@
               </div>
               <!-- Q3 -->
               <div class="form-group" style="padding-bottom: 12px; margin-bottom: 12px;">
-                <label class="form-label" style="font-size: 0.75rem; color: var(--cyan);">QUESTION 03: PG7 GLAND
-                  SEALING</label>
-                <p class="briefing-text" style="font-size: 0.85rem; margin-bottom: 8px;">The PG7 Cable Gland provides a
-                  compression seal around the thermometer cable, limiting fluid leakage.
-                  Which heat-transfer mechanism is most directly limited by preventing bulk fluid exchange?</p>
+                <label class="form-label" style="font-size: 0.75rem; color: var(--cyan);">QUESTION 03: FLUID
+                  MOVEMENT</label>
+                <p class="briefing-text" style="font-size: 0.85rem; margin-bottom: 8px;">Warmer and cooler regions of
+                  water can circulate within the capsule. Which heat-transfer mechanism describes this bulk fluid
+                  movement?</p>
                 <div
                   style="display: grid; grid-template-columns: 1fr; gap: 8px; font-family: var(--font-sans); font-size: 0.85rem;">
                   <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio"
@@ -473,10 +470,6 @@
               <!-- Airtight Threaded Jar Lid -->
               <rect x="364" y="85" width="152" height="22" rx="4" fill="#0f172a" stroke="#334155" stroke-width="2"/>
 
-              <!-- PG7 Waterproof Cable Gland -->
-              <rect x="425" y="52" width="30" height="34" rx="4" fill="#0f172a" stroke="#d97706" stroke-width="2"/>
-              <circle cx="440" cy="68" r="5" fill="#10b981"/>
-
               <!-- Sensor Lead Wire -->
               <path d="M 440 15 L 440 52" stroke="#d97706" stroke-width="3" fill="none"/>
               <path d="M 440 85 L 440 220" stroke="#d97706" stroke-width="3" fill="none"/>
@@ -486,11 +479,11 @@
               <circle cx="440" cy="236" r="3" fill="#10b981"/>
 
               <!-- ================= LEFT CALLOUTS (text-anchor="end") ================= -->
-              <!-- 1. PG7 Cable Gland -->
-              <text x="250" y="64" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="end">PG7 Cable Gland</text>
-              <text x="250" y="78" fill="#475569" font-family="sans-serif" font-size="9" text-anchor="end">Watertight rubber compression seal</text>
-              <line x1="260" y1="68" x2="425" y2="68" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
-              <circle cx="425" cy="68" r="3.5" fill="#0284c7"/>
+              <!-- 1. Probe lead and lid opening -->
+              <text x="250" y="64" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="end">Thermometer Probe Lead</text>
+              <text x="250" y="78" fill="#475569" font-family="sans-serif" font-size="9" text-anchor="end">Passes through prepared lid opening</text>
+              <line x1="260" y1="68" x2="440" y2="68" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+              <circle cx="440" cy="68" r="3.5" fill="#0284c7"/>
 
               <!-- 2. Threaded Jar Lid -->
               <text x="250" y="124" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="end">Threaded Capsule Lid</text>
@@ -548,7 +541,7 @@
               </div>
               <div class="visual-legend-item" style="background: #ffffff; border-color: #e2e8f0; color: #0f172a;">
                 <span class="visual-legend-dot" style="background: #f59e0b;"></span>
-                <span>PG7 Gland: Compression Cable Seal</span>
+                <span>Probe Lead: Routed Through Lid Opening</span>
               </div>
               <div class="visual-legend-item" style="background: #ffffff; border-color: #e2e8f0; color: #0f172a;">
                 <span class="visual-legend-dot" style="background: #10b981;"></span>
@@ -578,7 +571,7 @@
                 <p class="step-desc">
                   Insert the thermometer probe through the lid opening and ensure the container is sealed properly.
                   This helps prevent leaks during the experiment.</p>
-                <span class="step-badge">PG7 CABLE GLAND PATHWAY</span>
+                <span class="step-badge">CENTRE PROBE // SEAL &amp; LEAK-TEST</span>
               </div>
             </div>
 
@@ -625,18 +618,18 @@
             </div>
 
             <!-- Config B -->
-            <div class="layer-stack-card" style="background: #ffffff; border: 1.5px solid rgba(2, 132, 199, 0.4); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <div class="layer-stack-card" style="background: #ffffff; border: 1.5px solid rgba(16, 185, 129, 0.4); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
               <div class="layer-stack-header">
-                <span style="color: #0284c7; font-weight: bold;">B. COTTON SLEEVE</span>
-                <span class="visual-guide-badge" style="background: rgba(2, 132, 199, 0.1); color: #0284c7; border-color: #0284c7;">k = 0.080 min⁻¹</span>
+                <span style="color: #059669; font-weight: bold;">B. BUBBLE WRAP</span>
+                <span class="visual-guide-badge" style="background: rgba(16, 185, 129, 0.1); color: #059669; border-color: #10b981;">k = 0.040 min⁻¹</span>
               </div>
               <div class="layer-bars-container">
                 <div class="layer-bar" style="background: #0284c7;">CORE WATER (80°C)</div>
                 <div class="layer-bar" style="background: #475569;">PET JAR WALL</div>
-                <div class="layer-bar" style="background: #64748b;">COTTON FIBER AIR POCKETS</div>
+                <div class="layer-bar" style="background: #10b981;">TWO BUBBLE-WRAP LAYERS</div>
                 <div class="layer-bar" style="background: #0284c7; border: 1px dashed #7dd3fc;">ICE BATH (0°C)</div>
               </div>
-              <p class="step-desc" style="font-size: 0.78rem; margin: 0; color: #475569;">Traps still air pockets to slow conduction.</p>
+              <p class="step-desc" style="font-size: 0.78rem; margin: 0; color: #475569;">Sealed air cells reduce fluid motion and slow heat transfer.</p>
             </div>
 
             <!-- Config C -->
@@ -669,6 +662,7 @@
               <p class="step-desc" style="font-size: 0.78rem; margin: 0; color: #475569;">Combines trapped air, limited fluid motion and a reflective outer surface.</p>
             </div>
           </div>
+          <p class="step-desc" style="margin-top: 12px;"><strong>Optional extension:</strong> Add a fifth cotton-only trial to investigate the contribution of the inner fibrous layer.</p>
 
           <!-- Material Science Breakdown Panel (Educational Layer) -->
           <h2 class="glow-cyan" style="margin-top: 35px; margin-bottom: 15px; font-size: 1.1rem;"><i
@@ -752,7 +746,7 @@
                 </label>
                 <select id="insulation-select" class="hud-select">
                   <option value="bare">Bare capsule (control) — k = 0.150 min⁻¹</option>
-                  <option value="cotton">Cotton layer — k = 0.080 min⁻¹</option>
+                  <option value="bubble">Bubble-wrap layer — k = 0.040 min⁻¹</option>
                   <option value="mylar">Reflective-film layer — k = 0.143 min⁻¹</option>
                   <option value="mli">Multilayer assembly — k = 0.015 min⁻¹</option>
                   <option value="custom">Custom Design (Sandbox Sliders) — k = Variable</option>
@@ -890,46 +884,48 @@
             </div>
 
             <!-- Manual Data Entry Glass Panel -->
-            <div class="hud-panel">
-              <div class="panel-header">
+            <div class="hud-panel measurement-entry-panel">
+              <button type="button" class="panel-header measurement-collapse-toggle" id="measurement-collapse-toggle"
+                aria-expanded="true" aria-controls="measurement-entry-content">
                 <span class="panel-title"><i data-lucide="database"></i> ADD MEASUREMENT</span>
-                <span class="panel-meta">AUTO-DETECTED TIME</span>
-              </div>
-
-              <form id="telemetry-entry-form" onsubmit="event.preventDefault();">
-                <div class="form-group">
-                  <label class="form-label" for="log-time">ELAPSED TIME <span class="label-hint">AUTO-SYNCED</span></label>
-                  <div class="hud-input-wrapper">
-                    <input type="number" id="log-time" class="hud-input" min="0" max="15" step="0.1"
-                      placeholder="Auto (e.g. 1.0)">
-                    <span class="input-suffix">MINUTES</span>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="log-temp">OBSERVED CAPSULE TEMPERATURE</label>
-                  <div class="hud-input-wrapper">
-                    <input type="number" id="log-temp" class="hud-input" min="0" max="100" step="0.05"
-                      placeholder="e.g. 74.2">
-                    <span class="input-suffix">°C</span>
-                  </div>
-                </div>
-
-                <button type="submit" class="btn-hud" id="btn-log-telemetry">
-                  <i data-lucide="plus-circle"></i> ADD DATA POINT
-                </button>
-              </form>
-              <button type="button" class="btn-hud btn-orange btn-outline" id="btn-open-epoch-modal" style="margin-top: 10px;">
-                <i data-lucide="maximize-2"></i> POPUP CENTERED INPUT WINDOW
+                <span class="measurement-collapse-meta">
+                  <span class="panel-meta">AUTO-DETECTED TIME</span>
+                  <i data-lucide="chevron-up" class="measurement-collapse-icon" aria-hidden="true"></i>
+                </span>
               </button>
 
-              <!-- Quick Autofill for testing/demonstration -->
-              <div class="autofill-panel">
-                <span class="autofill-text">Need example data?</span>
-                <button type="button" class="btn-hud btn-outline" id="btn-autofill"
-                  style="width: auto; padding: 6px 12px; font-size: 0.75rem;">
-                  <i data-lucide="sparkles"></i> LOAD SAMPLE DATA
-                </button>
+              <div id="measurement-entry-content">
+                <form id="telemetry-entry-form" onsubmit="event.preventDefault();">
+                  <div class="form-group">
+                    <label class="form-label" for="log-time">ELAPSED TIME <span class="label-hint">AUTO-SYNCED</span></label>
+                    <div class="hud-input-wrapper">
+                      <input type="number" id="log-time" class="hud-input" min="0" max="15" step="0.1"
+                        placeholder="Auto (e.g. 1.0)">
+                      <span class="input-suffix">MINUTES</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="log-temp">OBSERVED CAPSULE TEMPERATURE</label>
+                    <div class="hud-input-wrapper">
+                      <input type="number" id="log-temp" class="hud-input" min="0" max="100" step="0.05"
+                        placeholder="e.g. 74.2">
+                      <span class="input-suffix">°C</span>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn-hud" id="btn-log-telemetry">
+                    <i data-lucide="plus-circle"></i> ADD DATA POINT
+                  </button>
+                </form>
+                <!-- Quick Autofill for testing/demonstration -->
+                <div class="autofill-panel">
+                  <span class="autofill-text">Need example data?</span>
+                  <button type="button" class="btn-hud btn-outline" id="btn-autofill"
+                    style="width: auto; padding: 6px 12px; font-size: 0.75rem;">
+                    <i data-lucide="sparkles"></i> LOAD SAMPLE DATA
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1000,15 +996,12 @@
                 </table>
               </div>
 
-              <!-- Clear & Export Actions -->
-              <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap;">
-                <button type="button" class="btn-hud btn-outline" id="btn-export-csv" style="width: auto; color: var(--cyan); border-color: rgba(2, 132, 199, 0.4);">
-                  <i data-lucide="download"></i> EXPORT CSV DATA
-                </button>
-                <button class="btn-hud btn-outline" id="btn-print-telemetry" style="width: auto;" type="button">
+              <!-- Logbook Actions -->
+              <div class="telemetry-action-bar">
+                <button class="btn-hud btn-outline telemetry-action-btn" id="btn-print-telemetry" type="button">
                   <i data-lucide="printer"></i> PRINT LOGBOOK
                 </button>
-                <button type="button" class="btn-hud btn-outline btn-danger" id="btn-clear-telemetry" style="width: auto;">
+                <button type="button" class="btn-hud btn-outline btn-danger telemetry-action-btn" id="btn-clear-telemetry">
                   <i data-lucide="trash-2"></i> CLEAR MEASUREMENTS
                 </button>
               </div>
@@ -1091,7 +1084,7 @@
                   </td>
                   <td><span class="risk-badge risk-low">LOW</span></td>
                   <td>Never pour boiling water directly into thin plastic PET containers. Let water settle to $80^\circ\text{C}$, and
-                    securely lock the digital wire thread to prevent hot leaks.</td>
+                    seal the lid and probe opening using the approved lab method, then leak-test before immersion.</td>
                 </tr>
               </tbody>
             </table>
@@ -1227,11 +1220,11 @@ padding-left:20px;
               <div class="sim-stat-box" style="text-align: left;">
                 <div class="sim-stat-title glow-orange">MATERIALS BUDGET</div>
                 <p class="step-desc" style="font-size: 0.8rem; margin-top: 5px;">
-                  • 4x Jars & PG7 Glands: ~11€<br>
+                  • 4x PET jars: confirm current supplier price<br>
                   • 4-pack Digital Probes: ~16€<br>
                   • Suit Insulation Pack: ~8€<br>
                   • Cold Testing Tub: ~5€<br>
-                  <strong>Estimated total: €40</strong> (excluding delivery and consumables)
+                  <strong>Estimated total:</strong> recalculate from current supplier quotes (excluding delivery and consumables)
                 </p>
               </div>
               <div class="sim-stat-box" style="text-align: left;">
@@ -1244,7 +1237,7 @@ padding-left:20px;
               <div class="sim-stat-box" style="text-align: left;">
                 <div class="sim-stat-title glow-green">CORE BENEFITS</div>
                 <p class="step-desc" style="font-size: 0.8rem; margin-top: 5px;">
-                  • PG7 glands provide a repeatable compression seal around the thermometer cable.<br>
+                  • A consistent probe depth and verified lid seal improve repeatability.<br>
                   • The modular configurations support comparative testing with a common boundary condition.
                 </p>
               </div>
@@ -1276,7 +1269,8 @@ padding-left:20px;
                   style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--text-normal); margin-left: 20px; line-height: 1.6;">
                   <li><strong>Minutes $0\text{--}10$ [Theory]:</strong> Review conduction, convection, radiation and the limitations of the water-bath analogue. Complete the concept check.</li>
                   <li><strong>Minutes $10\text{--}20$ [Explore]:</strong> Hand out insulation materials (cotton, bubble wrap,
-                    Mylar). Students wrap their PET jar cores and thread sensors through waterproof PG7 cable glands.
+                    Mylar). Students wrap their PET jar cores, insert the probes through the prepared lid openings, and
+                    complete the approved seal and leak test.
                   </li>
                   <li><strong>Minutes $20\text{--}25$ [Model]:</strong> Configure the analytical model and record the predicted temperature curve.</li>
                   <li><strong>Minutes $25\text{--}40$ [Explain/Telemetry]:</strong> Pour $80^\circ\text{C}$ hot water inside capsules, drop them
@@ -1301,7 +1295,7 @@ padding-left:20px;
                     • Bare Core: $k = 0.150\text{ min}^{-1}$ (approximately $8^\circ\text{C}$)</div>
                   <div
                     style="background: #ffffff; padding: 10px; border-radius: 6px; border: 1px solid #fed7aa; border-left: 4px solid var(--orange); color: #1e293b; font-weight: 600;">
-                    • Cotton Wrap: $k = 0.080\text{ min}^{-1}$ (approximately $24^\circ\text{C}$)</div>
+                    • Bubble Wrap: $k = 0.040\text{ min}^{-1}$ (approximately $44^\circ\text{C}$)</div>
                   <div
                     style="background: #ffffff; padding: 10px; border-radius: 6px; border: 1px solid #bae6fd; border-left: 4px solid var(--cyan); color: #1e293b; font-weight: 600;">
                     • Mylar Wrap: $k = 0.143\text{ min}^{-1}$ (approximately $9^\circ\text{C}$)</div>
@@ -1632,7 +1626,7 @@ padding-left:20px;
                 <label for="calc-tt"
                   style="font-family: var(--font-sans); font-size: 0.78rem; color: #0f172a; display: block; margin-bottom: 5px; font-weight: 700;">TEMP
                   AT TIME $t$, $T(t)$ ($^\circ\text{C}$):</label>
-                <input type="number" id="calc-tt" value="23.8" step="0.5" class="hud-input"
+                <input type="number" id="calc-tt" value="43.9" step="0.5" class="hud-input"
                   style="background: #fff; color: #0f172a; border: 2px solid #cbd5e1; border-radius: 10px;">
               </div>
               <div>
@@ -1650,12 +1644,12 @@ padding-left:20px;
               id="calc-output-box">
               <div style="font-weight: 700; color: #0284c7; margin-bottom: 8px;">CALCULATED RESULTS &amp; STEP-BY-STEP
                 BREAKDOWN:</div>
-              <div id="calc-step-1" style="margin-bottom: 4px;">$$\text{Temp Ratio} = \frac{23.8 - 0.0}{80.0 - 0.0} = 0.2975$$</div>
-              <div id="calc-step-2" style="margin-bottom: 4px;">$$\ln(0.2975) = -1.2123$$</div>
-              <div id="calc-step-3" style="font-weight: 800; font-size: 1rem; color: #0f172a; margin-top: 8px;">$$k = -\frac{-1.2123}{15} = 0.081\text{ min}^{-1}$$</div>
+              <div id="calc-step-1" style="margin-bottom: 4px;">$$\text{Temp Ratio} = \frac{43.9 - 0.0}{80.0 - 0.0} = 0.5488$$</div>
+              <div id="calc-step-2" style="margin-bottom: 4px;">$$\ln(0.5488) = -0.6003$$</div>
+              <div id="calc-step-3" style="font-weight: 800; font-size: 1rem; color: #0f172a; margin-top: 8px;">$$k = -\frac{-0.6003}{15} = 0.040\text{ min}^{-1}$$</div>
               <div id="calc-match-badge"
-                style="margin-top: 10px; display: inline-block; padding: 4px 12px; background: #e0f2fe; color: #0369a1; border-radius: 20px; font-weight: 700; font-family: var(--font-sans); font-size: 0.75rem;">
-                MATCHING MATERIAL: COTTON SHIELD ($k \approx 0.080\text{ min}^{-1}$)
+                style="margin-top: 10px; display: inline-block; padding: 4px 12px; background: #dcfce7; color: #15803d; border-radius: 20px; font-weight: 700; font-family: var(--font-sans); font-size: 0.75rem;">
+                MATCHING MATERIAL: BUBBLE-WRAP SHIELD ($k \approx 0.040\text{ min}^{-1}$)
               </div>
             </div>
 

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     selectedModel: 'bare',
     modelConstants: {
       bare: { name: 'Bare capsule (control)', k: 0.150, color: '#0284c7' },
-      cotton: { name: 'Cotton layer', k: 0.080, color: '#4facfe' },
+      bubble: { name: 'Bubble-wrap layer', k: 0.040, color: '#10b981' },
       mylar: { name: 'Reflective-film layer', k: 0.143, color: '#ff9f43' },
       mli: { name: 'Multilayer test assembly', k: 0.015, color: '#10b981' },
       custom: { name: 'Custom cooling constant', k: 0.050, color: '#a55eea' }
@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
     logTimeInput: document.getElementById('log-time'),
     logTempInput: document.getElementById('log-temp'),
     btnLogTelemetry: document.getElementById('btn-log-telemetry'),
+    measurementCollapseToggle: document.getElementById('measurement-collapse-toggle'),
+    measurementEntryContent: document.getElementById('measurement-entry-content'),
     btnAutofill: document.getElementById('btn-autofill'),
     btnClearTelemetry: document.getElementById('btn-clear-telemetry'),
     btnPrintTelemetry: document.getElementById('btn-print-telemetry'),
@@ -420,6 +422,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Keep the manual-entry tools available without permanently occupying the
+  // mobile screen when the user is primarily reviewing the chart and table.
+  if (elements.measurementCollapseToggle && elements.measurementEntryContent) {
+    const mobileMeasurementPanel = window.matchMedia('(max-width: 768px)');
+
+    const syncMeasurementCollapseAvailability = () => {
+      const isMobile = mobileMeasurementPanel.matches;
+      elements.measurementCollapseToggle.setAttribute('aria-disabled', String(!isMobile));
+      elements.measurementCollapseToggle.tabIndex = isMobile ? 0 : -1;
+
+      if (!isMobile) {
+        elements.measurementCollapseToggle.setAttribute('aria-expanded', 'true');
+        elements.measurementEntryContent.hidden = false;
+      }
+    };
+
+    elements.measurementCollapseToggle.addEventListener('click', () => {
+      if (!mobileMeasurementPanel.matches) return;
+      const isExpanded = elements.measurementCollapseToggle.getAttribute('aria-expanded') === 'true';
+      elements.measurementCollapseToggle.setAttribute('aria-expanded', String(!isExpanded));
+      elements.measurementEntryContent.hidden = isExpanded;
+      playClickSound();
+      lucide.createIcons();
+    });
+
+    mobileMeasurementPanel.addEventListener('change', syncMeasurementCollapseAvailability);
+    syncMeasurementCollapseAvailability();
+  }
+
   // Support direct links to a specific application section.
   const initialTarget = window.location.hash.replace('#', '');
   if (initialTarget && Array.from(elements.sections).some(section => section.id === initialTarget)) {
@@ -518,6 +549,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const temp = calculateNewtonTemperature(t, material.k);
       state.predictionCurve.push({ x: t, y: parseFloat(temp.toFixed(2)) });
     }
+
+    // Establish the configured start temperature as the first measurement.
+    // Re-running the model updates the t=0 entry instead of creating a duplicate.
+    const initialTemp = calculateNewtonTemperature(0, material.k);
+    const initialPointIndex = state.telemetryPoints.findIndex(point => Math.abs(point.time) < 0.01);
+    const initialPoint = { time: 0, temp: parseFloat(initialTemp.toFixed(2)) };
+    if (initialPointIndex === -1) {
+      state.telemetryPoints.push(initialPoint);
+    } else {
+      state.telemetryPoints[initialPointIndex] = initialPoint;
+    }
     
     // Update active badges
     elements.simBadge.textContent = `PREDICTION DEPLOYED: ${material.name.toUpperCase()}`;
@@ -531,6 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (telemetryChartInstance) {
       updateTelemetryChart();
     }
+    updateTelemetryTable();
     
     // Update system notifications
     elements.systemStatusDot.className = 'ticker-status-dot simulating';
@@ -924,8 +967,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tempInput: document.getElementById('modal-log-temp'),
     form: document.getElementById('epoch-modal-form'),
     btnClose: document.getElementById('btn-close-epoch-modal'),
-    btnSkip: document.getElementById('btn-modal-skip'),
-    btnOpen: document.getElementById('btn-open-epoch-modal')
+    btnSkip: document.getElementById('btn-modal-skip')
   };
 
   function openEpochModal(minsElapsed) {
@@ -973,19 +1015,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (epochModalElements.btnSkip) {
     epochModalElements.btnSkip.addEventListener('click', closeEpochModal);
   }
-  if (epochModalElements.btnOpen) {
-    epochModalElements.btnOpen.addEventListener('click', (e) => {
-      if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      playClickSound();
-      const elapsedSecs = state.timer.duration ? (state.timer.duration - state.timer.secondsRemaining) : 0;
-      const currentMins = parseFloat((elapsedSecs / 60).toFixed(1));
-      openEpochModal(currentMins);
-    });
-  }
-
   // Close modal on escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && epochModalElements.overlay && epochModalElements.overlay.style.display === 'flex') {
@@ -1125,46 +1154,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Export Telemetry as CSV file
-  const btnExportCsv = document.getElementById('btn-export-csv');
-  if (btnExportCsv) {
-    btnExportCsv.addEventListener('click', () => {
-      playClickSound();
-      if (!state.telemetryPoints || state.telemetryPoints.length === 0) {
-        showNotification("No Data To Export", "error");
-        alert("No measurement data are available to export. Record measurements or load the example data first.");
-        return;
-      }
-
-      const model = state.modelConstants[state.selectedModel] || { name: 'Unselected', k: 0 };
-      const tenvInput = elements.simTenv ? parseFloat(elements.simTenv.value) : 0.0;
-      const t0Input = elements.simT0 ? parseFloat(elements.simT0.value) : 80.0;
-      
-      let csvContent = "data:text/csv;charset=utf-8,";
-      csvContent += "SPHERE: Mission Control - Telemetry Logbook Export\n";
-      csvContent += `Selected Model,${model.name},k-Constant,${model.k.toFixed(3)}\n`;
-      csvContent += `Initial Temp (T0),${t0Input}°C,Environment Temp (T_env),${tenvInput}°C\n\n`;
-      csvContent += "Index,Time (min),Measured Temp (C),Predicted Temp (C),Difference (Delta T C)\n";
-
-      state.telemetryPoints.forEach((pt, idx) => {
-        const pred = calculateNewtonTemperature(pt.time, model.k);
-        const diff = (pt.temp - pred).toFixed(2);
-        csvContent += `${idx + 1},${pt.time.toFixed(1)},${pt.temp.toFixed(2)},${pred.toFixed(2)},${diff}\n`;
-      });
-
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", `sphere_telemetry_${state.selectedModel}_${Date.now()}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      logToConsole("SYS: Telemetry dataset exported as CSV file successfully.");
-      showNotification("CSV Exported", "success");
-    });
-  }
-
   // Print a clean report document instead of printing the Mission Control UI.
   function printTelemetryLogbook() {
     playClickSound();
@@ -1205,53 +1194,44 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    const printFrame = document.createElement('iframe');
-    printFrame.setAttribute('title', 'Telemetry logbook print document');
-    printFrame.setAttribute('aria-hidden', 'true');
-    Object.assign(printFrame.style, {
-      position: 'fixed',
-      right: '0',
-      bottom: '0',
-      width: '0',
-      height: '0',
-      border: '0',
-      visibility: 'hidden'
-    });
-    document.body.appendChild(printFrame);
+    // Print from the current document so iPad Safari keeps the button tap's user
+    // activation. Printing a hidden iframe after a timeout is ignored on iOS.
+    const existingReport = document.getElementById('telemetry-print-report');
+    if (existingReport) existingReport.remove();
 
-    const printDocument = printFrame.contentDocument;
-    printDocument.open();
-    printDocument.write(`<!doctype html>
-      <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <title>SPHERE Telemetry Logbook</title>
+    const printReport = document.createElement('div');
+    printReport.id = 'telemetry-print-report';
+    printReport.setAttribute('aria-hidden', 'true');
+    printReport.innerHTML = `
         <style>
+          #telemetry-print-report { display: none; }
+          @media print {
+            body.telemetry-printing > *:not(#telemetry-print-report) { display: none !important; }
+            #telemetry-print-report { display: block !important; }
+          }
           @page { size: A4 portrait; margin: 14mm; }
-          * { box-sizing: border-box; }
-          body { margin: 0; color: #0f172a; font-family: Arial, sans-serif; font-size: 10pt; }
-          header { border-bottom: 3px solid #0284c7; padding-bottom: 10px; margin-bottom: 14px; }
-          h1 { margin: 0 0 4px; color: #0369a1; font-size: 20pt; letter-spacing: .04em; }
-          .subtitle { color: #475569; font-size: 9pt; }
-          .meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
-          .meta div { border: 1px solid #cbd5e1; border-radius: 5px; padding: 8px 10px; }
-          .meta strong { display: block; color: #64748b; font-size: 7.5pt; letter-spacing: .06em; text-transform: uppercase; }
-          .meta span { display: block; margin-top: 3px; font-weight: 700; }
-          h2 { margin: 0 0 7px; color: #0f172a; font-size: 11pt; text-transform: uppercase; letter-spacing: .04em; }
-          .chart { break-inside: avoid; margin-bottom: 14px; }
-          .chart img { display: block; width: 100%; max-height: 90mm; object-fit: contain; border: 1px solid #cbd5e1; }
-          table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
-          thead { display: table-header-group; }
-          th { background: #e0f2fe; color: #075985; text-align: left; font-size: 7.5pt; }
-          th, td { border: 1px solid #cbd5e1; padding: 6px 7px; }
-          tbody tr:nth-child(even) { background: #f8fafc; }
-          tr { break-inside: avoid; }
-          .empty { padding: 18px; color: #64748b; text-align: center; font-style: italic; }
-          footer { margin-top: 10px; color: #64748b; font-size: 7.5pt; text-align: right; }
-          @media print { body { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+          #telemetry-print-report { color: #0f172a; font-family: Arial, sans-serif; font-size: 10pt; }
+          #telemetry-print-report * { box-sizing: border-box; }
+          #telemetry-print-report header { border-bottom: 3px solid #0284c7; padding-bottom: 10px; margin-bottom: 14px; }
+          #telemetry-print-report h1 { margin: 0 0 4px; color: #0369a1; font-size: 20pt; letter-spacing: .04em; }
+          #telemetry-print-report .subtitle { color: #475569; font-size: 9pt; }
+          #telemetry-print-report .meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+          #telemetry-print-report .meta div { border: 1px solid #cbd5e1; border-radius: 5px; padding: 8px 10px; }
+          #telemetry-print-report .meta strong { display: block; color: #64748b; font-size: 7.5pt; letter-spacing: .06em; text-transform: uppercase; }
+          #telemetry-print-report .meta span { display: block; margin-top: 3px; font-weight: 700; }
+          #telemetry-print-report h2 { margin: 0 0 7px; color: #0f172a; font-size: 11pt; text-transform: uppercase; letter-spacing: .04em; }
+          #telemetry-print-report .chart { break-inside: avoid; margin-bottom: 14px; }
+          #telemetry-print-report .chart img { display: block; width: 100%; max-height: 90mm; object-fit: contain; border: 1px solid #cbd5e1; }
+          #telemetry-print-report table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+          #telemetry-print-report thead { display: table-header-group; }
+          #telemetry-print-report th { background: #e0f2fe; color: #075985; text-align: left; font-size: 7.5pt; }
+          #telemetry-print-report th, #telemetry-print-report td { border: 1px solid #cbd5e1; padding: 6px 7px; }
+          #telemetry-print-report tbody tr:nth-child(even) { background: #f8fafc; }
+          #telemetry-print-report tr { break-inside: avoid; }
+          #telemetry-print-report .empty { padding: 18px; color: #64748b; text-align: center; font-style: italic; }
+          #telemetry-print-report footer { margin-top: 10px; color: #64748b; font-size: 7.5pt; text-align: right; }
+          @media print { #telemetry-print-report { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
         </style>
-      </head>
-      <body>
         <header>
           <h1>SPHERE TELEMETRY LOGBOOK</h1>
           <div class="subtitle">Thermal Lab · Model and Measurement Report</div>
@@ -1272,22 +1252,23 @@ document.addEventListener('DOMContentLoaded', () => {
             <tbody>${rows}</tbody>
           </table>
         </section>
-        <footer>Generated ${reportDate}</footer>
-      </body>
-      </html>`);
-    printDocument.close();
+        <footer>Generated ${reportDate}</footer>`;
+    document.body.appendChild(printReport);
+    document.body.classList.add('telemetry-printing');
 
-    const removePrintFrame = () => {
-      window.setTimeout(() => printFrame.remove(), 500);
+    let cleanedUp = false;
+    const removePrintReport = () => {
+      if (cleanedUp) return;
+      cleanedUp = true;
+      document.body.classList.remove('telemetry-printing');
+      printReport.remove();
+      window.removeEventListener('afterprint', removePrintReport);
     };
-    printFrame.contentWindow.addEventListener('afterprint', removePrintFrame, { once: true });
+    window.addEventListener('afterprint', removePrintReport, { once: true });
 
-    // Give the chart image and print document a moment to finish rendering.
-    window.setTimeout(() => {
-      printFrame.contentWindow.focus();
-      printFrame.contentWindow.print();
-      window.setTimeout(removePrintFrame, 60000);
-    }, 250);
+    // Keep this synchronous with the click handler. That is required for iPadOS.
+    window.print();
+    window.setTimeout(removePrintReport, 60000);
   }
 
   if (elements.btnPrintTelemetry) {
@@ -1617,14 +1598,14 @@ document.addEventListener('DOMContentLoaded', () => {
       let badgeBg = "#e0f2fe";
       let badgeColor = "#0369a1";
 
-      if (kVal <= 0.0475) {
+      if (kVal <= 0.0275) {
         material = "FULL MLI SPACESUIT ($k \\approx 0.015\\text{ min}^{-1}$)";
         badgeBg = "#dcfce7";
         badgeColor = "#15803d";
-      } else if (kVal <= 0.1115) {
-        material = "COTTON CONDUCTION SHIELD ($k \\approx 0.080\\text{ min}^{-1}$)";
-        badgeBg = "#e0f2fe";
-        badgeColor = "#0369a1";
+      } else if (kVal <= 0.0915) {
+        material = "BUBBLE-WRAP SHIELD ($k \\approx 0.040\\text{ min}^{-1}$)";
+        badgeBg = "#dcfce7";
+        badgeColor = "#15803d";
       } else if (kVal <= 0.1465) {
         material = "MYLAR RADIATION SHIELD ($k \\approx 0.143\\text{ min}^{-1}$)";
         badgeBg = "#fef3c7";

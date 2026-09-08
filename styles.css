@@ -1156,6 +1156,62 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 10px;
 }
 
+/* Collapsible measurement entry panel */
+.measurement-collapse-toggle {
+  width: 100%;
+  padding: 0 0 12px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #e2e8f0;
+  border-radius: 0;
+  font: inherit;
+  text-align: left;
+  cursor: default;
+}
+
+.measurement-collapse-toggle:focus-visible {
+  outline: 3px solid rgba(2, 132, 199, 0.25);
+  outline-offset: 4px;
+}
+
+.measurement-collapse-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.measurement-collapse-icon {
+  display: none;
+  width: 18px;
+  height: 18px;
+  color: #0284c7;
+  transition: transform var(--transition-fast);
+}
+
+.measurement-collapse-toggle[aria-expanded="false"] {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom-color: transparent;
+}
+
+.measurement-collapse-toggle[aria-expanded="false"] .measurement-collapse-icon {
+  transform: rotate(180deg);
+}
+
+/* Compact table actions */
+.telemetry-action-bar {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.telemetry-action-bar .telemetry-action-btn {
+  width: auto;
+}
+
 /* Live Terminal Logging Box */
 .terminal-console {
   background: rgba(0, 0, 0, 0.85);
@@ -2669,6 +2725,33 @@ h1, h2, h3, h4, h5, h6 {
   .panel-header {
     gap: 6px;
     margin-bottom: 16px;
+  }
+
+  .measurement-collapse-toggle {
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+  }
+
+  .measurement-collapse-icon {
+    display: block;
+  }
+
+  .telemetry-action-bar {
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .telemetry-action-bar .telemetry-action-btn {
+    min-height: 34px;
+    padding: 7px 12px;
+    gap: 6px;
+    font-size: 0.74rem;
+  }
+
+  .telemetry-action-bar .telemetry-action-btn svg {
+    width: 16px;
+    height: 16px;
   }
 
   .panel-title,
