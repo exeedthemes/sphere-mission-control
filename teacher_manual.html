@@ -128,17 +128,6 @@
       align-items: center;
     }
 
-    .nav-btn-alt {
-      color: #0284c7;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .nav-btn-alt:hover {
-      color: #7dd3fc;
-    }
-
     .nav-btn-pdf {
       background: rgba(251, 191, 36, 0.15);
       color: #fbbf24;
@@ -338,6 +327,32 @@
       background: var(--bg-subtle);
     }
 
+    /* Complete reference-model curve comparison */
+    .prediction-figure {
+      margin: 28px 0 18px;
+      padding: 16px;
+      background: #ffffff;
+      border: 2px solid var(--dark-navy);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+      text-align: center;
+    }
+
+    .prediction-figure svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .prediction-figure figcaption {
+      margin-top: 10px;
+      color: var(--text-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
     /* Answer Key Solutions Block */
     .answer-key-card {
       background: #ffffff;
@@ -372,53 +387,6 @@
       line-height: 1.6;
     }
 
-    /* Print & Action Buttons */
-    .action-bar {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 30px;
-      flex-wrap: wrap;
-    }
-
-    .btn-action {
-      font-family: var(--font-hud);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 8px 18px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .btn-primary {
-      background: var(--primary-amber);
-      color: #ffffff;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-amber-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(217, 119, 6, 0.3);
-    }
-
-    .btn-secondary {
-      background: var(--accent-blue);
-      color: #ffffff;
-    }
-
-    .btn-secondary:hover {
-      background: var(--accent-blue-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);
-    }
-
     .doc-footer {
       text-align: center;
       margin-top: 45px;
@@ -446,8 +414,6 @@
       .callout-box, .answer-key-card, .solution-item { padding: 16px; }
       .styled-table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
       .styled-table th, .styled-table td { min-width: 130px; padding: 9px; }
-      .action-bar { align-items: stretch; flex-direction: column; gap: 8px; }
-      .btn-action { width: 100%; min-height: 40px; padding: 9px 12px; justify-content: center; text-align: center; font-size: 0.75rem; }
       .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
     }
 
@@ -470,7 +436,7 @@
         print-color-adjust: exact;
       }
 
-      .doc-nav, .no-print, .action-bar {
+      .doc-nav, .no-print {
         display: none !important;
       }
 
@@ -573,11 +539,36 @@
         color: #1e293b !important;
       }
 
+      #section-4 {
+        break-inside: auto;
+        page-break-inside: auto;
+      }
+
+      .prediction-figure {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin: 14pt 0 10pt !important;
+        padding: 8pt !important;
+        border: 1.5pt solid #0f172a !important;
+        border-radius: 6pt !important;
+        box-shadow: none !important;
+      }
+
+      .prediction-figure figcaption {
+        margin-top: 6pt !important;
+        font-size: 7.5pt !important;
+      }
+
       /* Let the long answer key flow naturally while keeping each answer intact. */
       #section-5,
       #section-5 .answer-key-card {
         break-inside: auto !important;
         page-break-inside: auto !important;
+      }
+
+      #section-5 {
+        break-before: page;
+        page-break-before: always;
       }
 
       #section-5 .answer-key-card {
@@ -591,8 +582,14 @@
       }
 
       #section-5 .q7-solution {
+        break-before: auto;
+        page-break-before: auto;
+      }
+
+      #section-5 .q8-solution {
         break-before: page;
         page-break-before: always;
+        margin-top: 12pt !important;
       }
 
       #section-6 {
@@ -622,16 +619,7 @@
         <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> MISSION CONTROL CONSOLE
       </a>
       <div class="nav-actions">
-        <a href="flashcards.html" target="_blank" rel="noopener" class="nav-btn-pdf" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: #f59e0b;">
-          <i data-lucide="layers" style="width: 16px; height: 16px;"></i> FLASHCARDS (PDF)
-        </a>
-        <a href="student_manual.html" class="nav-btn-alt">
-          <i data-lucide="book-open" style="width: 16px; height: 16px;"></i> STUDENT MANUAL
-        </a>
-        <a href="student_task_sheet.html" target="_blank" rel="noopener" class="nav-btn-alt" style="color: #0284c7;">
-          <i data-lucide="file-spreadsheet" style="width: 16px; height: 16px;"></i> 2-PAGE TASK SHEET
-        </a>
-        <a href="SPHERE_Mission_Control_Teacher_Manual.pdf" target="_blank" rel="noopener" class="nav-btn-pdf">
+        <a href="SPHERE_Mission_Control_Teacher_Manual.pdf" download="SPHERE_Mission_Control_Teacher_Manual.pdf" class="nav-btn-pdf">
           <i data-lucide="file-text" style="width: 16px; height: 16px;"></i> DOWNLOAD PDF
         </a>
       </div>
@@ -753,7 +741,7 @@
           <tr>
             <td><strong>A. Bare Control</strong></td>
             <td>$k \approx 0.150\text{ min}^{-1}$</td>
-            <td>$8.0^\circ\text{C}\text{--}12.0^\circ\text{C}$</td>
+            <td>$\approx 8.4^\circ\text{C}$</td>
             <td>Rapid heat loss through unshielded conduction into water and internal liquid circulation.</td>
           </tr>
           <tr>
@@ -764,8 +752,8 @@
           </tr>
           <tr>
             <td><strong>C. Mylar Foil</strong></td>
-            <td>$k \approx 0.143\text{ min}^{-1}$</td>
-            <td>$\approx 9.4^\circ\text{C}$</td>
+            <td>$k \approx 0.115\text{ min}^{-1}$</td>
+            <td>$\approx 14.3^\circ\text{C}$</td>
             <td>Reflective film is highly sensitive to conductive contact and leakage in the water-bath setup.</td>
           </tr>
           <tr>
@@ -776,7 +764,71 @@
           </tr>
         </tbody>
       </table>
-      <p><strong>Optional extension:</strong> A cotton-only configuration may be added as a fifth trial when time permits.</p>
+
+      <figure class="prediction-figure">
+        <svg viewBox="0 0 760 330" role="img" aria-labelledby="prediction-curves-title prediction-curves-desc">
+          <title id="prediction-curves-title">Predicted temperature curves for all four reference configurations</title>
+          <desc id="prediction-curves-desc">Line chart from zero to fifteen minutes showing the bare control, bubble wrap, reflective film and multilayer assembly predictions calculated from Newton's law of cooling.</desc>
+
+          <text x="380" y="22" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="800" fill="#0f172a">ALL REFERENCE-MODEL PREDICTIONS</text>
+
+          <!-- Plot background and grid -->
+          <rect x="80" y="40" width="600" height="200" fill="#f8fafc" stroke="#0f172a" stroke-width="1.5"/>
+          <g stroke="#cbd5e1" stroke-width="1">
+            <line x1="80" y1="40" x2="680" y2="40"/>
+            <line x1="80" y1="90" x2="680" y2="90"/>
+            <line x1="80" y1="140" x2="680" y2="140"/>
+            <line x1="80" y1="190" x2="680" y2="190"/>
+            <line x1="80" y1="240" x2="680" y2="240"/>
+            <line x1="80" y1="40" x2="80" y2="240"/>
+            <line x1="200" y1="40" x2="200" y2="240"/>
+            <line x1="320" y1="40" x2="320" y2="240"/>
+            <line x1="440" y1="40" x2="440" y2="240"/>
+            <line x1="560" y1="40" x2="560" y2="240"/>
+            <line x1="680" y1="40" x2="680" y2="240"/>
+          </g>
+
+          <!-- Axes and tick labels -->
+          <g font-family="sans-serif" font-size="10" fill="#334155">
+            <text x="68" y="44" text-anchor="end">80</text>
+            <text x="68" y="94" text-anchor="end">60</text>
+            <text x="68" y="144" text-anchor="end">40</text>
+            <text x="68" y="194" text-anchor="end">20</text>
+            <text x="68" y="244" text-anchor="end">0</text>
+            <text x="80" y="258" text-anchor="middle">0</text>
+            <text x="200" y="258" text-anchor="middle">3</text>
+            <text x="320" y="258" text-anchor="middle">6</text>
+            <text x="440" y="258" text-anchor="middle">9</text>
+            <text x="560" y="258" text-anchor="middle">12</text>
+            <text x="680" y="258" text-anchor="middle">15</text>
+          </g>
+          <text x="380" y="280" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">Elapsed time, t (min)</text>
+          <text x="20" y="140" text-anchor="middle" transform="rotate(-90 20 140)" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">Predicted temperature, T(t) (°C)</text>
+
+          <!-- Exact one-minute model samples joined as four complete curves -->
+          <polyline points="80,40 120,67.9 160,91.8 200,112.5 240,130.2 280,145.5 320,158.7 360,170 400,179.8 440,188.2 480,195.4 520,201.6 560,206.9 600,211.5 640,215.5 680,218.9" fill="none" stroke="#0369a1" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <polyline points="80,40 120,47.8 160,55.4 200,62.6 240,69.6 280,76.3 320,82.7 360,88.8 400,94.8 440,100.5 480,105.9 520,111.2 560,116.2 600,121.1 640,125.8 680,130.2" fill="none" stroke="#15803d" stroke-width="3" stroke-dasharray="10 5" stroke-linejoin="round" stroke-linecap="round"/>
+          <polyline points="80,40 120,66.6 160,89.7 200,109.8 240,127.1 280,142.2 320,155.2 360,166.5 400,176.3 440,184.8 480,192.1 520,198.5 560,204 600,208.8 640,213 680,216.6" fill="none" stroke="#c2410c" stroke-width="3" stroke-dasharray="3 5" stroke-linejoin="round" stroke-linecap="round"/>
+          <polyline points="80,40 120,43 160,45.9 200,48.8 240,51.6 280,54.5 320,57.2 360,59.9 400,62.6 440,65.3 480,67.9 520,70.4 560,72.9 600,75.4 640,77.9 680,80.3" fill="none" stroke="#7e22ce" stroke-width="3" stroke-dasharray="12 4 3 4" stroke-linejoin="round" stroke-linecap="round"/>
+
+          <!-- Legend; line patterns also distinguish curves in greyscale printing -->
+          <g font-family="sans-serif" font-size="9.5" font-weight="700" fill="#0f172a">
+            <line x1="45" y1="307" x2="77" y2="307" stroke="#0369a1" stroke-width="3"/>
+            <text x="83" y="310">Bare, k=0.150</text>
+            <line x1="220" y1="307" x2="252" y2="307" stroke="#15803d" stroke-width="3" stroke-dasharray="10 5"/>
+            <text x="258" y="310">Bubble, k=0.040</text>
+            <line x1="404" y1="307" x2="436" y2="307" stroke="#c2410c" stroke-width="3" stroke-dasharray="3 5"/>
+            <text x="442" y="310">Reflective, k=0.115</text>
+            <line x1="592" y1="307" x2="624" y2="307" stroke="#7e22ce" stroke-width="3" stroke-dasharray="12 4 3 4"/>
+            <text x="630" y="310">Multilayer, k=0.015</text>
+          </g>
+        </svg>
+        <figcaption>
+          FIGURE 1: COMPLETE 0-15 MIN PREDICTION SET FOR $T_0=80.0^\circ\text{C}$ AND $T_{\text{env}}=0.0^\circ\text{C}$. Curves use one-minute samples of $T(t)=T_{\text{env}}+(T_0-T_{\text{env}})e^{-kt}$; line patterns remain distinguishable in greyscale.
+        </figcaption>
+      </figure>
+
+      <p><strong>Custom mode:</strong> Mission Control also provides an adjustable $k$ value for inquiry work. It is not shown as a fixed reference curve because its prediction changes with the instructor's selected value. <strong>Optional extension:</strong> A cotton-only configuration may be added as a fifth physical trial when time permits.</p>
     </section>
 
     <!-- SECTION 5: OFFICIAL QUESTION SHEET SOLUTIONS KEY (Q1 - Q8) -->
@@ -789,9 +841,16 @@
           <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--dark-navy); font-weight: bold;">ANSWER KEY</span>
         </div>
 
+        <p style="margin-bottom: 16px;">
+          This key covers the eight-question extended reflection set in the student manual. The standalone task sheet
+          contains six condensed practical inquiries. The separate 10-item online knowledge check auto-scores nine
+          multiple-choice items; its Question 4 requires instructor review and is excluded from the automatic percentage.
+          Online key: Q1 B, Q2 B, Q3 A, Q5 B, Q6 A, Q7 A, Q8 A, Q9 B, Q10 A.
+        </p>
+
         <!-- Q1 Solution -->
         <div class="solution-item">
-          <div class="solution-title">Question 1: Why doesn't Mylar foil work by itself in cold water?</div>
+          <div class="solution-title">Question 1: Why can reflective film provide limited insulation in direct water contact?</div>
           <div class="solution-body">
             <strong>Sample answer:</strong> A reflective film can reduce radiative exchange, but it has little thickness
             and therefore provides limited resistance to conduction when it is in direct contact with the capsule and
@@ -861,19 +920,19 @@
         <div class="solution-item q7-solution">
           <div class="solution-title">Question 7: Spacesuit Design Trade-Offs</div>
           <div class="solution-body">
-            <strong>Sample Answer:</strong> You can't just add 50 layers because the spacesuit would become too heavy, bulky, and stiff. Astronauts wouldn't be able to bend their elbows or fingers during a 7-hour spacewalk. Also, human bodies generate lots of body heat when working hard - too much insulation would trap that heat and cause dangerous overheating without heavy water-cooling systems.
+            <strong>Sample Answer:</strong> You can't simply keep adding layers because the spacesuit would become heavier, bulkier and stiffer, reducing joint mobility during a long spacewalk. The astronaut also generates metabolic heat, so the thermal-control system must reject heat as well as limit heat loss.
             <br><em style="color: var(--text-subtle);">Grading Tip: Accept answers discussing joint flexibility/mobility, suit weight/bulk, or body heat buildup.</em>
           </div>
         </div>
 
         <!-- Q8 Solution -->
-        <div class="solution-item">
+        <div class="solution-item q8-solution">
           <div class="solution-title">Question 8: How can the MAE be reduced?</div>
           <div class="solution-body">
             <strong>Sample Answer:</strong>
             <ol style="margin: 4px 0 0 0; padding-left: 20px;">
               <li>Use a consistent lid-sealing method and leak-test the capsule before immersion.</li>
-              <li>Position the probe consistently near the centre of the liquid without contacting the wall ($\pm 0.5^\circ\text{C}$).</li>
+              <li>Position the probe consistently near the centre of the liquid without contacting the wall; use a thermometer with documented accuracy (e.g. $\pm 0.5^\circ\text{C}$).</li>
               <li>Swirl the jar gently before reading to keep the water mixed evenly.</li>
               <li>Take readings at consistent recorded times ($\text{MAE} = \frac{1}{n}\sum_{i=1}^n |T_{\text{obs},i} - T_{\text{model},i}|$).</li>
             </ol>
@@ -917,19 +976,6 @@
         </tbody>
       </table>
     </section>
-
-    <!-- ACTION BUTTONS -->
-    <div class="action-bar no-print">
-      <a href="flashcards.html" target="_blank" rel="noopener" class="btn-action" style="background: #f59e0b; color: #ffffff; text-decoration: none;">
-        <i data-lucide="layers"></i> PRINTABLE FLASHCARDS (PDF)
-      </a>
-      <a href="SPHERE_Mission_Control_Teacher_Manual.pdf" download="SPHERE_Mission_Control_Teacher_Manual.pdf" class="btn-action btn-primary" style="text-decoration:none;">
-        <i data-lucide="download"></i> DOWNLOAD TEACHER MANUAL (PDF)
-      </a>
-      <a href="student_manual.html" class="btn-action btn-secondary">
-        <i data-lucide="book-open"></i> VIEW STUDENT MANUAL
-      </a>
-    </div>
 
     <!-- FOOTER -->
     <footer class="doc-footer">

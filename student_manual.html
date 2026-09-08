@@ -129,17 +129,6 @@
       align-items: center;
     }
 
-    .nav-btn-alt {
-      color: #fbbf24;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .nav-btn-alt:hover {
-      color: #fde047;
-    }
-
     .nav-btn-pdf {
       background: rgba(2, 132, 199, 0.15);
       color: #0284c7;
@@ -582,53 +571,6 @@
       line-height: 1.45;
     }
 
-    /* Print & Action Buttons */
-    .action-bar {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 30px;
-      flex-wrap: wrap;
-    }
-
-    .btn-action {
-      font-family: var(--font-hud);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 8px 18px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    .btn-primary {
-      background: var(--primary-blue);
-      color: #ffffff;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);
-    }
-
-    .btn-secondary {
-      background: var(--accent-amber);
-      color: #ffffff;
-    }
-
-    .btn-secondary:hover {
-      background: var(--accent-amber-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(217, 119, 6, 0.3);
-    }
-
     .doc-footer {
       text-align: center;
       margin-top: 45px;
@@ -737,21 +679,6 @@
         padding: 9px;
       }
 
-      .action-bar {
-        align-items: stretch;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .btn-action {
-        width: 100%;
-        min-height: 40px;
-        padding: 9px 12px;
-        justify-content: center;
-        text-align: center;
-        font-size: 0.75rem;
-      }
-
       .katex-display,
       .formula-math-box {
         max-width: 100%;
@@ -781,7 +708,6 @@
 
       .doc-nav,
       .no-print,
-      .action-bar,
       .flashcard-grid,
       .hero-banner {
         display: none !important;
@@ -962,6 +888,16 @@
         margin-top: 0 !important;
       }
 
+      /* Keep the eight reflection prompts intact across two printable pages. */
+      #section-7 .question-block {
+        margin-bottom: 8pt !important;
+        padding: 10pt !important;
+      }
+
+      #section-7 .answer-space {
+        min-height: 48pt !important;
+      }
+
       .doc-footer {
         break-inside: avoid;
         page-break-inside: avoid;
@@ -984,18 +920,7 @@
         <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> MISSION CONTROL CONSOLE
       </a>
       <div class="nav-actions">
-        <a href="flashcards.html" target="_blank" rel="noopener" class="nav-btn-pdf"
-          style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: #f59e0b;">
-          <i data-lucide="layers" style="width: 16px; height: 16px;"></i> FLASHCARDS (PDF)
-        </a>
-        <a href="teacher_manual.html" class="nav-btn-alt">
-          <i data-lucide="graduation-cap" style="width: 16px; height: 16px;"></i> INSTRUCTOR GUIDE &amp; SOLUTIONS
-        </a>
-        <a href="student_task_sheet.html" target="_blank" rel="noopener" class="nav-btn-pdf"
-          style="background: rgba(2, 132, 199, 0.15); color: #0284c7; border-color: #0284c7;">
-          <i data-lucide="file-spreadsheet" style="width: 16px; height: 16px;"></i> 2-PAGE TASK SHEET
-        </a>
-        <a href="SPHERE_Mission_Control_Student_Manual.pdf" target="_blank" rel="noopener" class="nav-btn-pdf">
+        <a href="SPHERE_Mission_Control_Student_Manual.pdf" download="SPHERE_Mission_Control_Student_Manual.pdf" class="nav-btn-pdf">
           <i data-lucide="file-text" style="width: 16px; height: 16px;"></i> DOWNLOAD PDF
         </a>
       </div>
@@ -1279,7 +1204,7 @@
           <p>Two even layers of bubble wrap. Sealed air cells reduce fluid motion and slow heat transfer.</p>
         </div>
         <div class="insulation-card">
-          <h4>C. MYLAR FOIL <span class="k-tag">$k \approx 0.143\text{ min}^{-1}$</span></h4>
+          <h4>C. MYLAR FOIL <span class="k-tag">$k \approx 0.115\text{ min}^{-1}$</span></h4>
           <p>Shiny emergency blanket. Reflects radiant thermal infrared waves back toward the hot water.</p>
         </div>
         <div class="insulation-card">
@@ -1489,13 +1414,6 @@
 
     <!-- SECTION 6: STUDENT TASK SHEET -->
     <section class="doc-section" id="section-6">
-      <div style="text-align: center; margin-bottom: 20px;" class="no-print">
-        <a href="student_task_sheet.html" target="_blank" rel="noopener" class="btn-action btn-primary"
-          style="text-decoration:none; background: #0284c7; font-size: 0.8rem; padding: 9px 20px;">
-          <i data-lucide="printer" style="width: 16px; height: 16px;"></i> OPEN &amp; PRINT 2-PAGE TASK SHEET (PDF
-          READY)
-        </a>
-      </div>
       <div class="worksheet-card" id="task-sheet">
         <div class="worksheet-header">
           <span class="worksheet-title"><i data-lucide="clipboard-list" style="vertical-align: middle;"></i> SECTION 6:
@@ -1750,11 +1668,16 @@
     <section class="doc-section" id="section-7">
       <h2><i data-lucide="help-circle"></i> 7. LAB ANALYSIS &amp; REFLECTION QUESTIONS</h2>
 
+      <p style="font-size: 0.9rem; margin-bottom: 14px;">
+        This is the eight-question extended reflection set. The separate two-page task sheet contains six condensed
+        practical inquiries, while Mission Control provides a separate 10-item online knowledge check.
+      </p>
+
       <div class="question-block">
-        <div class="question-title">Question 1: Why doesn't shiny Mylar foil work by itself in cold water?</div>
+        <div class="question-title">Question 1: Why can reflective film provide limited insulation in direct water contact?</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          Mylar is famous for reflecting heat radiation in space. Why did Mylar alone perform poorly when dipped
-          directly into the ice water bath ($0.0^\circ\text{C}$) without cotton or bubble wrap underneath?
+          Reflective film can reduce radiative exchange when it faces a suitable gap. Explain why it may provide limited
+          insulation when placed in direct contact with the capsule and ice-water bath without a low-conductivity spacer.
         </p>
         <div class="answer-space"></div>
       </div>
@@ -1771,8 +1694,8 @@
       <div class="question-block">
         <div class="question-title">Question 3: How does Multi-Layer Insulation (MLI) work together?</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          Explain how combining Cotton + Bubble Wrap + Mylar in Configuration D ($k \approx 0.015\text{ min}^{-1}$)
-          creates a team effect that works far better than any single layer alone.
+          Explain how cotton, bubble wrap and reflective film can provide complementary thermal resistances in
+          Configuration D. Treat $k \approx 0.015\text{ min}^{-1}$ as an assumed reference value to test, not a guaranteed result.
         </p>
         <div class="answer-space"></div>
       </div>
@@ -1789,7 +1712,7 @@
       <div class="question-block">
         <div class="question-title">Question 5: What happens if your ice bath warms up?</div>
         <p style="font-size: 0.9rem; margin-bottom: 6px;">
-          If your classroom ice bath warms from $0.0^\circ\text{C}$ to $4.0^\circ\text{C}$ while testing, what should
+          If your classroom ice bath warms from $0.0^\circ\text{C}$ to $4.5^\circ\text{C}$ while testing, what should
           you change in the Mission Control simulator so the prediction ($T_{\text{env}}$) stays accurate?
         </p>
         <div class="answer-space"></div>
@@ -1828,13 +1751,8 @@
       <div
         style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
         <h2 style="margin: 0;"><i data-lucide="sparkles"></i> INTERACTIVE STUDY HUB &amp; REVISION CARDS</h2>
-        <a href="flashcards.html" target="_blank" rel="noopener" class="nav-btn-pdf"
-          style="background: #0284c7; color: #ffffff; border-color: #0284c7; text-decoration: none; padding: 5px 12px; font-size: 0.74rem; display: inline-flex; align-items: center; gap: 5px;">
-          <i data-lucide="printer" style="width: 14px; height: 14px;"></i> OPEN &amp; PRINT FLASHCARD DECK (PDF)
-        </a>
       </div>
-      <p style="font-size: 0.9rem;">Click any card below to flip and test your knowledge, or open the printable 16-card
-        cutout deck:</p>
+      <p style="font-size: 0.9rem;">Click any card below to flip and test your knowledge:</p>
 
       <div class="flashcard-grid">
         <!-- 1 -->
@@ -1974,17 +1892,6 @@
         </div>
       </div>
     </section>
-
-    <!-- ACTION BUTTONS -->
-    <div class="action-bar no-print">
-      <a href="SPHERE_Mission_Control_Student_Manual.pdf" download="SPHERE_Mission_Control_Student_Manual.pdf"
-        class="btn-action btn-primary" style="text-decoration:none;">
-        <i data-lucide="download"></i> DOWNLOAD STUDENT MANUAL (PDF)
-      </a>
-      <a href="teacher_manual.html" class="btn-action btn-secondary">
-        <i data-lucide="graduation-cap"></i> VIEW TEACHER ANSWER KEY
-      </a>
-    </div>
 
     <!-- FOOTER -->
     <footer class="doc-footer">

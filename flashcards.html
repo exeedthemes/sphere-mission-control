@@ -609,42 +609,11 @@
       </a>
       
       <div class="nav-actions">
-        <a href="student_task_sheet.html" class="nav-btn-link">
-          <i data-lucide="file-spreadsheet" style="width:14px; height:14px;"></i> TASK SHEET (PDF)
-        </a>
-        <a href="student_manual.html" class="nav-btn-link">
-          <i data-lucide="book-open" style="width:14px; height:14px;"></i> STUDENT MANUAL
-        </a>
-        <a href="teacher_manual.html" class="nav-btn-link">
-          <i data-lucide="graduation-cap" style="width:14px; height:14px;"></i> TEACHER MANUAL
-        </a>
-        <a href="SPHERE_Mission_Control_Flashcards.pdf" download="SPHERE_Mission_Control_Flashcards.pdf" class="nav-btn-link" style="color:#38bdf8; border-color:#0284c7; background:rgba(2,132,199,0.15);">
-          <i data-lucide="download" style="width:14px; height:14px;"></i> DOWNLOAD PDF FILE
-        </a>
         <button type="button" onclick="window.print()" class="nav-btn-print">
           <i data-lucide="printer" style="width:16px; height:16px;"></i> PRINT / EXPORT PDF
         </button>
       </div>
     </header>
-
-    <!-- Screen Hero Banner (Screen Only) -->
-    <div class="hero-banner no-print">
-      <div>
-        <div class="hero-title"><i data-lucide="layers"></i> THERMAL ENGINEERING REVISION CARDS</div>
-        <div class="hero-desc">
-          Sixteen printable question-and-answer cards covering the model, experiment, heat-transfer mechanisms and data analysis.
-        </div>
-      </div>
-      <div class="print-instructions-box">
-        <strong><i data-lucide="scissors" style="width:14px; height:14px; display:inline;"></i> PRINTING INSTRUCTIONS:</strong>
-        <ul>
-          <li>Click <strong>Print / Export PDF</strong> (or <code>Ctrl+P</code> / <code>Cmd+P</code>).</li>
-          <li>Set destination to <strong>Save as PDF</strong> or select your printer.</li>
-          <li>Paper Size: <strong>A4</strong> or <strong>Letter</strong>, Scale: <strong>Default (100%)</strong>.</li>
-          <li>Cut along the dashed border, fold along the center blue dotted line, and glue/tape!</li>
-        </ul>
-      </div>
-    </div>
 
     <!-- ==========================================================================
          PAGE 1: CORE THERMODYNAMICS & COOLING LAWS
@@ -749,7 +718,7 @@
                 </div>
                 <div class="card-header-line">
                   <div class="card-icon"><i data-lucide="award" style="width:16px; height:16px;"></i></div>
-                  <h3 class="card-title">CAPSULE B (k = 0.015)</h3>
+                  <h3 class="card-title">LOWER-k CAPSULE (k = 0.015)</h3>
                 </div>
                 <div class="card-answer">
                   <strong>Answer:</strong> For a lumped system, $k = \frac{hA}{mc}$ is an effective cooling constant. Under comparable conditions, a smaller $k$ means a slower approach to the ambient temperature.
@@ -851,12 +820,12 @@
                   <h3 class="card-title">EQUAL TEMPERATURES</h3>
                 </div>
                 <div class="card-answer">
-                  <strong>Answer:</strong> When $T_{\text{capsule}} = T_{\text{env}} = 0^\circ\text{C}$. At this point, temperature gradient $\Delta T = 0$, so $\frac{dQ}{dt} = 0$. Governed by the <strong>Zeroth Law of Thermodynamics</strong>.
+                  <strong>Answer:</strong> When $T_{\text{capsule}} = T_{\text{env}}$. For the nominal ice bath this limit is $0^\circ\text{C}$, but the measured bath temperature should be used. With no temperature difference, there is no net heat transfer between them.
                 </div>
               </div>
               <div class="card-footer-strip">
                 <span class="card-side-tag">BACK: REVEAL &amp; LAW</span>
-                <span>Net ΔQ = 0 Joules</span>
+                <span>Net heat-transfer rate = 0</span>
               </div>
             </div>
           </div>
@@ -977,12 +946,12 @@
                   <h3 class="card-title">INFRARED REFLECTANCE</h3>
                 </div>
                 <div class="card-answer">
-                  <strong>Answer:</strong> Mylar's vapor-deposited aluminum coating has high reflectivity ($>90\%$) and very low emissivity ($\epsilon < 0.05$), bouncing infrared rays back like an optical mirror.
+                  <strong>Answer:</strong> An aluminized reflective film can have high infrared reflectance and low emissivity. Its performance depends on the specific product, surface condition and whether it faces a suitable gap; it is not a substitute for conductive insulation in direct water contact.
                 </div>
               </div>
               <div class="card-footer-strip">
                 <span class="card-side-tag">BACK: REVEAL &amp; LAW</span>
-                <span>Reflects >90% IR heat</span>
+                <span>Verify product optical properties</span>
               </div>
             </div>
           </div>
@@ -1030,7 +999,7 @@
               </div>
               <div class="card-footer-strip">
                 <span class="card-side-tag">BACK: REVEAL &amp; LAW</span>
-                <span>Rayleigh convection stopped</span>
+                <span>Low gas conduction + suppressed circulation</span>
               </div>
             </div>
           </div>

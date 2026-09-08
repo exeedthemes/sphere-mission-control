@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modelConstants: {
       bare: { name: 'Bare capsule (control)', k: 0.150, color: '#0284c7' },
       bubble: { name: 'Bubble-wrap layer', k: 0.040, color: '#10b981' },
-      mylar: { name: 'Reflective-film layer', k: 0.143, color: '#ff9f43' },
+      mylar: { name: 'Reflective-film layer', k: 0.115, color: '#ff9f43' },
       mli: { name: 'Multilayer test assembly', k: 0.015, color: '#10b981' },
       custom: { name: 'Custom cooling constant', k: 0.050, color: '#a55eea' }
     },
@@ -1376,7 +1376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isCorrect3 = q3 === 'convection';
     
     if (isCorrect1 && isCorrect2 && isCorrect3) {
-      elements.quizStatusBadge.textContent = "STATUS: CERTIFIED ENGINEER [ACTIVE]";
+      elements.quizStatusBadge.textContent = "STATUS: CONCEPT CHECK PASSED";
       elements.quizStatusBadge.style.backgroundColor = "rgba(16, 185, 129, 0.1)";
       elements.quizStatusBadge.style.borderColor = "var(--green)";
       elements.quizStatusBadge.style.color = "var(--green)";
@@ -1411,7 +1411,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function restoreQuizStatus() {
     const cachedQuiz = localStorage.getItem('sphere_quiz_certified');
     if (cachedQuiz === 'true') {
-      elements.quizStatusBadge.textContent = "STATUS: CERTIFIED ENGINEER [ACTIVE]";
+      elements.quizStatusBadge.textContent = "STATUS: CONCEPT CHECK PASSED";
       elements.quizStatusBadge.style.backgroundColor = "rgba(16, 185, 129, 0.1)";
       elements.quizStatusBadge.style.borderColor = "var(--green)";
       elements.quizStatusBadge.style.color = "var(--green)";
@@ -1570,22 +1570,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateKCalculator() {
       if (!calcT0 || !calcTenv || !calcTt || !calcTime) return;
 
-      const t0 = parseFloat(calcT0.value) || 80;
-      const tenv = parseFloat(calcTenv.value) || 0;
-      const tt = parseFloat(calcTt.value) || 20;
-      const time = parseFloat(calcTime.value) || 15;
+      const t0 = parseFloat(calcT0.value);
+      const tenv = parseFloat(calcTenv.value);
+      const tt = parseFloat(calcTt.value);
+      const time = parseFloat(calcTime.value);
 
       const num = tt - tenv;
       const den = t0 - tenv;
+      const ratio = num / den;
 
-      if (den <= 0 || num <= 0 || time <= 0) {
-        if (calcStep1) calcStep1.innerHTML = '1. Invalid parameters (Check temperatures and time)';
+      if (![t0, tenv, tt, time].every(Number.isFinite) || den <= 0 || num <= 0 || ratio > 1 || time <= 0) {
+        if (calcStep1) calcStep1.innerHTML = '1. Invalid cooling data: require $T_{\\text{env}} < T(t) \\le T_0$ and $t > 0$';
         if (calcStep2) calcStep2.innerHTML = '2. Natural Log = N/A';
         if (calcStep3) calcStep3.innerHTML = '3. DERIVED k-VALUE = N/A';
+        if (calcMatchBadge) calcMatchBadge.textContent = 'REFERENCE COMPARISON UNAVAILABLE';
+        const calcOutputBox = document.getElementById('calc-output-box');
+        if (calcOutputBox) refreshMath(calcOutputBox);
         return;
       }
 
-      const ratio = num / den;
       const lnRatio = Math.log(ratio);
       const kVal = -lnRatio / time;
 
@@ -1599,25 +1602,25 @@ document.addEventListener('DOMContentLoaded', () => {
       let badgeColor = "#0369a1";
 
       if (kVal <= 0.0275) {
-        material = "FULL MLI SPACESUIT ($k \\approx 0.015\\text{ min}^{-1}$)";
+        material = "MULTILAYER TEST ASSEMBLY ($k \\approx 0.015\\text{ min}^{-1}$)";
         badgeBg = "#dcfce7";
         badgeColor = "#15803d";
       } else if (kVal <= 0.0915) {
-        material = "BUBBLE-WRAP SHIELD ($k \\approx 0.040\\text{ min}^{-1}$)";
+        material = "BUBBLE-WRAP TEST ASSEMBLY ($k \\approx 0.040\\text{ min}^{-1}$)";
         badgeBg = "#dcfce7";
         badgeColor = "#15803d";
       } else if (kVal <= 0.1465) {
-        material = "MYLAR RADIATION SHIELD ($k \\approx 0.143\\text{ min}^{-1}$)";
+        material = "REFLECTIVE-FILM TEST ASSEMBLY ($k \\approx 0.115\\text{ min}^{-1}$)";
         badgeBg = "#fef3c7";
         badgeColor = "#b45309";
       } else {
-        material = "BARE UNINSULATED CORE ($k \\approx 0.150\\text{ min}^{-1}$)";
+        material = "BARE CAPSULE CONTROL ($k \\approx 0.150\\text{ min}^{-1}$)";
         badgeBg = "#fee2e2";
         badgeColor = "#b91c1c";
       }
 
       if (calcMatchBadge) {
-        calcMatchBadge.innerHTML = `MATCHING MATERIAL: ${material}`;
+        calcMatchBadge.innerHTML = `CLOSEST ASSUMED REFERENCE: ${material}`;
         calcMatchBadge.style.background = badgeBg;
         calcMatchBadge.style.color = badgeColor;
       }
@@ -1672,7 +1675,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnGradeQuiz.addEventListener('click', () => {
       let correctCount = 0;
-      const totalQuestions = 10;
+      const totalAutoGraded = 9;
 
       // Q1 Check
       const q1Selected = document.querySelector('input[name="worksheet-q1"]:checked');
@@ -1714,12 +1717,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const q4Text = document.getElementById('q4-text');
       const q4Feedback = document.getElementById('q4-feedback');
       if (q4Text && q4Text.value.trim().length >= 10) {
-        correctCount++;
-        q4Feedback.className = 'quiz-feedback correct';
-        q4Feedback.innerHTML = '✓ Response recorded. Compare your explanation with the instructor rubric.';
+        q4Feedback.className = 'quiz-feedback';
+        q4Feedback.innerHTML = 'Response recorded for instructor review. It is not included in the automatic score.';
       } else {
         q4Feedback.className = 'quiz-feedback incorrect';
-        q4Feedback.innerHTML = '✗ Provide at least one complete explanation of an experimental uncertainty.';
+        q4Feedback.innerHTML = 'Provide two physical reasons for instructor review. This response is not auto-scored.';
       }
 
       // Q5 Check
@@ -1752,10 +1754,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (q7Selected && q7Selected.value === answerKey.q7) {
         correctCount++;
         q7Feedback.className = 'quiz-feedback correct';
-        q7Feedback.innerHTML = '✓ CORRECT! Vacuum lacks fluid mass, rendering natural and forced convection impossible.';
+        q7Feedback.innerHTML = '✓ Correct. An idealised vacuum has no continuous fluid medium to support bulk convective transport.';
       } else {
         q7Feedback.className = 'quiz-feedback incorrect';
-        q7Feedback.innerHTML = '✗ INCORRECT! Correct answer is A: Deep space lacks fluid matter to form convective currents.';
+        q7Feedback.innerHTML = '✗ Review required. The correct answer is A: an idealised vacuum has no continuous fluid medium for convection.';
       }
 
       // Q8 Check
@@ -1795,7 +1797,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Calculate Percent
-      const percentage = Math.round((correctCount / totalQuestions) * 100);
+      const percentage = Math.round((correctCount / totalAutoGraded) * 100);
       scorePercentEl.textContent = `${percentage}%`;
 
       // Grade Badge
@@ -1808,10 +1810,10 @@ document.addEventListener('DOMContentLoaded', () => {
       scoreBadgeEl.textContent = `GRADE: ${grade}`;
 
       if (percentage >= 80) {
-        scoreSummaryEl.textContent = `Assessment complete: ${correctCount}/${totalQuestions} answers are correct. Review the written-response feedback with the instructor.`;
+        scoreSummaryEl.textContent = `Auto-scored result: ${correctCount}/${totalAutoGraded} multiple-choice answers are correct. Question 4 remains subject to instructor review.`;
         playSuccessSound();
       } else {
-        scoreSummaryEl.textContent = `Assessment complete: ${correctCount}/${totalQuestions} answers are correct. Review the relevant theory before repeating the assessment.`;
+        scoreSummaryEl.textContent = `Auto-scored result: ${correctCount}/${totalAutoGraded} multiple-choice answers are correct. Review the relevant theory and discuss Question 4 with the instructor.`;
         playWarningSound();
       }
 

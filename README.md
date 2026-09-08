@@ -56,6 +56,10 @@ Model agreement is evaluated using
 
 The default cooling constants are educational reference values. They must be calibrated or validated with repeated measurements before being presented as empirical results.
 
+The learning materials use three deliberately different assessment formats: a six-inquiry printable task sheet, an
+eight-question extended reflection set in the student manual, and a 10-item online knowledge check. The online percentage
+covers nine multiple-choice items; its written uncertainty response requires instructor review.
+
 ## Experimental limitations
 
 - The ice-water bath provides a repeatable cold boundary but does not reproduce vacuum heat transfer.
@@ -71,4 +75,3 @@ The experiment uses water at approximately 80 °C. A local risk assessment, inst
 ## Browser dependencies
 
 The HTML interface currently loads KaTeX, Chart.js, Lucide icons and web fonts from public content-delivery networks. An internet connection is therefore required for complete rendering unless these dependencies are bundled locally.
-
