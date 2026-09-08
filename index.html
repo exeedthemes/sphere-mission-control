@@ -349,7 +349,7 @@
               <div class="sim-stat-box" style="text-align:left;">
                 <h4 class="glow-orange"><i data-lucide="sun" style="width:14px;height:14px;vertical-align:middle;"></i> 3. RADIATION</h4>
                 <p class="step-desc">Heat emitted as electromagnetic infrared light waves capable of traveling through a total vacuum.</p>
-                <span class="step-badge" style="background:rgba(245,158,11,0.15);color:#fbbf24;border-color:#f59e0b;">MYLAR FOIL (k = 0.143)</span>
+                <span class="step-badge" style="background:rgba(245,158,11,0.15);color:#fbbf24;border-color:#f59e0b;">MYLAR FOIL (k = 0.121)</span>
               </div>
             </div>
           </div>
@@ -642,7 +642,7 @@
             <div class="layer-stack-card" style="background: #ffffff; border: 1.5px solid rgba(245, 158, 11, 0.4); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
               <div class="layer-stack-header">
                 <span style="color: #d97706; font-weight: bold;">C. MYLAR FOIL</span>
-                <span class="visual-guide-badge" style="background: rgba(245, 158, 11, 0.1); color: #d97706; border-color: #f59e0b;">k = 0.143 min⁻¹</span>
+                <span class="visual-guide-badge" style="background: rgba(245, 158, 11, 0.1); color: #d97706; border-color: #f59e0b;">k = 0.121 min⁻¹</span>
               </div>
               <div class="layer-bars-container">
                 <div class="layer-bar" style="background: #0284c7;">CORE WATER (80°C)</div>
@@ -753,7 +753,7 @@
                 <select id="insulation-select" class="hud-select">
                   <option value="bare">Bare capsule (control) — k = 0.150 min⁻¹</option>
                   <option value="bubble">Bubble-wrap layer — k = 0.040 min⁻¹</option>
-                  <option value="mylar">Reflective-film layer — k = 0.143 min⁻¹</option>
+                  <option value="mylar">Reflective-film layer — k = 0.121 min⁻¹</option>
                   <option value="mli">Multilayer assembly — k = 0.015 min⁻¹</option>
                   <option value="custom">Custom Design (Sandbox Sliders) — k = Variable</option>
                 </select>
@@ -784,7 +784,22 @@
                   Do not interpret $k$ as the material thermal conductivity $\lambda$.
 
                 </p>
-                <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <!-- Direct Rate Entry Input Box -->
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; background: rgba(0, 0, 0, 0.3); padding: 8px 12px; border-radius: 4px; border: 1px solid rgba(0, 242, 254, 0.2);">
+                    <label for="custom-k-input" style="font-size: 0.75rem; font-weight: 700; color: var(--cyan); font-family: var(--font-mono); display: flex; align-items: center; gap: 6px; margin: 0;">
+                      <span>DIRECT RATE ENTRY (k):</span>
+                    </label>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                      <span style="font-size: 0.8rem; font-weight: 700; color: var(--cyan); font-family: var(--font-mono);">k =</span>
+                      <input type="number" id="custom-k-input" class="hud-input" min="0.001" max="1.000" step="0.001" value="0.050"
+                        style="width: 90px; padding: 4px 8px; font-size: 0.85rem; font-family: var(--font-mono); text-align: center; border-color: rgba(0, 242, 254, 0.4); color: var(--cyan); font-weight: 700; background: rgba(0, 242, 254, 0.08);"
+                        placeholder="0.050">
+                      <span style="font-size: 0.75rem; color: var(--text-dimmed); font-family: var(--font-mono);">min⁻¹</span>
+                    </div>
+                  </div>
+
+                  <!-- Slider Control -->
                   <div style="display: flex; align-items: center; gap: 15px;">
                     <span
                       style="font-size: 0.75rem; color: var(--text-dimmed); font-family: var(--font-mono); width: 70px;">LOWER k
@@ -796,7 +811,7 @@
                       (0.200)</span>
                   </div>
                   <div
-                    style="display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; font-family: var(--font-mono); color: var(--text-dimmed); padding-top: 5px;">
+                    style="display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; font-family: var(--font-mono); color: var(--text-dimmed); padding-top: 2px;">
                     <span>◀ LOWER COOLING CONSTANT</span>
                     <span>HIGHER COOLING CONSTANT ▶</span>
                   </div>
@@ -1302,7 +1317,7 @@ padding-left:20px;
                     • Bubble Wrap: $k = 0.040\text{ min}^{-1}$ (approximately $44^\circ\text{C}$)</div>
                   <div
                     style="background: #ffffff; padding: 10px; border-radius: 6px; border: 1px solid #bae6fd; border-left: 4px solid var(--cyan); color: #1e293b; font-weight: 600;">
-                    • Mylar Wrap: $k = 0.143\text{ min}^{-1}$ (approximately $9^\circ\text{C}$)</div>
+                    • Mylar Wrap: $k = 0.121\text{ min}^{-1}$ (approximately $13^\circ\text{C}$)</div>
                   <div
                     style="background: #ffffff; padding: 10px; border-radius: 6px; border: 1px solid #bbf7d0; border-left: 4px solid var(--green); color: #1e293b; font-weight: 600;">
                     • Multi-Layer MLI: $k = 0.015\text{ min}^{-1}$ (Stays at $\sim 64^\circ\text{C}$)</div>
@@ -1706,7 +1721,7 @@ padding-left:20px;
                 style="font-family: var(--font-sans); font-size: 0.85rem; color: #0284c7; font-weight: 800; margin-bottom: 6px;">
                 PRACTICE PROBLEM #02</div>
               <div style="font-size: 0.92rem; color: #0f172a; font-weight: 600; margin-bottom: 10px;">
-                If a Mylar-wrapped capsule has $k = 0.143\text{ min}^{-1}$ and starts at $T_0 = 80^\circ\text{C}$ in a $T_{\text{env}} = 0^\circ\text{C}$ ice bath, what will its temperature be after $t = 20\text{ minutes}$?
+                If a Mylar-wrapped capsule has $k = 0.121\text{ min}^{-1}$ and starts at $T_0 = 80^\circ\text{C}$ in a $T_{\text{env}} = 0^\circ\text{C}$ ice bath, what will its temperature be after $t = 20\text{ minutes}$?
               </div>
               <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <button type="button" class="btn-hud btn-hint-toggle" data-target="prob2-hint"
@@ -1721,13 +1736,13 @@ padding-left:20px;
               <div id="prob2-hint"
                 style="display: none; margin-top: 10px; padding: 12px; background: #fffbeb; border-radius: 8px; font-size: 0.85rem; color: #b45309; font-weight: 600;">
                 💡 <strong>Hint:</strong> Use Newton's cooling formula:
-                <div style="margin-top: 6px;">$$T(20) = 0 + (80 - 0) \cdot e^{-0.143 \times 20}$$</div>
+                <div style="margin-top: 6px;">$$T(20) = 0 + (80 - 0) \cdot e^{-0.121 \times 20}$$</div>
               </div>
               <div id="prob2-sol"
                 style="display: none; margin-top: 10px; padding: 12px; background: #f0fdf4; border-radius: 8px; font-size: 0.88rem; color: #15803d; font-weight: 600;">
                 ✓ <strong>Solution:</strong>
-                <div>$$e^{-0.143 \times 20} = e^{-2.86} = 0.0573$$</div>
-                <div style="margin-top: 4px;">$$T(20) = 80 \times 0.0573 = 4.6^\circ\text{C}$$</div>
+                <div>$$e^{-0.121 \times 20} = e^{-2.42} = 0.0889$$</div>
+                <div style="margin-top: 4px;">$$T(20) = 80 \times 0.0889 = 7.1^\circ\text{C}$$</div>
               </div>
             </div>
 

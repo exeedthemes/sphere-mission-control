@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modelConstants: {
       bare: { name: 'Bare capsule (control)', k: 0.150, color: '#0284c7' },
       bubble: { name: 'Bubble-wrap layer', k: 0.040, color: '#10b981' },
-      mylar: { name: 'Reflective-film layer', k: 0.143, color: '#ff9f43' },
+      mylar: { name: 'Reflective-film layer', k: 0.121, color: '#ff9f43' },
       mli: { name: 'Multilayer test assembly', k: 0.015, color: '#10b981' },
       custom: { name: 'Custom cooling constant', k: 0.050, color: '#a55eea' }
     },
@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     insulationSelect: document.getElementById('insulation-select'),
     customSandboxTuner: document.getElementById('custom-sandbox-tuner'),
     customKSlider: document.getElementById('custom-k-slider'),
+    customKInput: document.getElementById('custom-k-input'),
     customKVal: document.getElementById('custom-k-val'),
     simT0: document.getElementById('sim-t0'),
     simTenv: document.getElementById('sim-tenv'),
@@ -1610,7 +1611,7 @@ document.addEventListener('DOMContentLoaded', () => {
         badgeBg = "#dcfce7";
         badgeColor = "#15803d";
       } else if (kVal <= 0.1465) {
-        material = "REFLECTIVE-FILM TEST ASSEMBLY ($k \\approx 0.143\\text{ min}^{-1}$)";
+        material = "REFLECTIVE-FILM TEST ASSEMBLY ($k \\approx 0.121\\text{ min}^{-1}$)";
         badgeBg = "#fef3c7";
         badgeColor = "#b45309";
       } else {
