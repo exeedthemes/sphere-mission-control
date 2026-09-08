@@ -85,9 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
     acquiredCountBadge: document.getElementById('acquired-points-count'),
     telemetryCorrelationScore: document.getElementById('telemetry-correlation-score'),
     telemetryCorrelationGrade: document.getElementById('telemetry-correlation-grade'),
-    discrepancyStatusBadge: document.getElementById('discrepancy-status-badge'),
-    discrepancySummaryText: document.getElementById('discrepancy-summary-text'),
-    discrepancyHeaderIcon: document.getElementById('discrepancy-header-icon'),
     btnSubmitQuiz: document.getElementById('btn-submit-quiz'),
     quizStatusBadge: document.getElementById('quiz-status-badge'),
     
@@ -1074,16 +1071,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Table synchronization & Resemblance Diagnosis
+  // Table synchronization
   function updateTelemetryTable() {
     if (!elements.telemetryTbody) return;
-
-    // Reset cause card highlights
-    const causeCards = ['cause-card-model', 'cause-card-convection', 'cause-card-evaporation', 'cause-card-sensor', 'cause-card-inertia'];
-    causeCards.forEach(id => {
-      const card = document.getElementById(id);
-      if (card) card.className = 'cause-card';
-    });
 
     // Clear dynamic rows
     const rows = elements.telemetryTbody.querySelectorAll('tr:not(#empty-table-message)');
@@ -1094,151 +1084,53 @@ document.addEventListener('DOMContentLoaded', () => {
       if (elements.telemetryCorrelationScore) elements.telemetryCorrelationScore.textContent = 'N/A';
       if (elements.telemetryCorrelationGrade) {
         elements.telemetryCorrelationGrade.textContent = 'NO MEASUREMENTS';
-        elements.telemetryCorrelationGrade.className = 'sim-stat-value glow-orange';
-      }
-      if (elements.discrepancyStatusBadge) {
-        elements.discrepancyStatusBadge.textContent = 'AWAITING DATA';
-        elements.discrepancyStatusBadge.style.background = 'rgba(217, 119, 6, 0.15)';
-        elements.discrepancyStatusBadge.style.color = '#d97706';
-      }
-      if (elements.discrepancySummaryText) {
-        elements.discrepancySummaryText.textContent = 'Enter your recorded temperatures or click "Load Sample Data". Mission Control will evaluate whether your actual curve matches model predictions and highlight physical causes for any graph mismatch.';
+        elements.telemetryCorrelationGrade.className = 'glow-orange';
       }
       return;
     }
     
     if (elements.emptyTableMsg) elements.emptyTableMsg.style.display = 'none';
     
-    // Calculate telemetry error metrics & directional bias
+    // Calculate the mean absolute error between observations and the reference model.
     let sumAbsError = 0;
-    let sumBias = 0;
-    let earlyDropAbsDiff = 0;
-    let earlyCount = 0;
-    
     const activeMaterial = state.modelConstants[state.selectedModel];
     
     state.telemetryPoints.forEach(pt => {
       const predT = calculateNewtonTemperature(pt.time, activeMaterial.k);
-      const diff = pt.temp - predT;
-      const absDiff = Math.abs(diff);
-      sumAbsError += absDiff;
-      sumBias += diff;
-
-      if (pt.time <= 2.1) {
-        earlyDropAbsDiff += absDiff;
-        earlyCount++;
-      }
+      sumAbsError += Math.abs(pt.temp - predT);
     });
     
-    const n = state.telemetryPoints.length;
-    const meanAbsoluteError = sumAbsError / n;
-    const meanBias = sumBias / n;
-    
+    const meanAbsoluteError = sumAbsError / state.telemetryPoints.length;
     if (elements.telemetryCorrelationScore) {
       elements.telemetryCorrelationScore.textContent = `${meanAbsoluteError.toFixed(2)} °C`;
     }
-
-    // Evaluate Fit Quality & Graph Resemblance
-    let fitGradeText = '';
-    let fitGradeClass = '';
-    let statusBadgeText = '';
-    let statusBadgeBg = '';
-    let statusBadgeColor = '';
-    let summaryMessage = '';
-    const highlightedCauses = [];
-
-    if (meanAbsoluteError < 2.0) {
-      fitGradeText = `EXCELLENT MATCH (MAE < 2.0°C)`;
-      fitGradeClass = 'glow-green';
-      statusBadgeText = 'HIGH RESEMBLANCE';
-      statusBadgeBg = 'rgba(16, 185, 129, 0.15)';
-      statusBadgeColor = '#059669';
-      summaryMessage = `High Graph Resemblance! Your measured cooling curve closely matches the predicted theoretical model (Mean Absolute Error: ${meanAbsoluteError.toFixed(2)}°C). Minor variance is well within expected laboratory sensor tolerances (±0.5°C).`;
-    } else if (meanAbsoluteError <= 5.0) {
-      fitGradeText = `MODERATE DISCREPANCY (MAE ${meanAbsoluteError.toFixed(1)}°C)`;
-      fitGradeClass = 'glow-orange';
-      statusBadgeText = 'MODERATE DEVIATION';
-      statusBadgeBg = 'rgba(245, 158, 11, 0.15)';
-      statusBadgeColor = '#d97706';
-
-      if (meanBias < -1.5) {
-        summaryMessage = `Moderate Discrepancy: Measured graph is cooling systematically FASTER than predicted (average ${Math.abs(meanBias).toFixed(1)}°C cooler). Primary causes highlighted below: check for evaporative lid leaks, room drafts, or incorrect model selection.`;
-        highlightedCauses.push('cause-card-evaporation', 'cause-card-convection', 'cause-card-model');
-      } else if (meanBias > 1.5) {
-        summaryMessage = `Moderate Discrepancy: Measured graph is cooling systematically SLOWER than predicted (average ${meanBias.toFixed(1)}°C warmer). Primary causes highlighted below: check if actual insulation thickness exceeds model assumptions or if sensor probe is near container center.`;
-        highlightedCauses.push('cause-card-model', 'cause-card-sensor');
-      } else {
-        summaryMessage = `Moderate Discrepancy: Measured graph shows moderate scatter/variance from predicted model (MAE: ${meanAbsoluteError.toFixed(2)}°C). Highlighted potential causes: probe position drift or un-stirred fluid stratification.`;
-        highlightedCauses.push('cause-card-sensor', 'cause-card-model');
-      }
-    } else {
-      fitGradeText = `HIGH DISCREPANCY (MAE ${meanAbsoluteError.toFixed(1)}°C)`;
-      fitGradeClass = 'glow-red';
-      statusBadgeText = 'SIGNIFICANT ANOMALY';
-      statusBadgeBg = 'rgba(225, 29, 72, 0.15)';
-      statusBadgeColor = '#dc2626';
-
-      if (meanBias < -3.0) {
-        summaryMessage = `Significant Graph Discrepancy! Actual measured data cools far faster than theoretical model predictions (MAE: ${meanAbsoluteError.toFixed(2)}°C). Crucial causes: Evaporative heat loss from unsealed stopper, strong room convection, or wrong model selected.`;
-        highlightedCauses.push('cause-card-evaporation', 'cause-card-convection', 'cause-card-model');
-      } else if (meanBias > 3.0) {
-        summaryMessage = `Significant Graph Discrepancy! Actual measured data cools far slower than theoretical model predictions (MAE: ${meanAbsoluteError.toFixed(2)}°C). Crucial causes: Tested material has much lower k (better insulator) than selected model, or probe is improperly placed.`;
-        highlightedCauses.push('cause-card-model', 'cause-card-sensor');
-      } else {
-        summaryMessage = `Significant Graph Discrepancy! Observed graph does not resemble the predicted curve (MAE: ${meanAbsoluteError.toFixed(2)}°C). Check experimental setup and model constants below.`;
-        highlightedCauses.push('cause-card-model', 'cause-card-evaporation', 'cause-card-sensor');
-      }
-    }
-
-    // Check early drop inertia cause (if initial points drop steeply)
-    if (earlyCount > 0 && (earlyDropAbsDiff / earlyCount) > 3.5 && meanAbsoluteError > 2.0) {
-      if (!highlightedCauses.includes('cause-card-inertia')) {
-        highlightedCauses.push('cause-card-inertia');
-      }
-    }
-
-    // Apply UI status updates
-    if (elements.telemetryCorrelationGrade) {
-      elements.telemetryCorrelationGrade.textContent = fitGradeText;
-      elements.telemetryCorrelationGrade.className = `sim-stat-value ${fitGradeClass}`;
-    }
-    if (elements.discrepancyStatusBadge) {
-      elements.discrepancyStatusBadge.textContent = statusBadgeText;
-      elements.discrepancyStatusBadge.style.background = statusBadgeBg;
-      elements.discrepancyStatusBadge.style.color = statusBadgeColor;
-    }
-    if (elements.discrepancySummaryText) {
-      elements.discrepancySummaryText.textContent = summaryMessage;
-    }
-
-    // Highlight diagnostic cause cards
-    highlightedCauses.forEach(id => {
-      const card = document.getElementById(id);
-      if (card) {
-        card.className = meanAbsoluteError > 5.0 ? 'cause-card highlighted-danger' : 'cause-card highlighted';
-      }
-    });
-
-    // Populate table rows
+    
+    // Sort array by time ascending
     const sorted = [...state.telemetryPoints].sort((a, b) => a.time - b.time);
+    
     sorted.forEach((pt, index) => {
       const tr = document.createElement('tr');
       
+      // Index column
       const tdIndex = document.createElement('td');
       tdIndex.textContent = String(index + 1).padStart(2, '0');
       
+      // Timestamp column
       const tdTime = document.createElement('td');
       tdTime.textContent = `${pt.time.toFixed(1)} min`;
       
+      // Observed Temp
       const tdObserved = document.createElement('td');
       tdObserved.className = 'glow-orange';
       tdObserved.textContent = `${pt.temp.toFixed(2)}°C`;
       
+      // Predicted Temp
       const tdPredicted = document.createElement('td');
       const material = state.modelConstants[state.selectedModel];
       const predTemp = calculateNewtonTemperature(pt.time, material.k);
       tdPredicted.textContent = `${predTemp.toFixed(2)}°C`;
       
+      // Variance calculation
       const tdVariance = document.createElement('td');
       const diff = pt.temp - predTemp;
       const sign = diff >= 0 ? '+' : '';
@@ -1251,6 +1143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tdVariance.className = 'glow-orange';
       }
       
+      // Delete column button
       const tdAction = document.createElement('td');
       const btnDel = document.createElement('button');
       btnDel.className = 'btn-table-delete';
@@ -1382,16 +1275,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div><strong>Environment temperature</strong><span>${safeEnvironmentTemp.toFixed(1)} °C</span></div>
           <div><strong>Data points</strong><span>${state.telemetryPoints.length}</span></div>
           <div><strong>Mean absolute error</strong><span>${elements.telemetryCorrelationScore ? elements.telemetryCorrelationScore.textContent : 'N/A'}</span></div>
-          <div style="grid-column: span 2; background: #f8fafc;">
-            <strong>Model Fit & Resemblance Status</strong>
-            <span>${elements.telemetryCorrelationGrade ? elements.telemetryCorrelationGrade.textContent : 'NO MEASUREMENTS'}</span>
-          </div>
         </section>
-        ${elements.discrepancySummaryText && state.telemetryPoints.length > 0 ? `
-        <section style="margin-bottom: 14px; border: 1px solid #bae6fd; background: #f0f9ff; padding: 10px 12px; border-radius: 6px;">
-          <h2 style="color: #0369a1; margin-bottom: 4px; font-size: 9.5pt;">Graph Resemblance & Cause Analysis</h2>
-          <p style="margin: 0; font-size: 8.5pt; color: #0369a1; line-height: 1.4;">${elements.discrepancySummaryText.textContent}</p>
-        </section>` : ''}
         ${chartMarkup}
         <section>
           <h2>Measurement Table</h2>
