@@ -112,7 +112,7 @@
         <div class="briefing-hero">
           <div class="hud-panel">
             <div class="panel-header">
-              <span class="panel-title"><i data-lucide="terminal"></i> PROJECT OVERVIEW</span>
+              <span class="panel-title"><i data-lucide="info"></i> PROJECT OVERVIEW</span>
             </div>
 
             <h2 class="glow-cyan" style="margin-bottom:15px;font-size:1.4rem;">
@@ -349,7 +349,7 @@
               <div class="sim-stat-box" style="text-align:left;">
                 <h4 class="glow-orange"><i data-lucide="sun" style="width:14px;height:14px;vertical-align:middle;"></i> 3. RADIATION</h4>
                 <p class="step-desc">Heat emitted as electromagnetic infrared light waves capable of traveling through a total vacuum.</p>
-                <span class="step-badge" style="background:rgba(245,158,11,0.15);color:#fbbf24;border-color:#f59e0b;">MYLAR FOIL (k = 0.115)</span>
+                <span class="step-badge" style="background:rgba(245,158,11,0.15);color:#fbbf24;border-color:#f59e0b;">MYLAR FOIL (k = 0.143)</span>
               </div>
             </div>
           </div>
@@ -642,7 +642,7 @@
             <div class="layer-stack-card" style="background: #ffffff; border: 1.5px solid rgba(245, 158, 11, 0.4); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
               <div class="layer-stack-header">
                 <span style="color: #d97706; font-weight: bold;">C. MYLAR FOIL</span>
-                <span class="visual-guide-badge" style="background: rgba(245, 158, 11, 0.1); color: #d97706; border-color: #f59e0b;">k = 0.115 min⁻¹</span>
+                <span class="visual-guide-badge" style="background: rgba(245, 158, 11, 0.1); color: #d97706; border-color: #f59e0b;">k = 0.143 min⁻¹</span>
               </div>
               <div class="layer-bars-container">
                 <div class="layer-bar" style="background: #0284c7;">CORE WATER (80°C)</div>
@@ -753,7 +753,7 @@
                 <select id="insulation-select" class="hud-select">
                   <option value="bare">Bare capsule (control) — k = 0.150 min⁻¹</option>
                   <option value="bubble">Bubble-wrap layer — k = 0.040 min⁻¹</option>
-                  <option value="mylar">Reflective-film layer — k = 0.115 min⁻¹</option>
+                  <option value="mylar">Reflective-film layer — k = 0.143 min⁻¹</option>
                   <option value="mli">Multilayer assembly — k = 0.015 min⁻¹</option>
                   <option value="custom">Custom Design (Sandbox Sliders) — k = Variable</option>
                 </select>
@@ -1302,7 +1302,7 @@ padding-left:20px;
                     • Bubble Wrap: $k = 0.040\text{ min}^{-1}$ (approximately $44^\circ\text{C}$)</div>
                   <div
                     style="background: #ffffff; padding: 10px; border-radius: 6px; border: 1px solid #bae6fd; border-left: 4px solid var(--cyan); color: #1e293b; font-weight: 600;">
-                    • Mylar Wrap: $k = 0.115\text{ min}^{-1}$ (approximately $14^\circ\text{C}$)</div>
+                    • Mylar Wrap: $k = 0.143\text{ min}^{-1}$ (approximately $9^\circ\text{C}$)</div>
                   <div
                     style="background: #ffffff; padding: 10px; border-radius: 6px; border: 1px solid #bbf7d0; border-left: 4px solid var(--green); color: #1e293b; font-weight: 600;">
                     • Multi-Layer MLI: $k = 0.015\text{ min}^{-1}$ (Stays at $\sim 64^\circ\text{C}$)</div>
@@ -1706,7 +1706,7 @@ padding-left:20px;
                 style="font-family: var(--font-sans); font-size: 0.85rem; color: #0284c7; font-weight: 800; margin-bottom: 6px;">
                 PRACTICE PROBLEM #02</div>
               <div style="font-size: 0.92rem; color: #0f172a; font-weight: 600; margin-bottom: 10px;">
-                If a Mylar-wrapped capsule has $k = 0.115\text{ min}^{-1}$ and starts at $T_0 = 80^\circ\text{C}$ in a $T_{\text{env}} = 0^\circ\text{C}$ ice bath, what will its temperature be after $t = 20\text{ minutes}$?
+                If a Mylar-wrapped capsule has $k = 0.143\text{ min}^{-1}$ and starts at $T_0 = 80^\circ\text{C}$ in a $T_{\text{env}} = 0^\circ\text{C}$ ice bath, what will its temperature be after $t = 20\text{ minutes}$?
               </div>
               <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <button type="button" class="btn-hud btn-hint-toggle" data-target="prob2-hint"
@@ -1721,13 +1721,13 @@ padding-left:20px;
               <div id="prob2-hint"
                 style="display: none; margin-top: 10px; padding: 12px; background: #fffbeb; border-radius: 8px; font-size: 0.85rem; color: #b45309; font-weight: 600;">
                 💡 <strong>Hint:</strong> Use Newton's cooling formula:
-                <div style="margin-top: 6px;">$$T(20) = 0 + (80 - 0) \cdot e^{-0.115 \times 20}$$</div>
+                <div style="margin-top: 6px;">$$T(20) = 0 + (80 - 0) \cdot e^{-0.143 \times 20}$$</div>
               </div>
               <div id="prob2-sol"
                 style="display: none; margin-top: 10px; padding: 12px; background: #f0fdf4; border-radius: 8px; font-size: 0.88rem; color: #15803d; font-weight: 600;">
                 ✓ <strong>Solution:</strong>
-                <div>$$e^{-0.115 \times 20} = e^{-2.30} = 0.1003$$</div>
-                <div style="margin-top: 4px;">$$T(20) = 80 \times 0.1003 = 8.0^\circ\text{C}$$</div>
+                <div>$$e^{-0.143 \times 20} = e^{-2.86} = 0.0573$$</div>
+                <div style="margin-top: 4px;">$$T(20) = 80 \times 0.0573 = 4.6^\circ\text{C}$$</div>
               </div>
             </div>
 
