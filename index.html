@@ -771,9 +771,15 @@
                   style="color: var(--cyan); font-family: var(--font-sans); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.02em; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                   <span><i data-lucide="sliders" style="width: 14px; height: 14px; vertical-align: middle;"></i> CUSTOM
                     COOLING RATE</span>
-                  <span id="custom-k-val" class="step-badge"
-                    style="background: rgba(0, 242, 254, 0.1); border-color: var(--cyan); color: var(--cyan); margin: 0; font-size: 0.7rem; padding: 2px 6px;">k
-                    = 0.050</span>
+                  <div class="step-badge"
+                    style="background: rgba(0, 242, 254, 0.1); border: 1px solid var(--cyan); color: var(--cyan); margin: 0; font-size: 0.75rem; padding: 2px 8px; display: flex; align-items: center; gap: 4px; border-radius: 4px;">
+                    <label for="custom-k-input" style="margin: 0; cursor: pointer; color: var(--cyan); font-family: var(--font-mono); font-weight: 700;">k =</label>
+                    <input type="number" id="custom-k-input" min="0.001" max="1.000" step="0.001" value="0.050"
+                      style="width: 65px; background: transparent; border: none; outline: none; color: var(--cyan); font-family: var(--font-mono); font-weight: 700; font-size: 0.75rem; text-align: center; padding: 0;"
+                      placeholder="0.050">
+                    <span style="font-size: 0.65rem; color: var(--cyan); font-family: var(--font-mono); opacity: 0.8;">min⁻¹</span>
+                    <span id="custom-k-val" style="display: none;">k = 0.050</span>
+                  </div>
                 </label>
                 <p class="briefing-text"
                   style="font-size: 0.8rem; line-height: 1.4; margin-bottom: 12px; color: var(--text-normal);">
@@ -784,21 +790,7 @@
                   Do not interpret $k$ as the material thermal conductivity $\lambda$.
 
                 </p>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                  <!-- Direct Rate Entry Input Box -->
-                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; background: rgba(0, 0, 0, 0.3); padding: 8px 12px; border-radius: 4px; border: 1px solid rgba(0, 242, 254, 0.2);">
-                    <label for="custom-k-input" style="font-size: 0.75rem; font-weight: 700; color: var(--cyan); font-family: var(--font-mono); display: flex; align-items: center; gap: 6px; margin: 0;">
-                      <span>DIRECT RATE ENTRY (k):</span>
-                    </label>
-                    <div style="display: flex; align-items: center; gap: 6px;">
-                      <span style="font-size: 0.8rem; font-weight: 700; color: var(--cyan); font-family: var(--font-mono);">k =</span>
-                      <input type="number" id="custom-k-input" class="hud-input" min="0.001" max="1.000" step="0.001" value="0.050"
-                        style="width: 90px; padding: 4px 8px; font-size: 0.85rem; font-family: var(--font-mono); text-align: center; border-color: rgba(0, 242, 254, 0.4); color: var(--cyan); font-weight: 700; background: rgba(0, 242, 254, 0.08);"
-                        placeholder="0.050">
-                      <span style="font-size: 0.75rem; color: var(--text-dimmed); font-family: var(--font-mono);">min⁻¹</span>
-                    </div>
-                  </div>
-
+                <div style="display: flex; flex-direction: column; gap: 8px;">
                   <!-- Slider Control -->
                   <div style="display: flex; align-items: center; gap: 15px;">
                     <span
@@ -974,7 +966,7 @@
                   <div class="sim-stat-value glow-orange" id="acquired-points-count" style="font-size: 0.95rem;">0 / 16
                   </div>
                 </div>
-                <div class="sim-stat-box"
+                <div class="sim-stat-box" id="telemetry-mae-box"
                   style="grid-column: span 2; border-color: rgba(16, 185, 129, 0.25); text-align: left; display: flex; align-items: center; justify-content: space-between; padding: 12px 20px;">
                   <div>
                     <div class="sim-stat-title glow-green" style="font-size: 0.75rem;"><i data-lucide="gauge"
@@ -982,7 +974,102 @@
                     <div class="sim-stat-value glow-green" id="telemetry-correlation-score"
                       style="font-size: 1.4rem; margin-top: 2px;">N/A</div>
                   </div>
+                  <div style="text-align: right;">
+                    <div class="sim-stat-title" style="font-size: 0.7rem; color: var(--text-dimmed);">MODEL FIT EVALUATION</div>
+                    <div class="sim-stat-value glow-orange" id="telemetry-correlation-grade"
+                      style="font-size: 0.85rem; font-weight: 700; margin-top: 2px; text-transform: uppercase;">NO MEASUREMENTS</div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <!-- GRAPH RESEMBLANCE & DIAGNOSTIC CAUSES PANEL -->
+            <div class="hud-panel" id="discrepancy-analysis-panel">
+              <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="panel-title" style="display: flex; align-items: center; gap: 8px;">
+                  <i data-lucide="shield-alert" id="discrepancy-header-icon" style="color: var(--amber); width: 18px; height: 18px;"></i>
+                  MODEL VS GRAPH RESEMBLANCE DIAGNOSIS
+                </span>
+                <span class="panel-meta" id="discrepancy-status-badge" style="font-size: 0.75rem; padding: 3px 10px; border-radius: 4px; background: rgba(217, 119, 6, 0.15); color: #d97706; font-weight: 700; font-family: var(--font-mono);">
+                  AWAITING DATA
+                </span>
+              </div>
+
+              <!-- At-a-glance Summary Banner -->
+              <div id="discrepancy-summary-banner" class="discrepancy-banner-info">
+                <i data-lucide="info" style="width: 18px; height: 18px; flex-shrink: 0; color: var(--cyan); margin-top: 1px;"></i>
+                <span id="discrepancy-summary-text">
+                  Enter your recorded temperatures or click "Load Sample Data". Mission Control will evaluate whether your actual curve matches model predictions and highlight physical causes for any graph mismatch.
+                </span>
+              </div>
+
+              <!-- Root Cause Diagnosis Cards -->
+              <div style="margin-top: 12px; margin-bottom: 6px;">
+                <div class="sim-stat-title" style="font-size: 0.75rem; color: var(--text-dimmed); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;">
+                  <i data-lucide="search-code" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i>
+                  POTENTIAL PHYSICAL & EXPERIMENTAL CAUSES FOR GRAPH DISCREPANCY
+                </div>
+
+                <div class="discrepancy-causes-grid">
+                  <!-- Cause 1: Model Selection -->
+                  <div class="cause-card" id="cause-card-model">
+                    <div class="cause-title">
+                      <i data-lucide="layers"></i>
+                      1. Material Model / Constant ($k$) Mismatch
+                    </div>
+                    <p class="cause-desc">
+                      <strong>Symptom:</strong> Measured curve slope decays significantly faster or slower than predicted.<br>
+                      <strong>Cause:</strong> Selected reference model (Bare, Bubble Wrap, Mylar, Foam, Aerogel) or custom $k$ value does not reflect the actual insulator being tested.
+                    </p>
+                  </div>
+
+                  <!-- Cause 2: Environmental Drafts & Convection -->
+                  <div class="cause-card" id="cause-card-convection">
+                    <div class="cause-title">
+                      <i data-lucide="wind"></i>
+                      2. Room Air Currents & Drafts
+                    </div>
+                    <p class="cause-desc">
+                      <strong>Symptom:</strong> Temperatures systematically lower than model prediction.<br>
+                      <strong>Cause:</strong> Forced air currents or ventilation increase convective heat transfer coefficient ($h$). Check if ambient room temperature ($T_{\text{env}}$) fluctuated during trial.
+                    </p>
+                  </div>
+
+                  <!-- Cause 3: Lid Sealing & Evaporative Loss -->
+                  <div class="cause-card" id="cause-card-evaporation">
+                    <div class="cause-title">
+                      <i data-lucide="droplet"></i>
+                      3. Unsealed Lid & Evaporative Cooling
+                    </div>
+                    <p class="cause-desc">
+                      <strong>Symptom:</strong> Rapid early drop in temperature exceeding linear conduction predictions.<br>
+                      <strong>Cause:</strong> Unsealed stopper, loose lid, or open thermocouple port allows water vapor escape. Evaporation removes thermal energy far faster than pure surface conduction.
+                    </p>
+                  </div>
+
+                  <!-- Cause 4: Probe Placement & Stratification -->
+                  <div class="cause-card" id="cause-card-sensor">
+                    <div class="cause-title">
+                      <i data-lucide="thermometer"></i>
+                      4. Thermometer Placement & Fluid Stratification
+                    </div>
+                    <p class="cause-desc">
+                      <strong>Symptom:</strong> Reading scatter, spikes, or unexpected slope fluctuations.<br>
+                      <strong>Cause:</strong> Sensor touching vessel glass wall instead of fluid core depth, or un-stirred water creating thermal stratification (hot water floating over cooler fluid).
+                    </p>
+                  </div>
+
+                  <!-- Cause 5: Thermal Mass Inertia -->
+                  <div class="cause-card" id="cause-card-inertia">
+                    <div class="cause-title">
+                      <i data-lucide="clock"></i>
+                      5. Initial Glass Wall Thermal Mass (0–2 min)
+                    </div>
+                    <p class="cause-desc">
+                      <strong>Symptom:</strong> Steeper temperature drop specifically during the first 2 minutes.<br>
+                      <strong>Cause:</strong> Cold flask absorbing energy before reaching thermal equilibrium. Newton's Law assumes a lumped capacitance system with uniform container temperature.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
