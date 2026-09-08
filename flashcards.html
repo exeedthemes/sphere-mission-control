@@ -282,20 +282,7 @@
       border-radius: 4px;
     }
 
-    /* Instructions Strip on top of each page */
-    .page-cutting-guide {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #ffffff;
-      border: 1px dashed #94a3b8;
-      border-radius: 6px;
-      padding: 4px 10px;
-      font-size: 0.72rem;
-      color: #475569;
-      font-weight: 600;
-      margin-bottom: 14px;
-    }
+
 
     /* ==========================================================================
        FLASHCARD CUTOUT GRID (4 Cards Per Page)
@@ -355,22 +342,6 @@
       border-right: 1.5px dotted #0284c7;
     }
 
-    /* Fold Guide Center Marker */
-    .fold-marker {
-      position: absolute;
-      top: 50%;
-      right: -10px;
-      transform: translateY(-50%) rotate(90deg);
-      background: #0284c7;
-      color: #ffffff;
-      font-size: 0.55rem;
-      font-family: var(--font-hud);
-      font-weight: 800;
-      padding: 1px 6px;
-      border-radius: 3px;
-      letter-spacing: 0.05em;
-      z-index: 10;
-    }
 
     /* Back side (Answer & Formula) */
     .card-half.back {
@@ -561,7 +532,6 @@
       .card-dual-body { grid-template-columns: 1fr; }
       .card-half { min-width: 0; padding: 14px; }
       .card-half.front { border-right: 0; border-bottom: 1.5px dotted #0284c7; }
-      .fold-marker { top: auto; right: 50%; bottom: -9px; transform: translateX(50%); }
       .card-title, .card-prompt, .card-answer { overflow-wrap: anywhere; }
       .formula-callout, .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
     }
@@ -692,12 +662,6 @@
         </div>
       </div>
 
-      <div class="page-cutting-guide">
-        <span><i data-lucide="scissors" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 1:</strong> Cut along outer dashed lines.</span>
-        <span><i data-lucide="fold-vertical" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 2:</strong> Fold vertically along center blue dotted line.</span>
-        <span><i data-lucide="circle-dot" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 3:</strong> Punch top-left ring hole.</span>
-      </div>
-
       <div class="cards-grid">
         
         <!-- CARD 01: NEWTON'S LAW OF COOLING -->
@@ -706,7 +670,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #01</span>
@@ -758,7 +721,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #02</span>
@@ -807,7 +769,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #03</span>
@@ -859,7 +820,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #04</span>
@@ -927,12 +887,6 @@
         </div>
       </div>
 
-      <div class="page-cutting-guide">
-        <span><i data-lucide="scissors" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 1:</strong> Cut along outer dashed lines.</span>
-        <span><i data-lucide="fold-vertical" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 2:</strong> Fold vertically along center blue dotted line.</span>
-        <span><i data-lucide="circle-dot" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 3:</strong> Punch top-left ring hole.</span>
-      </div>
-
       <div class="cards-grid">
         
         <!-- CARD 05: THERMAL RADIATION & VACUUM -->
@@ -941,7 +895,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #05</span>
@@ -993,7 +946,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #06</span>
@@ -1042,7 +994,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #07</span>
@@ -1091,7 +1042,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #08</span>
@@ -1162,12 +1112,6 @@
         </div>
       </div>
 
-      <div class="page-cutting-guide">
-        <span><i data-lucide="scissors" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 1:</strong> Cut along outer dashed lines.</span>
-        <span><i data-lucide="fold-vertical" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 2:</strong> Fold vertically along center blue dotted line.</span>
-        <span><i data-lucide="circle-dot" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 3:</strong> Punch top-left ring hole.</span>
-      </div>
-
       <div class="cards-grid">
         
         <!-- CARD 09: ANALYTICAL REFERENCE MODEL -->
@@ -1176,7 +1120,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #09</span>
@@ -1225,7 +1168,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #10</span>
@@ -1274,7 +1216,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #11</span>
@@ -1326,7 +1267,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #12</span>
@@ -1394,12 +1334,6 @@
         </div>
       </div>
 
-      <div class="page-cutting-guide">
-        <span><i data-lucide="scissors" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 1:</strong> Cut along outer dashed lines.</span>
-        <span><i data-lucide="fold-vertical" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 2:</strong> Fold vertically along center blue dotted line.</span>
-        <span><i data-lucide="circle-dot" style="width:12px; height:12px; display:inline;"></i> <strong>STEP 3:</strong> Punch top-left ring hole.</span>
-      </div>
-
       <div class="cards-grid">
         
         <!-- CARD 13: MEAN ABSOLUTE ERROR -->
@@ -1408,7 +1342,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #13</span>
@@ -1460,7 +1393,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #14</span>
@@ -1509,7 +1441,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #15</span>
@@ -1561,7 +1492,6 @@
           <div class="card-dual-body">
             <!-- Front -->
             <div class="card-half front">
-              <span class="fold-marker">FOLD</span>
               <div>
                 <div class="card-meta">
                   <span class="card-id">CARD #16</span>
